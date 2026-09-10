@@ -13,7 +13,9 @@ export const metadata: Metadata = {
     google: "tvw02ljMXN8USxdYlfMSpeY9isQXJg8rws1ombYxtnk",
   },
   icons: {
-    icon: "/assets/brand/marrant-logo.png"
+    icon: { url: "/assets/brand/marrant-icon.png", type: "image/png", sizes: "512x512" },
+    shortcut: "/assets/brand/marrant-icon.png",
+    apple: "/assets/brand/marrant-icon.png"
   }
 };
 
