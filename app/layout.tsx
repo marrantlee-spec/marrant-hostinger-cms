@@ -6,6 +6,7 @@ import SiteFooter from "./components/SiteFooter";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.marrantbag.com"),
   title: "Marrant | Genuine Leather Bag Manufacturer",
   description: "OEM, ODM and private-label genuine leather bags for global buyers.",
   icons: {

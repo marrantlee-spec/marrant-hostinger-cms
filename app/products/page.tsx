@@ -34,9 +34,10 @@ const products = [
   },
   {
     category: "Men's Wallets",
-    title: "Men's Wallets",
-    copy: "Everyday leather essentials with refined detail.",
-    image: "/assets/products/mens-wallet-catalogue-v1.png",
+    title: "Full-Grain Leather Bifold Wallet · 8064",
+    copy: "A compact men's wallet with customizable branding and interior details.",
+    image: "/assets/products/mens-bifold-wallet-8064/main.jpg",
+    href: "/products/mens-full-grain-leather-bifold-wallet-8064",
   },
   {
     category: "Shoulder Bags",

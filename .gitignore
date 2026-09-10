@@ -29,3 +29,7 @@ pnpm-debug.log*
 Thumbs.db
 .idea/
 .vscode/
+
+# Local product intake and generated working files
+product-inbox/
+outputs/

@@ -10,7 +10,7 @@ const whatsapp = "https://wa.me/8618925073489";
 const productCards = [
   { title: "Crazy Horse Leather", image: "/assets/products/crazy-horse-duffle-scene-v1.png", href: "/products/crazy-horse-leather-travel-tote-bag" },
   { title: "Travel Tote Bags", image: "/assets/products/black-travel-tote-scene-v1.png", href: "/products" },
-  { title: "Men's Wallets", image: "/assets/products/mens-wallet-45-scene-v1.png", href: "/products" },
+  { title: "Men's Wallets", image: "/assets/products/mens-bifold-wallet-8064/scenario.jpg", href: "/products/mens-full-grain-leather-bifold-wallet-8064" },
   { title: "Shoulder Bags", image: "/assets/products/mens-shoulder-bag-scene-v2.png", href: "/products" },
   { title: "Backpacks", image: "/assets/products/leather-backpack-centered-scene-v2.png", href: "/products" },
   { title: "Women's Bags", image: "/assets/products/womens-coffee-handbag-red-patent-wallet-scene-v2.png", href: "/products" }

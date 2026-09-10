@@ -6,6 +6,7 @@ import styles from "./LanguageSwitcher.module.css";
 const translatedRoutes = new Set([
   "/", "/about", "/products", "/blog", "/contact",
   "/products/crazy-horse-leather-travel-tote-bag",
+  "/products/mens-full-grain-leather-bifold-wallet-8064",
   "/blog/how-to-source-crazy-horse-leather-travel-tote-bag",
 ]);
 

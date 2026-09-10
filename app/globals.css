@@ -281,6 +281,7 @@ footer>div>div>a:hover,.footer-brand a:hover { color:#d38a51; }
 .material-card>p,.color-card>p { margin:0; color:#746c64; font-size:9px; line-height:1.5; }
 .material-card>p a { color:var(--product-brown); font-weight:700; text-decoration:underline; text-underline-offset:2px; }
 .color-swatches { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; }
+.color-swatches.wallet-color-swatches { grid-template-columns:repeat(5,1fr); }
 .color-swatches button { border:0; padding:0; background:transparent; text-align:left; }
 .color-swatches button span { display:block; height:142px; border:1px solid rgba(0,0,0,.07); }
 .color-swatches button small { display:block; color:#5d554d; font-size:8px; text-align:center; line-height:1.3; margin:7px 1px 8px; }

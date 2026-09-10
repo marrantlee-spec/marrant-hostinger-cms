@@ -34,9 +34,10 @@ const products = [
   },
   {
     category: "男士钱包",
-    title: "男士钱包",
-    copy: "精致工艺，满足日常随身收纳。",
-    image: "/assets/products/mens-wallet-catalogue-v1.png",
+    title: "8064 头层牛皮二折钱包",
+    copy: "紧凑二折结构，支持品牌标识与内部细节定制。",
+    image: "/assets/products/mens-bifold-wallet-8064/main.jpg",
+    href: "/zh/products/mens-full-grain-leather-bifold-wallet-8064",
   },
   {
     category: "真皮单肩包",

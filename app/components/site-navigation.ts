@@ -18,7 +18,7 @@ const englishMenus: Record<MegaMenuKey, MegaMenu> = {
     links: [
       { label: "Crazy Horse Leather", description: "Vintage character, durable finish", href: "/products/crazy-horse-leather-travel-tote-bag" },
       { label: "Travel Tote Bags", description: "Purposeful carry for daily travel", href: "/products" },
-      { label: "Men's Wallets", description: "Refined essentials and small leather goods", href: "/products" },
+      { label: "Men's Wallets", description: "Refined essentials and small leather goods", href: "/products/mens-full-grain-leather-bifold-wallet-8064" },
       { label: "Backpacks & Shoulder Bags", description: "Versatile silhouettes for your collection", href: "/products" }
     ],
     feature: { label: "FEATURED COLLECTION", title: "Crazy Horse Leather", image: "/assets/products/crazy-horse-duffle.png", href: "/products/crazy-horse-leather-travel-tote-bag" }
@@ -45,7 +45,7 @@ const chineseMenus: Record<MegaMenuKey, MegaMenu> = {
     links: [
       { label: "疯马皮系列", description: "复古皮质，耐用工艺", href: "/zh/products/crazy-horse-leather-travel-tote-bag" },
       { label: "旅行托特包", description: "兼顾日常通勤与旅行收纳", href: "/zh/products" },
-      { label: "男士钱包", description: "精致钱包与小皮件", href: "/zh/products" },
+      { label: "男士钱包", description: "精致钱包与小皮件", href: "/zh/products/mens-full-grain-leather-bifold-wallet-8064" },
       { label: "背包与单肩包", description: "丰富版型，完善品牌产品线", href: "/zh/products" }
     ],
     feature: { label: "推荐系列", title: "疯马皮系列", image: "/assets/products/crazy-horse-duffle.png", href: "/zh/products/crazy-horse-leather-travel-tote-bag" }

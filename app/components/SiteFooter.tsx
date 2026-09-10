@@ -12,7 +12,7 @@ export default function SiteFooter({ locale }: { locale: SiteLocale }) {
     { title: text("Products", "产品系列"), links: [
       { href: product, label: text("Crazy Horse Leather", "疯马皮系列") },
       { href: path("/products"), label: text("Travel Tote Bags", "旅行托特包") },
-      { href: path("/products"), label: text("Men's Wallets", "男士钱包") },
+      { href: path("/products/mens-full-grain-leather-bifold-wallet-8064"), label: text("Men's Wallets", "男士钱包") },
       { href: path("/products"), label: text("Backpacks", "真皮背包") },
       { href: path("/products"), label: text("Women's Bags", "女士真皮包") },
     ] },

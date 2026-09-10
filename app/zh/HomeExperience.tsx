@@ -10,7 +10,7 @@ const whatsapp = "https://wa.me/8618925073489";
 const productCards = [
   { title: "疯马皮系列", image: "/assets/products/crazy-horse-duffle-scene-v1.png", href: "/zh/products/crazy-horse-leather-travel-tote-bag" },
   { title: "旅行托特包", image: "/assets/products/black-travel-tote-scene-v1.png", href: "/zh/products" },
-  { title: "男士钱包", image: "/assets/products/mens-wallet-45-scene-v1.png", href: "/zh/products" },
+  { title: "男士钱包", image: "/assets/products/mens-bifold-wallet-8064/scenario.jpg", href: "/zh/products/mens-full-grain-leather-bifold-wallet-8064" },
   { title: "真皮单肩包", image: "/assets/products/mens-shoulder-bag-scene-v2.png", href: "/zh/products" },
   { title: "真皮背包", image: "/assets/products/leather-backpack-centered-scene-v2.png", href: "/zh/products" },
   { title: "女士真皮包", image: "/assets/products/womens-coffee-handbag-red-patent-wallet-scene-v2.png", href: "/zh/products" }
