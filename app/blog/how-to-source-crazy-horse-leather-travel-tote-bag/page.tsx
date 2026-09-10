@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import InternalLinkPanel from "../../components/InternalLinkPanel";
 import BlogInquiryForm from "./BlogInquiryForm";
 import { ArrowRightIcon, CaretDownIcon, CheckCircleIcon, GlobeIcon, PackageIcon, PencilIcon, ShieldIcon } from "./BlogIcons";
 import styles from "./page.module.css";
@@ -45,10 +46,10 @@ export default function CrazyHorseSourcingGuidePage() {
           <Image src="/assets/brand/marrant-logo.png" alt="Marrant" width={170} height={43} priority />
         </Link>
         <nav className={styles.navigation} aria-label="Main navigation">
-          <Link href="/products/crazy-horse-leather-travel-tote-bag">Products <CaretDownIcon width={13} height={13} /></Link>
-          <Link href="/">OEM/ODM <CaretDownIcon width={13} height={13} /></Link>
-          <Link href="/">Factory</Link>
-          <Link href="/">Resources <CaretDownIcon width={13} height={13} /></Link>
+          <Link href="/products">Products <CaretDownIcon width={13} height={13} /></Link>
+          <Link href="/#oem">OEM/ODM <CaretDownIcon width={13} height={13} /></Link>
+          <Link href="/about#production">Factory</Link>
+          <Link href="/blog">Resources <CaretDownIcon width={13} height={13} /></Link>
           <Link href="/about">About Us</Link>
         </nav>
         <a className={styles.headerCta} href="#inquiry">Request a Quote</a>
@@ -57,7 +58,7 @@ export default function CrazyHorseSourcingGuidePage() {
       <div className={styles.articleShell}>
         <section className={styles.articleHeading}>
           <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
-            <Link href="/">Home</Link><span>›</span><span>Blog</span><span>›</span><span>Leather Bags</span>
+            <Link href="/">Home</Link><span>›</span><Link href="/blog">Blog</Link><span>›</span><span>Leather Bags</span>
           </nav>
           <h1>How to Source a Crazy Horse<br />Leather Travel Tote Bag for<br />Your Brand</h1>
           <div className={styles.byline}><span>By Marrant Team</span><i /><span>May 14, 2026</span><i /><span>8 min read</span></div>
@@ -79,7 +80,7 @@ export default function CrazyHorseSourcingGuidePage() {
 
           <section id="why-crazy-horse">
             <h2>Why Crazy Horse Leather?</h2>
-            <p>Crazy Horse leather is full-grain cowhide finished with natural waxes that create its signature pull-up effect. Light scratches and scuffs fade with use, giving every bag a unique patina over time. It&apos;s durable, water-resistant and ideal for travel—combining vintage character with everyday toughness.</p>
+            <p>Crazy Horse leather is full-grain cowhide finished with natural waxes that create its signature pull-up effect. Light scratches and scuffs fade with use, giving every bag a unique patina over time. It&apos;s durable, water-resistant and ideal for travel—combining vintage character with everyday toughness. See how the material is used in our <Link href="/products/crazy-horse-leather-travel-tote-bag#customization">custom Crazy Horse travel tote</Link>.</p>
             <div className={styles.detailImage}>
               <Image src="/assets/product-detail/crazy-horse-leather-detail.png" alt="Close-up of Crazy Horse leather with brass hardware" fill sizes="(max-width: 860px) 100vw, 650px" />
             </div>
@@ -133,6 +134,7 @@ export default function CrazyHorseSourcingGuidePage() {
             <div className={styles.processGrid}>
               {process.map(({ icon: Icon, title, text }, index) => <div key={title} className={styles.processStep}><span>{String(index + 1).padStart(2, "0")}</span><Icon width={29} height={29} /><strong>{title}</strong><small>{text}</small></div>)}
             </div>
+            <p className={styles.processLink}>Want to evaluate the team behind the process? <Link href="/about#process">See how Marrant works from inquiry to delivery</Link>.</p>
           </section>
 
           <section className={styles.relatedProduct}>
@@ -144,12 +146,23 @@ export default function CrazyHorseSourcingGuidePage() {
         <aside className={styles.inquiryRail} id="inquiry"><BlogInquiryForm /></aside>
       </div>
 
+      <InternalLinkPanel
+        title="Keep building your brief"
+        description="Use the product, collection and factory pages to turn this sourcing research into a focused manufacturing conversation."
+        links={[
+          { href: "/products/crazy-horse-leather-travel-tote-bag", label: "View the travel tote", description: "Review customization, specifications and a buyer inquiry form." },
+          { href: "/products", label: "Browse all collections", description: "Explore other genuine leather bag categories." },
+          { href: "/about#production", label: "See the factory", description: "Learn about the production floor and quality process." },
+          { href: "/contact#inquiry", label: "Start your inquiry", description: "Send your requirements directly to the Marrant team." },
+        ]}
+      />
+
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
           <div><Image src="/assets/brand/marrant-logo.png" alt="Marrant" width={160} height={40} /><p>Premium leather goods manufacturer for global brands and distributors.</p><a href="mailto:Melody@marrant.cn">Melody@marrant.cn</a></div>
           <div><strong>Capabilities</strong><a href="#process">OEM/ODM</a><a href="#customization">Product Development</a><a href="#materials-quality">Materials Sourcing</a><a href="#process">Quality Control</a></div>
-          <div><strong>Products</strong><Link href="/products/crazy-horse-leather-travel-tote-bag">Travel Bags</Link><a href="#customization">Tote Bags</a><a href="#customization">Backpacks</a><a href="#customization">Briefcases</a></div>
-          <div><strong>Resources</strong><a href="#why-crazy-horse">Material Journal</a><a href="#key-considerations">Bag Care Guide</a><a href="#inquiry">Request a Quote</a></div>
+          <div><strong>Products</strong><Link href="/products/crazy-horse-leather-travel-tote-bag">Travel Bags</Link><Link href="/products">Tote Bags</Link><Link href="/products">Backpacks</Link><Link href="/products">Briefcases</Link></div>
+          <div><strong>Resources</strong><Link href="/blog">Material Journal</Link><a href="#key-considerations">Sourcing Checklist</a><Link href="/contact#inquiry">Request a Quote</Link></div>
           <div><strong>Contact</strong><a href="mailto:Melody@marrant.cn">info@marrant.cn</a><a href="https://wa.me/8618925073489" target="_blank" rel="noreferrer">+86 189 2507 3489</a><a className={styles.footerCta} href="#inquiry">Start a Project <ArrowRightIcon width={15} height={15} /></a></div>
         </div>
         <div className={styles.footerBottom}><span>© 2026 Marrant Leather Co., Ltd. All rights reserved.</span><span>Privacy Policy　|　Terms of Use</span></div>

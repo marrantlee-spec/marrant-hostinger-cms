@@ -2,6 +2,7 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
+import InternalLinkPanel from "../components/InternalLinkPanel";
 import {
   ArrowRight,
   ClipboardText,
@@ -34,6 +35,7 @@ const products = [
     title: "Crazy Horse Leather",
     copy: "Character-rich leather made for lasting collections.",
     image: "/assets/products/crazy-horse-duffle-catalogue-v1.png",
+    href: "/products/crazy-horse-leather-travel-tote-bag",
   },
   {
     category: "Travel Tote Bags",
@@ -127,7 +129,7 @@ export default function ProductsPage() {
           <Link href="/products" onClick={() => setMenuOpen(false)}>Products</Link>
           <Link href="/#oem" onClick={() => setMenuOpen(false)}>OEM/ODM</Link>
           <Link href="/#factory" onClick={() => setMenuOpen(false)}>Factory</Link>
-          <Link href="/#resources" onClick={() => setMenuOpen(false)}>Resources</Link>
+          <Link href="/blog" onClick={() => setMenuOpen(false)}>Resources</Link>
           <Link href="/about" onClick={() => setMenuOpen(false)}>About Us</Link>
         </nav>
         <button className={styles.headerCta} type="button" onClick={() => scrollToId("request")}>Request a Quote</button>
@@ -172,11 +174,19 @@ export default function ProductsPage() {
           <div className={styles.productsGrid}>
             {visibleProducts.map((product) => (
               <article className={styles.productCard} key={product.title}>
-                <button type="button" onClick={() => requestProduct(product)} aria-label={`Request a quote for ${product.title}`}>
-                  <span className={styles.productImage}><img src={product.image} alt={product.title} /></span>
-                  <span className={styles.productName}>{product.title}</span>
-                  <span className={styles.productMeta}><span>{product.copy}</span><ArrowRight size={19} weight="light" aria-hidden="true" /></span>
-                </button>
+                {"href" in product ? (
+                  <Link className={styles.productLink} href={product.href} aria-label={`View ${product.title}`}>
+                    <span className={styles.productImage}><img src={product.image} alt={product.title} /></span>
+                    <span className={styles.productName}>{product.title}</span>
+                    <span className={styles.productMeta}><span>{product.copy}</span><ArrowRight size={19} weight="light" aria-hidden="true" /></span>
+                  </Link>
+                ) : (
+                  <button type="button" onClick={() => requestProduct(product)} aria-label={`Request a quote for ${product.title}`}>
+                    <span className={styles.productImage}><img src={product.image} alt={product.title} /></span>
+                    <span className={styles.productName}>{product.title}</span>
+                    <span className={styles.productMeta}><span>{product.copy}</span><ArrowRight size={19} weight="light" aria-hidden="true" /></span>
+                  </button>
+                )}
               </article>
             ))}
             {visibleProducts.length === 0 && (
@@ -237,6 +247,17 @@ export default function ProductsPage() {
           ))}
         </div>
       </section>
+
+      <InternalLinkPanel
+        title="Choose your next step"
+        description="Use a product example, sourcing advice and factory context to turn your collection idea into a clearer brief."
+        links={[
+          { href: "/products/crazy-horse-leather-travel-tote-bag", label: "View the travel tote", description: "Explore specifications, materials and branding options." },
+          { href: "/blog/how-to-source-crazy-horse-leather-travel-tote-bag", label: "Read the sourcing guide", description: "Plan materials, construction and supplier evaluation." },
+          { href: "/about#production", label: "See our production", description: "Understand the process and quality checkpoints." },
+          { href: "/contact#inquiry", label: "Start an inquiry", description: "Share your category, market and quantity with our team." },
+        ]}
+      />
     </main>
   );
 }

@@ -1,6 +1,8 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Link from "next/link";
+import InternalLinkPanel from "./components/InternalLinkPanel";
 import {
   ArrowRight,
   CaretDown,
@@ -25,11 +27,11 @@ const whatsapp = "https://wa.me/8618925073489";
 
 const productCards = [
   { title: "Crazy Horse Leather", image: "/assets/products/crazy-horse-duffle-scene-v1.png", href: "/products/crazy-horse-leather-travel-tote-bag" },
-  { title: "Travel Tote Bags", image: "/assets/products/black-travel-tote-scene-v1.png" },
-  { title: "Men's Wallets", image: "/assets/products/mens-wallet-45-scene-v1.png" },
-  { title: "Shoulder Bags", image: "/assets/products/mens-shoulder-bag-scene-v2.png" },
-  { title: "Backpacks", image: "/assets/products/leather-backpack-centered-scene-v2.png" },
-  { title: "Women's Bags", image: "/assets/products/womens-coffee-handbag-red-patent-wallet-scene-v2.png" }
+  { title: "Travel Tote Bags", image: "/assets/products/black-travel-tote-scene-v1.png", href: "/products" },
+  { title: "Men's Wallets", image: "/assets/products/mens-wallet-45-scene-v1.png", href: "/products" },
+  { title: "Shoulder Bags", image: "/assets/products/mens-shoulder-bag-scene-v2.png", href: "/products" },
+  { title: "Backpacks", image: "/assets/products/leather-backpack-centered-scene-v2.png", href: "/products" },
+  { title: "Women's Bags", image: "/assets/products/womens-coffee-handbag-red-patent-wallet-scene-v2.png", href: "/products" }
 ];
 
 const services = [
@@ -55,7 +57,7 @@ const faqs = [
   "How do you ensure quality?"
 ];
 
-type MegaMenuKey = "products" | "services" | "resources";
+type MegaMenuKey = "products" | "services";
 
 type MegaMenu = {
   eyebrow: string;
@@ -71,12 +73,12 @@ const megaMenus: Record<MegaMenuKey, MegaMenu> = {
     title: "Leather collections for every market.",
     copy: "Explore made-to-order styles for business, travel and everyday carry.",
     links: [
-      { label: "Crazy Horse Leather", description: "Vintage character, durable finish", href: "#products" },
-      { label: "Travel Tote Bags", description: "Purposeful carry for daily travel", href: "#products" },
-      { label: "Men's Wallets", description: "Refined essentials and small leather goods", href: "#products" },
-      { label: "Backpacks & Shoulder Bags", description: "Versatile silhouettes for your collection", href: "#products" }
+      { label: "Crazy Horse Leather", description: "Vintage character, durable finish", href: "/products/crazy-horse-leather-travel-tote-bag" },
+      { label: "Travel Tote Bags", description: "Purposeful carry for daily travel", href: "/products" },
+      { label: "Men's Wallets", description: "Refined essentials and small leather goods", href: "/products" },
+      { label: "Backpacks & Shoulder Bags", description: "Versatile silhouettes for your collection", href: "/products" }
     ],
-    feature: { label: "FEATURED COLLECTION", title: "Crazy Horse Leather", image: "/assets/products/crazy-horse-duffle.png", href: "#products" }
+    feature: { label: "FEATURED COLLECTION", title: "Crazy Horse Leather", image: "/assets/products/crazy-horse-duffle.png", href: "/products/crazy-horse-leather-travel-tote-bag" }
   },
   services: {
     eyebrow: "OEM / ODM",
@@ -89,18 +91,6 @@ const megaMenus: Record<MegaMenuKey, MegaMenu> = {
       { label: "Private Label", description: "Built around your brand identity", href: "#oem" }
     ],
     feature: { label: "OEM / ODM SERVICE", title: "Make it distinctly yours.", image: "/assets/products/leather-messenger.png", href: "#quote" }
-  },
-  resources: {
-    eyebrow: "BUYER RESOURCES",
-    title: "Clarity for your next order.",
-    copy: "Helpful starting points for sourcing, specifications and a confident first inquiry.",
-    links: [
-      { label: "Buying Guide", description: "Start with materials and target buyer needs", href: "#resources" },
-      { label: "Care Guide", description: "Keeping genuine leather looking its best", href: "#resources" },
-      { label: "FAQs", description: "MOQ, sampling, timing and quality questions", href: "#resources" },
-      { label: "Start an Inquiry", description: "Tell us what you are looking to create", href: "#quote" }
-    ],
-    feature: { label: "START A PROJECT", title: "Bring us your brief.", image: "/assets/brand/hero-leather-bags.jpg", href: "#quote" }
   }
 };
 
@@ -143,13 +133,10 @@ export default function HomePage() {
             </button>
           </div>
           <a href="#factory" onClick={closeNavigation}>Factory</a>
-          <div className="nav-menu-item">
-            <button className="nav-trigger" type="button" onMouseEnter={() => showMega("resources")} onFocus={() => showMega("resources")} onClick={() => showMega("resources")} aria-expanded={activeMega === "resources"} aria-controls="mega-menu" aria-haspopup="true">
-              Resources <CaretDown size={14} weight="bold" />
-            </button>
-          </div>
-          <a href="/about" onClick={closeNavigation}>About Us</a>
-          <a className="mobile-quote" href="#quote" onClick={closeNavigation}>Request a Quote</a>
+          <Link href="/blog" onClick={closeNavigation}>Blog</Link>
+          <Link href="/about" onClick={closeNavigation}>About Us</Link>
+          <Link href="/contact" onClick={closeNavigation}>Contact Us</Link>
+          <Link className="mobile-quote" href="/contact#inquiry" onClick={closeNavigation}>Request a Quote</Link>
           {activeMega && (
             <>
               <button className="mega-page-dim" type="button" aria-label="Close navigation menu" onClick={() => setActiveMega(null)} />
@@ -163,26 +150,26 @@ export default function HomePage() {
                   </div>
                   <div className="mega-links">
                     {megaMenus[activeMega].links.map((item) => (
-                      <a href={item.href} key={item.label} onClick={closeNavigation}>
+                      <Link href={item.href} key={item.label} onClick={closeNavigation}>
                         <strong>{item.label}<ArrowRight size={15} /></strong>
                         <span>{item.description}</span>
-                      </a>
+                      </Link>
                     ))}
                   </div>
-                  <a className="mega-feature" href={megaMenus[activeMega].feature.href} onClick={closeNavigation}>
+                  <Link className="mega-feature" href={megaMenus[activeMega].feature.href} onClick={closeNavigation}>
                     <img src={megaMenus[activeMega].feature.image} alt="" />
                     <span className="mega-feature-shade" />
                     <div>
                       <small>{megaMenus[activeMega].feature.label}</small>
                       <strong>{megaMenus[activeMega].feature.title}<ArrowRight size={17} /></strong>
                     </div>
-                  </a>
+                  </Link>
                 </section>
               </div>
             </>
           )}
         </nav>
-        <a className="header-cta" href="#quote">Request a Quote</a>
+        <Link className="header-cta" href="/contact#inquiry">Request a Quote</Link>
         <button className="menu-button" onClick={() => { setMenuOpen(!menuOpen); setActiveMega(null); }} aria-label="Toggle menu" aria-expanded={menuOpen}>
           {menuOpen ? <X size={24} /> : <List size={26} />}
         </button>
@@ -230,14 +217,14 @@ export default function HomePage() {
         <div className="container">
           <div className="section-heading inverse">
             <div><p className="eyebrow caramel">OUR PRODUCTS</p><h2>Bags That Carry Your Brand</h2></div>
-            <a className="button button-outline light" href="#quote">View All Products</a>
+            <Link className="button button-outline light" href="/products">View All Products</Link>
           </div>
           <div className="product-grid">
-            {productCards.map(({ title, image, href = "#quote" }) => (
-              <a className="product-card" href={href} key={title}>
+            {productCards.map(({ title, image, href }) => (
+              <Link className="product-card" href={href} key={title}>
                 <img src={image} alt={title} loading="lazy" decoding="async" />
                 <span>{title}<ArrowRight size={17} /></span>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -291,6 +278,17 @@ export default function HomePage() {
         </div>
       </section>
 
+      <InternalLinkPanel
+        title="Build a better brief"
+        description="Move from product inspiration to a well-informed manufacturing conversation."
+        links={[
+          { href: "/products", label: "Browse all collections", description: "Compare bag categories and find a starting point." },
+          { href: "/products/crazy-horse-leather-travel-tote-bag", label: "View the travel tote", description: "Review a product example with customizable details." },
+          { href: "/blog/how-to-source-crazy-horse-leather-travel-tote-bag", label: "Read the sourcing guide", description: "Learn how to specify leather, hardware and construction." },
+          { href: "/about#production", label: "Meet the factory", description: "See the people and production process behind each order." },
+        ]}
+      />
+
       <section className="quote" id="quote">
         <div className="container quote-grid">
           <div className="quote-intro">
@@ -312,10 +310,10 @@ export default function HomePage() {
       <footer id="about">
         <div className="container footer-grid">
           <div className="footer-brand"><img src="/assets/brand/marrant-logo.png" alt="Marrant" /><p>Genuine leather bags. Made for your brand.</p><a href="mailto:Melody@marrant.cn">Melody@marrant.cn</a><a href={whatsapp} target="_blank" rel="noreferrer">+86 189 2507 3489</a></div>
-          <div><h3>Products</h3><a href="#products">Crazy Horse Leather</a><a href="#products">Travel Tote Bags</a><a href="#products">Men&apos;s Wallets</a><a href="#products">Backpacks</a><a href="#products">Women&apos;s Bags</a></div>
-          <div><h3>OEM/ODM</h3><a href="#oem">Our Services</a><a href="#oem">Process</a><a href="#factory">Materials</a><a href="#quote">Private Label</a></div>
-          <div><h3>Resources</h3><a href="#resources">Buying Guide</a><a href="#resources">Care Guide</a><a href="#resources">FAQs</a></div>
-          <div><h3>About Us</h3><a href="#factory">Our Factory</a><a href="#factory">Why Marrant</a><a href="#quote">Contact Us</a></div>
+          <div><h3>Products</h3><Link href="/products/crazy-horse-leather-travel-tote-bag">Crazy Horse Leather</Link><Link href="/products">Travel Tote Bags</Link><Link href="/products">Men&apos;s Wallets</Link><Link href="/products">Backpacks</Link><Link href="/products">Women&apos;s Bags</Link></div>
+          <div><h3>OEM/ODM</h3><a href="#oem">Our Services</a><a href="#oem">Process</a><Link href="/about#production">Materials</Link><Link href="/contact#inquiry">Private Label</Link></div>
+          <div><h3>Resources</h3><Link href="/blog/how-to-source-crazy-horse-leather-travel-tote-bag">Buying Guide</Link><Link href="/blog">Care Guide</Link><a href="#resources">FAQs</a></div>
+          <div><h3>About Us</h3><Link href="/about#production">Our Factory</Link><Link href="/about#quality">Why Marrant</Link><Link href="/contact">Contact Us</Link></div>
         </div>
       </footer>
     </main>

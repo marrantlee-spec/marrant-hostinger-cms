@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import InternalLinkPanel from "../components/InternalLinkPanel";
 import { useState } from "react";
 import {
   ArrowRight,
@@ -109,9 +110,9 @@ export default function BlogIndexPage() {
           {menuOpen ? <X size={23} /> : <List size={23} />}
         </button>
         <nav className={`${styles.navigation} ${menuOpen ? styles.navigationOpen : ""}`} id="journal-navigation" aria-label="Main navigation">
-          <Link href="/products/crazy-horse-leather-travel-tote-bag" onClick={closeMenu}>Products <CaretDown size={12} /></Link>
+          <Link href="/products" onClick={closeMenu}>Products <CaretDown size={12} /></Link>
           <Link href="/#oem" onClick={closeMenu}>OEM/ODM <CaretDown size={12} /></Link>
-          <Link href="/#factory" onClick={closeMenu}>Factory</Link>
+          <Link href="/about#production" onClick={closeMenu}>Factory</Link>
           <Link href="/blog" aria-current="page" onClick={closeMenu}>Journal</Link>
           <Link href="/about" onClick={closeMenu}>About Us</Link>
           <Link className={styles.mobileCta} href="/contact" onClick={closeMenu}>Request a Quote</Link>
@@ -184,6 +185,17 @@ export default function BlogIndexPage() {
           ))}
         </div>
       </section>
+
+      <InternalLinkPanel
+        title="Turn research into a product brief"
+        description="Continue from buyer education to a real product example, manufacturing context and a direct conversation with Marrant."
+        links={[
+          { href: "/products/crazy-horse-leather-travel-tote-bag", label: "See the travel tote", description: "Apply the guide to a customizable product example." },
+          { href: "/products", label: "Explore collections", description: "Compare the bag categories available for OEM/ODM development." },
+          { href: "/about#quality", label: "Understand quality control", description: "See how Marrant manages consistency during production." },
+          { href: "/contact#inquiry", label: "Request a quote", description: "Share your target market, materials and estimated quantity." },
+        ]}
+      />
 
       <section className={styles.projectCta} aria-labelledby="project-title">
         <div className={styles.projectImage}>

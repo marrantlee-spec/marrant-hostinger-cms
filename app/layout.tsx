@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
+import LanguageSwitcher from "./components/LanguageSwitcher";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -9,10 +11,13 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const requestHeaders = await headers();
+  const locale = requestHeaders.get("x-marrant-locale") === "zh-CN" ? "zh-CN" : "en";
+  const pathname = requestHeaders.get("x-marrant-pathname") ?? "/";
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang={locale}>
+      <body>{children}<LanguageSwitcher pathname={pathname} /></body>
     </html>
   );
 }

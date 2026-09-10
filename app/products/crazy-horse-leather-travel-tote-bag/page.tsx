@@ -1,6 +1,8 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Link from "next/link";
+import InternalLinkPanel from "../../components/InternalLinkPanel";
 import {
   ArrowRight,
   CaretDown,
@@ -108,17 +110,17 @@ export default function TravelToteProductPage() {
   return (
     <main className="product-page" id="top">
       <header className="product-header">
-        <a className="product-brand" href="/" aria-label="Marrant home">
+        <Link className="product-brand" href="/" aria-label="Marrant home">
           <img src="/assets/brand/marrant-logo.png" alt="Marrant" />
-        </a>
+        </Link>
         <nav className={menuOpen ? "product-nav is-open" : "product-nav"} aria-label="Product navigation">
-          <a href="/" onClick={closeMenu}>Home</a>
-          <a href="#specifications" onClick={closeMenu}>Products</a>
+          <Link href="/" onClick={closeMenu}>Home</Link>
+          <Link href="/products" onClick={closeMenu}>Products</Link>
           <a href="#customization" onClick={closeMenu}>Customization</a>
-          <a href="#process" onClick={closeMenu}>Capabilities</a>
-          <a href="/about" onClick={closeMenu}>About Us</a>
-          <a href="#faq" onClick={closeMenu}>Resources</a>
-          <a href="#inquiry" onClick={closeMenu}>Contact</a>
+          <Link href="/about#process" onClick={closeMenu}>Capabilities</Link>
+          <Link href="/about" onClick={closeMenu}>About Us</Link>
+          <Link href="/blog" onClick={closeMenu}>Resources</Link>
+          <Link href="/contact#inquiry" onClick={closeMenu}>Contact</Link>
           <a className="product-nav-cta mobile-only-cta" href="#inquiry" onClick={closeMenu}>Request Specification</a>
         </nav>
         <div className="product-header-actions"><span className="language-label">EN <CaretDown size={12} /></span><a className="product-nav-cta" href="#inquiry">Request Specification</a></div>
@@ -126,7 +128,7 @@ export default function TravelToteProductPage() {
       </header>
 
       <div className="product-shell">
-        <div className="breadcrumbs"><a href="/">Home</a><span>›</span><a href="#specifications">Bags</a><span>›</span><a href="#specifications">Travel Bags</a><span>›</span><b>Crazy Horse Leather Travel Tote Bag</b></div>
+        <div className="breadcrumbs"><Link href="/">Home</Link><span>›</span><Link href="/products">Bags</Link><span>›</span><Link href="/products">Travel Bags</Link><span>›</span><b>Crazy Horse Leather Travel Tote Bag</b></div>
 
         <section className="product-hero-detail">
           <aside className="gallery-thumbnails" aria-label="Product image gallery">
@@ -156,7 +158,7 @@ export default function TravelToteProductPage() {
         </section>
 
         <section className="detail-section option-grid" id="customization">
-          <article className="material-card"><div className="section-title"><p>Material Option</p></div><img src="/assets/product-detail/crazy-horse-leather-detail.png" alt="Crazy Horse leather texture and brass hardware" /><h2>Crazy Horse Leather</h2><p>Full-grain cowhide with a natural pull-up effect.</p></article>
+          <article className="material-card"><div className="section-title"><p>Material Option</p></div><img src="/assets/product-detail/crazy-horse-leather-detail.png" alt="Crazy Horse leather texture and brass hardware" /><h2>Crazy Horse Leather</h2><p>Full-grain cowhide with a natural pull-up effect. <Link href="/blog/how-to-source-crazy-horse-leather-travel-tote-bag#why-crazy-horse">Read the material sourcing guide</Link>.</p></article>
           <article className="color-card"><div className="section-title"><p>Color Options</p></div><div className="color-swatches">{colors.map(([name, color]) => <button type="button" key={name} aria-label={name}><span style={{ backgroundColor: color }} /><small>{name}</small></button>)}</div><p>Custom colors available upon request.</p></article>
           <article className="custom-card"><div className="section-title"><p>Logo & Customization</p></div><div className="custom-methods">{customization.map(({ icon: Icon, title, text }) => <div key={title}><Icon size={28} weight="thin" /><strong>{title}</strong><small>{text}</small></div>)}</div></article>
         </section>
@@ -168,7 +170,7 @@ export default function TravelToteProductPage() {
 
         <section className="detail-section factory-visit" aria-label="Visit Marrant factory">
           <img src="/assets/product-detail/factory-client-visit-v1.png" alt="Marrant owners guiding international clients through a genuine leather bag production workshop" loading="lazy" decoding="async" />
-          <div className="factory-visit-content"><p className="factory-visit-kicker">Visit Marrant</p><h2>See How Your Bags Are Made</h2><p>We welcome brand teams, importers and product developers to see the real production floor: leather selection, cutting, stitching, hardware assembly and final quality checks.</p><div className="factory-visit-points"><span><CheckCircle size={17} weight="fill" /> Owner-led factory visit</span><span><CheckCircle size={17} weight="fill" /> Live leather bag production</span><span><CheckCircle size={17} weight="fill" /> Discuss your OEM / ODM brief</span></div><a className="product-primary-button" href="#inquiry">Plan a Factory Visit <ArrowRight size={17} /></a></div>
+          <div className="factory-visit-content"><p className="factory-visit-kicker">Visit Marrant</p><h2>See How Your Bags Are Made</h2><p>We welcome brand teams, importers and product developers to see the real production floor: leather selection, cutting, stitching, hardware assembly and final quality checks.</p><div className="factory-visit-points"><span><CheckCircle size={17} weight="fill" /> Owner-led factory visit</span><span><CheckCircle size={17} weight="fill" /> Live leather bag production</span><span><CheckCircle size={17} weight="fill" /> Discuss your OEM / ODM brief</span></div><Link className="product-primary-button" href="/about#visit">Plan a Factory Visit <ArrowRight size={17} /></Link></div>
         </section>
 
         <section className="detail-section faq-catalogue" id="faq">
@@ -189,7 +191,18 @@ export default function TravelToteProductPage() {
         </section>
       </div>
 
-      <footer className="product-footer"><div className="product-shell footer-detail"><div><img src="/assets/brand/marrant-logo.png" alt="Marrant" /><p>Reliable leather goods manufacturer for global brands and distributors.</p></div><div><strong>Products</strong><a href="#specifications">All Bags</a><a href="#specifications">Travel Bags</a><a href="#specifications">Briefcases</a><a href="#specifications">Backpacks</a></div><div><strong>Customization</strong><a href="#customization">OEM / ODM</a><a href="#customization">Materials</a><a href="#customization">Logo & Branding</a><a href="#process">Packaging</a></div><div><strong>Company</strong><a href="#about-marrant">About Us</a><a href="#process">Our Factory</a><a href="#about-marrant">Quality Control</a></div><div><strong>Resources</strong><a href="#faq">Catalogue</a><a href="#faq">Care Guide</a><a href="#faq">FAQ</a></div><div><strong>Contact Us</strong><a href="mailto:Melody@marrant.cn">Melody@marrant.cn</a><a href={whatsapp} target="_blank" rel="noreferrer">+86 189 2507 3489</a><a className="footer-cta" href="#inquiry">Request Specification</a></div></div><div className="product-shell footer-bottom"><span>© 2026 Marrant Leather Co., Ltd. All rights reserved.</span><span>Privacy Policy　|　Terms of Use</span></div></footer>
+      <InternalLinkPanel
+        title="Plan the full collection"
+        description="Use the collection, sourcing and factory pages to move from this sample product to a confident manufacturing brief."
+        links={[
+          { href: "/products", label: "Browse all collections", description: "Compare travel, business and everyday leather bag categories." },
+          { href: "/blog/how-to-source-crazy-horse-leather-travel-tote-bag", label: "Read the sourcing guide", description: "Define materials, hardware, construction and supplier criteria." },
+          { href: "/about#quality", label: "Review quality control", description: "See the production practices behind a consistent order." },
+          { href: "/contact#inquiry", label: "Request a quote", description: "Send your target quantity, market and customization needs." },
+        ]}
+      />
+
+      <footer className="product-footer"><div className="product-shell footer-detail"><div><img src="/assets/brand/marrant-logo.png" alt="Marrant" /><p>Reliable leather goods manufacturer for global brands and distributors.</p></div><div><strong>Products</strong><Link href="/products">All Bags</Link><Link href="/products/crazy-horse-leather-travel-tote-bag">Travel Bags</Link><Link href="/products">Briefcases</Link><Link href="/products">Backpacks</Link></div><div><strong>Customization</strong><a href="#customization">OEM / ODM</a><a href="#customization">Materials</a><a href="#customization">Logo & Branding</a><a href="#process">Packaging</a></div><div><strong>Company</strong><Link href="/about">About Us</Link><Link href="/about#production">Our Factory</Link><Link href="/about#quality">Quality Control</Link></div><div><strong>Resources</strong><Link href="/blog">Buyer Journal</Link><Link href="/blog/how-to-source-crazy-horse-leather-travel-tote-bag">Sourcing Guide</Link><a href="#faq">Product FAQ</a></div><div><strong>Contact Us</strong><a href="mailto:Melody@marrant.cn">Melody@marrant.cn</a><a href={whatsapp} target="_blank" rel="noreferrer">+86 189 2507 3489</a><a className="footer-cta" href="#inquiry">Request Specification</a></div></div><div className="product-shell footer-bottom"><span>© 2026 Marrant Leather Co., Ltd. All rights reserved.</span><span>Privacy Policy　|　Terms of Use</span></div></footer>
     </main>
   );
 }

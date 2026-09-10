@@ -85,6 +85,8 @@
 .processStep svg { margin: 7px 0 8px; color: #8a5a38; }
 .processStep strong { color: #352e29; font-size: 10px; }
 .processStep small { margin-top: 5px; color: #706961; font-size: 8px; line-height: 1.45; }
+.processLink { margin: 20px 0 0 !important; color: #645c55; font-size: 11px; line-height: 1.6; text-align: center; }
+.processLink a { color: var(--caramel); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
 
 .relatedProduct { display: grid; grid-template-columns: 164px 1fr; gap: 20px; padding-top: 11px; }
 .relatedImage { aspect-ratio: 1.28 / 1; }

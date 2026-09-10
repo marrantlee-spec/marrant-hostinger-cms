@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import InternalLinkPanel from "../components/InternalLinkPanel";
 import ContactInquiryForm from "./ContactInquiryForm";
 import { ArrowUpRightIcon, FactoryIcon, MailIcon, MapPinIcon, WhatsappIcon } from "./ContactIcons";
 import styles from "./page.module.css";
@@ -23,10 +24,10 @@ export default function ContactPage() {
         </Link>
         <nav className={styles.nav} aria-label="Main navigation">
           <Link href="/about">About Us</Link>
-          <Link href="/#services">OEM/ODM Services</Link>
-          <Link href="/#products">Collections</Link>
-          <Link href="/products/crazy-horse-leather-travel-tote-bag">Materials</Link>
-          <Link href="/products/crazy-horse-leather-travel-tote-bag#factory-visit">Capabilities</Link>
+          <Link href="/#oem">OEM/ODM Services</Link>
+          <Link href="/products">Collections</Link>
+          <Link href="/products/crazy-horse-leather-travel-tote-bag#customization">Materials</Link>
+          <Link href="/about#process">Capabilities</Link>
           <Link className={styles.activeNav} href="/contact">Contact</Link>
         </nav>
         <a className={styles.headerCta} href="#inquiry">Request a Quote</a>
@@ -104,6 +105,17 @@ export default function ContactPage() {
         <a href="https://wa.me/8618925073489" target="_blank" rel="noreferrer"><WhatsappIcon width={22} height={22} /> +86 189 2507 3489</a>
       </aside>
 
+      <InternalLinkPanel
+        title="Prepare your inquiry"
+        description="Give your project a stronger starting point by reviewing the product, sourcing and factory details most relevant to your brief."
+        links={[
+          { href: "/products", label: "Browse bag collections", description: "Choose the product category you want to develop." },
+          { href: "/products/crazy-horse-leather-travel-tote-bag", label: "Review a product brief", description: "See the questions and options behind a custom tote." },
+          { href: "/blog/how-to-source-crazy-horse-leather-travel-tote-bag", label: "Use the sourcing guide", description: "Learn which material and construction details to define." },
+          { href: "/about#visit", label: "Plan a factory visit", description: "Meet the team and review your project in person." },
+        ]}
+      />
+
       <footer className={styles.footer}>
         <div className={styles.footerGrid}>
           <div className={styles.footerBrand}>
@@ -111,8 +123,8 @@ export default function ContactPage() {
             <p>OEM/ODM leather bag manufacturer based in Guangzhou, China. Crafted for global brands.</p>
           </div>
           <div><h3>Company</h3><Link href="/about">About Us</Link><Link href="/contact">Our Studio</Link><Link href="/about#quality">Why Marrant</Link></div>
-          <div><h3>Services</h3><Link href="/#services">OEM/ODM Services</Link><Link href="/products/crazy-horse-leather-travel-tote-bag">Design &amp; Development</Link><Link href="/products/crazy-horse-leather-travel-tote-bag">Materials</Link></div>
-          <div><h3>Collections</h3><Link href="/#products">Bags</Link><Link href="/#products">Travel</Link><Link href="/#products">Business</Link></div>
+          <div><h3>Services</h3><Link href="/#oem">OEM/ODM Services</Link><Link href="/about#process">Design &amp; Development</Link><Link href="/products/crazy-horse-leather-travel-tote-bag#customization">Materials</Link></div>
+          <div><h3>Collections</h3><Link href="/products">Bags</Link><Link href="/products/crazy-horse-leather-travel-tote-bag">Travel</Link><Link href="/products">Business</Link></div>
           <div className={styles.footerContact}><h3>Contact</h3><span><MapPinIcon width={15} height={15} />{address}</span><a href="mailto:Melody@marrant.cn"><MailIcon width={15} height={15} />Melody@marrant.cn</a><a href="https://wa.me/8618925073489" target="_blank" rel="noreferrer"><WhatsappIcon width={15} height={15} />+86 189 2507 3489</a></div>
         </div>
         <div className={styles.footerBottom}><span>© 2026 MARRANT. All rights reserved.</span><span>Privacy Policy&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Terms of Use</span></div>

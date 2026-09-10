@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import InternalLinkPanel from "../components/InternalLinkPanel";
 import {
   ArrowRight,
   ChatCircleDots,
@@ -176,6 +177,17 @@ export default function AboutExperience() {
         </div>
       </section>
 
+      <InternalLinkPanel
+        title="Evaluate the right partner"
+        description="Follow the links that connect manufacturing capability, product detail and a practical sourcing process."
+        links={[
+          { href: "/products/crazy-horse-leather-travel-tote-bag", label: "Inspect a product example", description: "See customizable leather, hardware and construction details." },
+          { href: "/products", label: "Browse collections", description: "Start with the bag category that fits your market." },
+          { href: "/blog/how-to-source-crazy-horse-leather-travel-tote-bag", label: "Read the buyer guide", description: "Prepare a stronger sourcing brief before your inquiry." },
+          { href: "/contact#inquiry", label: "Talk with our team", description: "Request a quote or arrange a factory visit." },
+        ]}
+      />
+
       <footer className={styles.footer}>
         <div className={styles.footerGrid}>
           <div className={styles.footerBrand}>
@@ -184,9 +196,9 @@ export default function AboutExperience() {
             <a href="mailto:Melody@marrant.cn">Melody@marrant.cn</a>
             <a href="https://wa.me/8618925073489" target="_blank" rel="noreferrer">+86 189 2507 3489</a>
           </div>
-          <div><h3>Products</h3><Link href="/products">Crazy Horse Leather</Link><Link href="/products">Travel Tote Bags</Link><Link href="/products">Men&apos;s Wallets</Link><Link href="/products">Shoulder Bags</Link></div>
-          <div><h3>OEM/ODM</h3><Link href="/#oem">Our Services</Link><a href="#process">Process</a><a href="#production">Materials</a><Link href="/contact#inquiry">Private Label</Link></div>
-          <div><h3>Resources</h3><Link href="/blog">Materials Guide</Link><Link href="/blog">Care Guide</Link><Link href="/blog">FAQ</Link></div>
+          <div><h3>Products</h3><Link href="/products/crazy-horse-leather-travel-tote-bag">Crazy Horse Leather</Link><Link href="/products">Travel Tote Bags</Link><Link href="/products">Men&apos;s Wallets</Link><Link href="/products">Shoulder Bags</Link></div>
+          <div><h3>OEM/ODM</h3><Link href="/#oem">Our Services</Link><a href="#process">Process</a><Link href="/products/crazy-horse-leather-travel-tote-bag#customization">Materials</Link><Link href="/contact#inquiry">Private Label</Link></div>
+          <div><h3>Resources</h3><Link href="/blog/how-to-source-crazy-horse-leather-travel-tote-bag">Materials Guide</Link><Link href="/blog">Buyer Journal</Link><Link href="/blog/how-to-source-crazy-horse-leather-travel-tote-bag#comparison">Supplier Checklist</Link></div>
           <div><h3>About Us</h3><a href="#production">Our Factory</a><a href="#quality">Why Marrant</a><Link href="/contact">Contact Us</Link></div>
         </div>
         <div className={styles.footerBottom}><span>© 2026 Marrant Leather Co., Ltd. All rights reserved.</span><span>Privacy Policy &nbsp;|&nbsp; Terms of Use</span></div>
