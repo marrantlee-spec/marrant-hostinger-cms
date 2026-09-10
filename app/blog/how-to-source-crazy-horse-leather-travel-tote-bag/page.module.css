@@ -50,11 +50,25 @@
 .article .lead { margin-top: 17px; color: #292521; font-size: 13.5px; }
 .article section { scroll-margin-top: 104px; margin-top: 41px; }
 .article h2 { margin: 0 0 12px; color: #1c1917; font-size: 29px; line-height: 1.12; }
+.article h3 { margin: 28px 0 10px; color: #2b2520; font-family: 'Playfair Display', Georgia, serif; font-size: 21px; font-weight: 600; line-height: 1.2; }
+.article ul, .article ol { display: grid; gap: 8px; margin: 0 0 20px; padding-left: 21px; }
+.article li { padding-left: 3px; }
+.article a { color: #a6572b; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.article code { padding: 1px 4px; background: #e8e1d7; font-size: .92em; }
 .heroImage, .detailImage, .relatedImage { position: relative; overflow: hidden; background: #d9d0c5; }
 .heroImage { aspect-ratio: 1.68 / 1; }
 .heroImage img { object-fit: cover; object-position: 50% 56%; }
 .detailImage { margin-top: 23px; aspect-ratio: 1.84 / 1; }
 .detailImage img { object-fit: cover; object-position: 50% 52%; }
+.articleFigure { margin: 25px 0 5px; }
+.articleFigure > div { position: relative; overflow: hidden; aspect-ratio: 1.55 / 1; background: #d9d0c5; }
+.articleFigure img { object-fit: cover; }
+.articleFigure figcaption { margin-top: 8px; color: #756d65; font-size: 9px; line-height: 1.5; }
+.inlineCta { margin: 34px 0 4px; padding: 28px; border-left: 3px solid var(--caramel); background: #e9e1d6; }
+.inlineCta p { margin: 0 0 6px; color: var(--caramel); font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.inlineCta h3 { margin: 0 0 9px; font-size: 25px; }
+.inlineCta span { display: block; color: #5f5750; font-size: 11px; line-height: 1.6; }
+.inlineCta a { display: inline-flex; margin-top: 16px; padding: 11px 16px; background: var(--caramel); color: #fff; font-size: 10px; text-decoration: none; }
 .article blockquote { position: relative; margin: 27px 0 0 22px; padding: 2px 22px 3px 31px; color: #302a25; font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-style: italic; line-height: 1.36; }
 .article blockquote::before { content: '“'; position: absolute; left: 0; top: -15px; color: var(--caramel); font-family: Georgia, serif; font-size: 66px; font-style: normal; line-height: 1; }
 .article blockquote::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--caramel); }
