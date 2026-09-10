@@ -7,7 +7,7 @@ import { useState } from "react";
 import { ArrowRight, BookOpenText, Factory, Package, PenNib, ShieldCheck } from "@phosphor-icons/react";
 import styles from "./page.module.css";
 
-const articleRoute = "/blog/how-to-source-crazy-horse-leather-travel-tote-bag";
+const articleRoute = "/blog/how-to-choose-a-full-grain-leather-wallet";
 
 const topics = [
   { id: "all", label: "All Articles", detail: "Practical sourcing knowledge for better bag decisions.", Icon: BookOpenText },
@@ -92,13 +92,13 @@ export default function BlogIndexPage() {
 
       <section className={styles.featured} aria-labelledby="featured-title">
         <div className={styles.featureImage}>
-          <Image src="/assets/products/crazy-horse-duffle.png" alt="Crazy Horse leather duffle bag in a workshop setting" fill priority sizes="(max-width: 760px) 100vw, 52vw" />
+          <Image src="/assets/products/mens-bifold-wallet-8064/scenario.jpg" alt="Brown full-grain leather bifold wallet for private-label development" fill priority sizes="(max-width: 760px) 100vw, 52vw" />
         </div>
         <div className={styles.featureCopy}>
           <p className={styles.articleLabel}>Sourcing Guides</p>
-          <h2 id="featured-title">How to Source a Crazy Horse Leather Travel Tote Bag for Your Brand</h2>
-          <p>A step-by-step guide for buyers: leather selection, construction, hardware and sourcing considerations for a travel tote that stands out.</p>
-          <div className={styles.articleMeta}><span>Sep 07, 2026</span><i /><span>7 min read</span></div>
+          <h2 id="featured-title">How to Choose a Full-Grain Leather Wallet for Your Brand</h2>
+          <p>A practical guide to leather specifications, card-slot design, construction and OEM customization for retail wallet collections.</p>
+          <div className={styles.articleMeta}><span>Sep 10, 2026</span><i /><span>7 min read</span></div>
           <Link className={styles.readLink} href={articleRoute}>Read the Guide <ArrowRight size={18} weight="light" /></Link>
         </div>
       </section>

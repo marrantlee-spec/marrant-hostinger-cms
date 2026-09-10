@@ -7,7 +7,7 @@ import { useState } from "react";
 import { ArrowRight, BookOpenText, Factory, Package, PenNib, ShieldCheck } from "@phosphor-icons/react";
 import styles from "../../blog/page.module.css";
 
-const articleRoute = "/zh/blog/how-to-source-crazy-horse-leather-travel-tote-bag";
+const articleRoute = "/zh/blog/how-to-choose-a-full-grain-leather-wallet";
 
 const topics = [
   { id: "all", label: "全部文章", detail: "分享真皮包采购知识，帮助品牌做出合理选择。", Icon: BookOpenText },
@@ -92,13 +92,13 @@ export default function BlogIndexPage() {
 
       <section className={styles.featured} aria-labelledby="featured-title">
         <div className={styles.featureImage}>
-          <Image src="/assets/products/crazy-horse-duffle.png" alt="车间场景中的疯马皮旅行包" fill priority sizes="(max-width: 760px) 100vw, 52vw" />
+          <Image src="/assets/products/mens-bifold-wallet-8064/scenario.jpg" alt="适合品牌定制开发的棕色全粒面牛皮二折钱包" fill priority sizes="(max-width: 760px) 100vw, 52vw" />
         </div>
         <div className={styles.featureCopy}>
           <p className={styles.articleLabel}>采购指南</p>
-          <h2 id="featured-title">如何为品牌采购疯马皮真皮旅行托特包</h2>
-          <p>从皮料、结构到五金与供应商评估，逐步梳理真皮旅行托特包的采购与定制要点。</p>
-          <div className={styles.articleMeta}><span>2026年9月7日</span><i /><span>阅读约7分钟</span></div>
+          <h2 id="featured-title">如何为品牌选择全粒面牛皮钱包</h2>
+          <p>从皮料标准、卡位设计、制作工艺到 OEM 定制，梳理品牌钱包开发前需要确认的重点。</p>
+          <div className={styles.articleMeta}><span>2026年9月10日</span><i /><span>阅读约7分钟</span></div>
           <Link className={styles.readLink} href={articleRoute}>阅读采购指南 <ArrowRight size={18} weight="light" /></Link>
         </div>
       </section>

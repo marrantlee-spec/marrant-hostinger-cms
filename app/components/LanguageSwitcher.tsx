@@ -8,6 +8,7 @@ const translatedRoutes = new Set([
   "/products/crazy-horse-leather-travel-tote-bag",
   "/products/mens-full-grain-leather-bifold-wallet-8064",
   "/blog/how-to-source-crazy-horse-leather-travel-tote-bag",
+  "/blog/how-to-choose-a-full-grain-leather-wallet",
 ]);
 
 export default function LanguageSwitcher({ pathname }: { pathname: string }) {
