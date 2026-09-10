@@ -124,7 +124,7 @@ export default function HomePage() {
 
       <section className="factory" id="factory">
         <div className="container factory-grid">
-          <div className="founders-image"><img src="/assets/brand/founders.jpg" alt="玛轮特皮具创始团队" /></div>
+          <div className="founders-image"><img src="/assets/brand/team-group.jpg" alt="玛轮特皮具团队合照" /></div>
           <div className="factory-copy">
             <p className="eyebrow caramel">广州皮具工厂</p>
             <h2>用心制造，<br />以品质建立信任。</h2>

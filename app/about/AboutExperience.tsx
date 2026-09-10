@@ -113,7 +113,7 @@ export default function AboutExperience() {
         <aside className={styles.peopleCard}>
           <h3>People behind<br />the process.</h3>
           <p>Marrant is led by a hands-on team that values clarity, responsibility and long-term partnerships.</p>
-          <Image src="/assets/brand/founders.jpg" alt="The Marrant founders" width={250} height={250} sizes="(max-width: 900px) 200px, 17vw" />
+          <Image src="/assets/brand/team-group.jpg" alt="The Marrant team" width={2000} height={969} sizes="(max-width: 560px) calc(100vw - 40px), (max-width: 900px) calc(100vw - 68px), 25vw" />
         </aside>
       </section>
 

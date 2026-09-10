@@ -125,7 +125,7 @@ export default function HomePage() {
 
       <section className="factory" id="factory">
         <div className="container factory-grid">
-          <div className="founders-image"><img src="/assets/brand/founders.jpg" alt="The Marrant founders" /></div>
+          <div className="founders-image"><img src="/assets/brand/team-group.jpg" alt="The Marrant team" /></div>
           <div className="factory-copy">
             <p className="eyebrow caramel">OUR FACTORY</p>
             <h2>Crafted with Care.<br />Built on Trust.</h2>

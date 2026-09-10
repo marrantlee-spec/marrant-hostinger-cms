@@ -112,7 +112,7 @@ export default function AboutExperience() {
         <aside className={styles.peopleCard}>
           <h3>专业团队，<br />认真对待每个环节。</h3>
           <p>玛轮特团队深入参与产品开发与生产管理，重视清晰沟通、责任落实和长期合作。</p>
-          <Image src="/assets/brand/founders.jpg" alt="玛轮特皮具创始团队" width={250} height={250} sizes="(max-width: 900px) 200px, 17vw" />
+          <Image src="/assets/brand/team-group.jpg" alt="玛轮特皮具团队合照" width={2000} height={969} sizes="(max-width: 560px) calc(100vw - 40px), (max-width: 900px) calc(100vw - 68px), 25vw" />
         </aside>
       </section>
 
