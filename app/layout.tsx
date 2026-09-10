@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.marrantbag.com"),
   title: "Marrant | Genuine Leather Bag Manufacturer",
   description: "OEM, ODM and private-label genuine leather bags for global buyers.",
+  verification: {
+    google: "tvw02ljMXN8USxdYlfMSpeY9isQXJg8rws1ombYxtnk",
+  },
   icons: {
     icon: "/assets/brand/marrant-logo.png"
   }
