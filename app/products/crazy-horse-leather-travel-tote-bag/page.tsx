@@ -3,25 +3,7 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import InternalLinkPanel from "../../components/InternalLinkPanel";
-import {
-  ArrowRight,
-  CaretDown,
-  ChatCircleDots,
-  CheckCircle,
-  ClipboardText,
-  DownloadSimple,
-  Factory,
-  GlobeHemisphereWest,
-  Lightbulb,
-  List,
-  Package,
-  PencilSimple,
-  ShieldCheck,
-  Swatches,
-  Tag,
-  WhatsappLogo,
-  X,
-} from "@phosphor-icons/react";
+import { ArrowRight, ChatCircleDots, CheckCircle, ClipboardText, DownloadSimple, Factory, GlobeHemisphereWest, Lightbulb, Package, PencilSimple, ShieldCheck, Swatches, Tag, WhatsappLogo } from "@phosphor-icons/react";
 
 const whatsapp = "https://wa.me/8618925073489";
 
@@ -94,12 +76,7 @@ const faqs = [
 export default function TravelToteProductPage() {
   const [activeImage, setActiveImage] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
-  function closeMenu() {
-    setMenuOpen(false);
-  }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -109,23 +86,6 @@ export default function TravelToteProductPage() {
 
   return (
     <main className="product-page" id="top">
-      <header className="product-header">
-        <Link className="product-brand" href="/" aria-label="Marrant home">
-          <img src="/assets/brand/marrant-logo.png" alt="Marrant" />
-        </Link>
-        <nav className={menuOpen ? "product-nav is-open" : "product-nav"} aria-label="Product navigation">
-          <Link href="/" onClick={closeMenu}>Home</Link>
-          <Link href="/products" onClick={closeMenu}>Products</Link>
-          <a href="#customization" onClick={closeMenu}>Customization</a>
-          <Link href="/about#process" onClick={closeMenu}>Capabilities</Link>
-          <Link href="/about" onClick={closeMenu}>About Us</Link>
-          <Link href="/blog" onClick={closeMenu}>Resources</Link>
-          <Link href="/contact#inquiry" onClick={closeMenu}>Contact</Link>
-          <a className="product-nav-cta mobile-only-cta" href="#inquiry" onClick={closeMenu}>Request Specification</a>
-        </nav>
-        <div className="product-header-actions"><span className="language-label">EN <CaretDown size={12} /></span><a className="product-nav-cta" href="#inquiry">Request Specification</a></div>
-        <button className="product-menu-button" type="button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={23} /> : <List size={24} />}</button>
-      </header>
 
       <div className="product-shell">
         <div className="breadcrumbs"><Link href="/">Home</Link><span>›</span><Link href="/products">Bags</Link><span>›</span><Link href="/products">Travel Bags</Link><span>›</span><b>Crazy Horse Leather Travel Tote Bag</b></div>
@@ -201,8 +161,6 @@ export default function TravelToteProductPage() {
           { href: "/contact#inquiry", label: "Request a quote", description: "Send your target quantity, market and customization needs." },
         ]}
       />
-
-      <footer className="product-footer"><div className="product-shell footer-detail"><div><img src="/assets/brand/marrant-logo.png" alt="Marrant" /><p>Reliable leather goods manufacturer for global brands and distributors.</p></div><div><strong>Products</strong><Link href="/products">All Bags</Link><Link href="/products/crazy-horse-leather-travel-tote-bag">Travel Bags</Link><Link href="/products">Briefcases</Link><Link href="/products">Backpacks</Link></div><div><strong>Customization</strong><a href="#customization">OEM / ODM</a><a href="#customization">Materials</a><a href="#customization">Logo & Branding</a><a href="#process">Packaging</a></div><div><strong>Company</strong><Link href="/about">About Us</Link><Link href="/about#production">Our Factory</Link><Link href="/about#quality">Quality Control</Link></div><div><strong>Resources</strong><Link href="/blog">Buyer Journal</Link><Link href="/blog/how-to-source-crazy-horse-leather-travel-tote-bag">Sourcing Guide</Link><a href="#faq">Product FAQ</a></div><div><strong>Contact Us</strong><a href="mailto:Melody@marrant.cn">Melody@marrant.cn</a><a href={whatsapp} target="_blank" rel="noreferrer">+86 189 2507 3489</a><a className="footer-cta" href="#inquiry">Request Specification</a></div></div><div className="product-shell footer-bottom"><span>© 2026 Marrant Leather Co., Ltd. All rights reserved.</span><span>Privacy Policy　|　Terms of Use</span></div></footer>
     </main>
   );
 }

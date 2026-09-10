@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import InternalLinkPanel from "../../components/InternalLinkPanel";
 import BlogInquiryForm from "./BlogInquiryForm";
-import { ArrowRightIcon, CaretDownIcon, CheckCircleIcon, GlobeIcon, PackageIcon, PencilIcon, ShieldIcon } from "../../../blog/how-to-source-crazy-horse-leather-travel-tote-bag/BlogIcons";
+import { ArrowRightIcon, CheckCircleIcon, GlobeIcon, PackageIcon, PencilIcon, ShieldIcon } from "../../../blog/how-to-source-crazy-horse-leather-travel-tote-bag/BlogIcons";
 import styles from "../../../blog/how-to-source-crazy-horse-leather-travel-tote-bag/page.module.css";
 
 export const metadata = chineseMetadata(
@@ -42,19 +42,6 @@ const process = [
 export default function CrazyHorseSourcingGuidePage() {
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/zh" aria-label="玛轮特皮具首页">
-          <Image src="/assets/brand/marrant-logo.png" alt="Marrant" width={170} height={43} priority />
-        </Link>
-        <nav className={styles.navigation} aria-label="主导航">
-          <Link href="/zh/products">产品系列 <CaretDownIcon width={13} height={13} /></Link>
-          <Link href="/zh/#oem">OEM/ODM <CaretDownIcon width={13} height={13} /></Link>
-          <Link href="/zh/about#production">工厂实力</Link>
-          <Link href="/zh/blog">采购指南 <CaretDownIcon width={13} height={13} /></Link>
-          <Link href="/zh/about">关于我们</Link>
-        </nav>
-        <a className={styles.headerCta} href="#inquiry">获取定制报价</a>
-      </header>
 
       <div className={styles.articleShell}>
         <section className={styles.articleHeading}>
@@ -157,17 +144,6 @@ export default function CrazyHorseSourcingGuidePage() {
           { href: "/zh/contact#inquiry", label: "开始采购咨询", description: "直接向玛轮特团队提交需求。" },
         ]}
       />
-
-      <footer className={styles.footer}>
-        <div className={styles.footerInner}>
-          <div><Image src="/assets/brand/marrant-logo.png" alt="Marrant" width={160} height={40} /><p>面向品牌与批发商的专业真皮皮具制造商。</p><a href="mailto:Melody@marrant.cn">Melody@marrant.cn</a></div>
-          <div><strong>制造能力</strong><a href="#process">OEM/ODM</a><a href="#customization">产品开发</a><a href="#materials-quality">材料选配</a><a href="#process">品质管控</a></div>
-          <div><strong>产品系列</strong><Link href="/zh/products/crazy-horse-leather-travel-tote-bag">真皮旅行包</Link><Link href="/zh/products">真皮托特包</Link><Link href="/zh/products">真皮背包</Link><Link href="/zh/products">真皮商务包</Link></div>
-          <div><strong>采购指南</strong><Link href="/zh/blog">皮料知识</Link><a href="#key-considerations">采购核实清单</a><Link href="/zh/contact#inquiry">获取定制报价</Link></div>
-          <div><strong>联系我们</strong><a href="mailto:Melody@marrant.cn">info@marrant.cn</a><a href="https://wa.me/8618925073489" target="_blank" rel="noreferrer">+86 189 2507 3489</a><a className={styles.footerCta} href="#inquiry">开始定制项目 <ArrowRightIcon width={15} height={15} /></a></div>
-        </div>
-        <div className={styles.footerBottom}><span>© 2026 玛轮特皮具 版权所有。</span><span>隐私政策　|　使用条款</span></div>
-      </footer>
     </main>
   );
 }

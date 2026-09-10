@@ -3,25 +3,7 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import InternalLinkPanel from "./components/InternalLinkPanel";
-import {
-  ArrowRight,
-  CaretDown,
-  CheckCircle,
-  ClipboardText,
-  Factory,
-  GlobeHemisphereWest,
-  Handshake,
-  Lightbulb,
-  List,
-  MagnifyingGlass,
-  Package,
-  PencilSimple,
-  ShieldCheck,
-  Swatches,
-  Tag,
-  WhatsappLogo,
-  X
-} from "@phosphor-icons/react";
+import { ArrowRight, CheckCircle, ClipboardText, Factory, GlobeHemisphereWest, Handshake, Lightbulb, MagnifyingGlass, Package, PencilSimple, ShieldCheck, Swatches, Tag, WhatsappLogo } from "@phosphor-icons/react";
 
 const whatsapp = "https://wa.me/8618925073489";
 
@@ -57,57 +39,9 @@ const faqs = [
   "How do you ensure quality?"
 ];
 
-type MegaMenuKey = "products" | "services";
-
-type MegaMenu = {
-  eyebrow: string;
-  title: string;
-  copy: string;
-  links: { label: string; description: string; href: string }[];
-  feature: { label: string; title: string; image: string; href: string };
-};
-
-const megaMenus: Record<MegaMenuKey, MegaMenu> = {
-  products: {
-    eyebrow: "PRODUCT RANGE",
-    title: "Leather collections for every market.",
-    copy: "Explore made-to-order styles for business, travel and everyday carry.",
-    links: [
-      { label: "Crazy Horse Leather", description: "Vintage character, durable finish", href: "/products/crazy-horse-leather-travel-tote-bag" },
-      { label: "Travel Tote Bags", description: "Purposeful carry for daily travel", href: "/products" },
-      { label: "Men's Wallets", description: "Refined essentials and small leather goods", href: "/products" },
-      { label: "Backpacks & Shoulder Bags", description: "Versatile silhouettes for your collection", href: "/products" }
-    ],
-    feature: { label: "FEATURED COLLECTION", title: "Crazy Horse Leather", image: "/assets/products/crazy-horse-duffle.png", href: "/products/crazy-horse-leather-travel-tote-bag" }
-  },
-  services: {
-    eyebrow: "OEM / ODM",
-    title: "Your vision, shaped by our craft.",
-    copy: "A clear, flexible path from product idea to finished collection.",
-    links: [
-      { label: "Product Development", description: "Sketches, sampling and refinement", href: "#oem" },
-      { label: "Materials & Customization", description: "Leather, hardware and finishing details", href: "#oem" },
-      { label: "Flexible Manufacturing", description: "Support for evolving order requirements", href: "#oem" },
-      { label: "Private Label", description: "Built around your brand identity", href: "#oem" }
-    ],
-    feature: { label: "OEM / ODM SERVICE", title: "Make it distinctly yours.", image: "/assets/products/leather-messenger.png", href: "#quote" }
-  }
-};
-
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [activeMega, setActiveMega] = useState<MegaMenuKey | null>(null);
   const [submitted, setSubmitted] = useState(false);
-
-  const closeNavigation = () => {
-    setMenuOpen(false);
-    setActiveMega(null);
-  };
-
-  const showMega = (key: MegaMenuKey) => {
-    setActiveMega(key);
-  };
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -117,63 +51,6 @@ export default function HomePage() {
 
   return (
     <main>
-      <header className="site-header">
-        <a className="brand" href="#top" aria-label="Marrant home">
-          <img src="/assets/brand/marrant-logo.png" alt="Marrant" />
-        </a>
-        <nav className={menuOpen ? "main-nav is-open" : "main-nav"} aria-label="Main navigation" onKeyDown={(event) => { if (event.key === "Escape") setActiveMega(null); }}>
-          <div className="nav-menu-item">
-            <button className="nav-trigger" type="button" onMouseEnter={() => showMega("products")} onFocus={() => showMega("products")} onClick={() => showMega("products")} aria-expanded={activeMega === "products"} aria-controls="mega-menu" aria-haspopup="true">
-              Products <CaretDown size={14} weight="bold" />
-            </button>
-          </div>
-          <div className="nav-menu-item">
-            <button className="nav-trigger" type="button" onMouseEnter={() => showMega("services")} onFocus={() => showMega("services")} onClick={() => showMega("services")} aria-expanded={activeMega === "services"} aria-controls="mega-menu" aria-haspopup="true">
-              OEM/ODM <CaretDown size={14} weight="bold" />
-            </button>
-          </div>
-          <a href="#factory" onClick={closeNavigation}>Factory</a>
-          <Link href="/blog" onClick={closeNavigation}>Blog</Link>
-          <Link href="/about" onClick={closeNavigation}>About Us</Link>
-          <Link href="/contact" onClick={closeNavigation}>Contact Us</Link>
-          <Link className="mobile-quote" href="/contact#inquiry" onClick={closeNavigation}>Request a Quote</Link>
-          {activeMega && (
-            <>
-              <button className="mega-page-dim" type="button" aria-label="Close navigation menu" onClick={() => setActiveMega(null)} />
-              <div className="mega-menu-wrap" id="mega-menu" onMouseLeave={() => setActiveMega(null)}>
-                <section className="mega-menu" aria-label={`${megaMenus[activeMega].eyebrow} navigation`}>
-                  <div className="mega-overview">
-                    <p>{megaMenus[activeMega].eyebrow}</p>
-                    <h2>{megaMenus[activeMega].title}</h2>
-                    <span className="mega-rule" />
-                    <small>{megaMenus[activeMega].copy}</small>
-                  </div>
-                  <div className="mega-links">
-                    {megaMenus[activeMega].links.map((item) => (
-                      <Link href={item.href} key={item.label} onClick={closeNavigation}>
-                        <strong>{item.label}<ArrowRight size={15} /></strong>
-                        <span>{item.description}</span>
-                      </Link>
-                    ))}
-                  </div>
-                  <Link className="mega-feature" href={megaMenus[activeMega].feature.href} onClick={closeNavigation}>
-                    <img src={megaMenus[activeMega].feature.image} alt="" />
-                    <span className="mega-feature-shade" />
-                    <div>
-                      <small>{megaMenus[activeMega].feature.label}</small>
-                      <strong>{megaMenus[activeMega].feature.title}<ArrowRight size={17} /></strong>
-                    </div>
-                  </Link>
-                </section>
-              </div>
-            </>
-          )}
-        </nav>
-        <Link className="header-cta" href="/contact#inquiry">Request a Quote</Link>
-        <button className="menu-button" onClick={() => { setMenuOpen(!menuOpen); setActiveMega(null); }} aria-label="Toggle menu" aria-expanded={menuOpen}>
-          {menuOpen ? <X size={24} /> : <List size={26} />}
-        </button>
-      </header>
 
       <section className="hero" id="top">
         <div className="hero-shade" />
@@ -230,7 +107,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="process section-light">
+      <section className="process section-light" id="process">
         <div className="container">
           <p className="eyebrow caramel">OUR PROCESS</p>
           <h2 className="process-title">From Concept to Global Delivery</h2>
@@ -306,16 +183,6 @@ export default function HomePage() {
           </form>
         </div>
       </section>
-
-      <footer id="about">
-        <div className="container footer-grid">
-          <div className="footer-brand"><img src="/assets/brand/marrant-logo.png" alt="Marrant" /><p>Genuine leather bags. Made for your brand.</p><a href="mailto:Melody@marrant.cn">Melody@marrant.cn</a><a href={whatsapp} target="_blank" rel="noreferrer">+86 189 2507 3489</a></div>
-          <div><h3>Products</h3><Link href="/products/crazy-horse-leather-travel-tote-bag">Crazy Horse Leather</Link><Link href="/products">Travel Tote Bags</Link><Link href="/products">Men&apos;s Wallets</Link><Link href="/products">Backpacks</Link><Link href="/products">Women&apos;s Bags</Link></div>
-          <div><h3>OEM/ODM</h3><a href="#oem">Our Services</a><a href="#oem">Process</a><Link href="/about#production">Materials</Link><Link href="/contact#inquiry">Private Label</Link></div>
-          <div><h3>Resources</h3><Link href="/blog/how-to-source-crazy-horse-leather-travel-tote-bag">Buying Guide</Link><Link href="/blog">Care Guide</Link><a href="#resources">FAQs</a></div>
-          <div><h3>About Us</h3><Link href="/about#production">Our Factory</Link><Link href="/about#quality">Why Marrant</Link><Link href="/contact">Contact Us</Link></div>
-        </div>
-      </footer>
     </main>
   );
 }

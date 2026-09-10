@@ -3,25 +3,7 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import InternalLinkPanel from "./components/InternalLinkPanel";
-import {
-  ArrowRight,
-  CaretDown,
-  CheckCircle,
-  ClipboardText,
-  Factory,
-  GlobeHemisphereWest,
-  Handshake,
-  Lightbulb,
-  List,
-  MagnifyingGlass,
-  Package,
-  PencilSimple,
-  ShieldCheck,
-  Swatches,
-  Tag,
-  WhatsappLogo,
-  X
-} from "@phosphor-icons/react";
+import { ArrowRight, CheckCircle, ClipboardText, Factory, GlobeHemisphereWest, Handshake, Lightbulb, MagnifyingGlass, Package, PencilSimple, ShieldCheck, Swatches, Tag, WhatsappLogo } from "@phosphor-icons/react";
 
 const whatsapp = "https://wa.me/8618925073489";
 
@@ -57,57 +39,9 @@ const faqs = [
   "工厂如何管控产品品质？"
 ];
 
-type MegaMenuKey = "products" | "services";
-
-type MegaMenu = {
-  eyebrow: string;
-  title: string;
-  copy: string;
-  links: { label: string; description: string; href: string }[];
-  feature: { label: string; title: string; image: string; href: string };
-};
-
-const megaMenus: Record<MegaMenuKey, MegaMenu> = {
-  products: {
-    eyebrow: "真皮包产品系列",
-    title: "面向不同市场的真皮包供应方案。",
-    copy: "探索商务、旅行与日常场景的真皮包定制款式。",
-    links: [
-      { label: "疯马皮系列", description: "复古皮质，耐用工艺", href: "/zh/products/crazy-horse-leather-travel-tote-bag" },
-      { label: "旅行托特包", description: "兼顾日常通勤与旅行收纳", href: "/zh/products" },
-      { label: "男士钱包", description: "精致钱包与小皮件", href: "/zh/products" },
-      { label: "背包与单肩包", description: "丰富版型，完善品牌产品线", href: "/zh/products" }
-    ],
-    feature: { label: "推荐系列", title: "疯马皮系列", image: "/assets/products/crazy-horse-duffle.png", href: "/zh/products/crazy-horse-leather-travel-tote-bag" }
-  },
-  services: {
-    eyebrow: "OEM / ODM",
-    title: "您的产品构想，我们的制造经验。",
-    copy: "从产品构思到成品交付，提供清晰、灵活的 OEM 皮具定制与 ODM 皮具制造支持。",
-    links: [
-      { label: "产品开发", description: "设计评估、样品开发与工艺优化", href: "#oem" },
-      { label: "材料选配与定制", description: "皮料、五金与表面处理选配", href: "#oem" },
-      { label: "灵活生产", description: "匹配不同阶段的订单需求", href: "#oem" },
-      { label: "品牌贴牌", description: "围绕品牌定位定制产品细节", href: "#oem" }
-    ],
-    feature: { label: "OEM / ODM 定制服务", title: "打造具有品牌辨识度的皮具产品。", image: "/assets/products/leather-messenger.png", href: "#quote" }
-  }
-};
-
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [activeMega, setActiveMega] = useState<MegaMenuKey | null>(null);
   const [submitted, setSubmitted] = useState(false);
-
-  const closeNavigation = () => {
-    setMenuOpen(false);
-    setActiveMega(null);
-  };
-
-  const showMega = (key: MegaMenuKey) => {
-    setActiveMega(key);
-  };
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -116,63 +50,6 @@ export default function HomePage() {
 
   return (
     <main>
-      <header className="site-header">
-        <a className="brand" href="#top" aria-label="玛轮特皮具首页">
-          <img src="/assets/brand/marrant-logo.png" alt="Marrant" />
-        </a>
-        <nav className={menuOpen ? "main-nav is-open" : "main-nav"} aria-label="主导航" onKeyDown={(event) => { if (event.key === "Escape") setActiveMega(null); }}>
-          <div className="nav-menu-item">
-            <button className="nav-trigger" type="button" onMouseEnter={() => showMega("products")} onFocus={() => showMega("products")} onClick={() => showMega("products")} aria-expanded={activeMega === "products"} aria-controls="mega-menu" aria-haspopup="true">
-              产品系列 <CaretDown size={14} weight="bold" />
-            </button>
-          </div>
-          <div className="nav-menu-item">
-            <button className="nav-trigger" type="button" onMouseEnter={() => showMega("services")} onFocus={() => showMega("services")} onClick={() => showMega("services")} aria-expanded={activeMega === "services"} aria-controls="mega-menu" aria-haspopup="true">
-              OEM/ODM <CaretDown size={14} weight="bold" />
-            </button>
-          </div>
-          <a href="#factory" onClick={closeNavigation}>工厂实力</a>
-          <Link href="/zh/blog" onClick={closeNavigation}>博客</Link>
-          <Link href="/zh/about" onClick={closeNavigation}>关于我们</Link>
-          <Link href="/zh/contact" onClick={closeNavigation}>联系我们</Link>
-          <Link className="mobile-quote" href="/zh/contact#inquiry" onClick={closeNavigation}>获取定制报价</Link>
-          {activeMega && (
-            <>
-              <button className="mega-page-dim" type="button" aria-label="关闭导航菜单" onClick={() => setActiveMega(null)} />
-              <div className="mega-menu-wrap" id="mega-menu" onMouseLeave={() => setActiveMega(null)}>
-                <section className="mega-menu" aria-label={`${megaMenus[activeMega].eyebrow}导航`}>
-                  <div className="mega-overview">
-                    <p>{megaMenus[activeMega].eyebrow}</p>
-                    <h2>{megaMenus[activeMega].title}</h2>
-                    <span className="mega-rule" />
-                    <small>{megaMenus[activeMega].copy}</small>
-                  </div>
-                  <div className="mega-links">
-                    {megaMenus[activeMega].links.map((item) => (
-                      <Link href={item.href} key={item.label} onClick={closeNavigation}>
-                        <strong>{item.label}<ArrowRight size={15} /></strong>
-                        <span>{item.description}</span>
-                      </Link>
-                    ))}
-                  </div>
-                  <Link className="mega-feature" href={megaMenus[activeMega].feature.href} onClick={closeNavigation}>
-                    <img src={megaMenus[activeMega].feature.image} alt="" />
-                    <span className="mega-feature-shade" />
-                    <div>
-                      <small>{megaMenus[activeMega].feature.label}</small>
-                      <strong>{megaMenus[activeMega].feature.title}<ArrowRight size={17} /></strong>
-                    </div>
-                  </Link>
-                </section>
-              </div>
-            </>
-          )}
-        </nav>
-        <Link className="header-cta" href="/zh/contact#inquiry">获取定制报价</Link>
-        <button className="menu-button" onClick={() => { setMenuOpen(!menuOpen); setActiveMega(null); }} aria-label="展开或收起菜单" aria-expanded={menuOpen}>
-          {menuOpen ? <X size={24} /> : <List size={26} />}
-        </button>
-      </header>
 
       <section className="hero" id="top">
         <div className="hero-shade" />
@@ -229,7 +106,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="process section-light">
+      <section className="process section-light" id="process">
         <div className="container">
           <p className="eyebrow caramel">定制合作流程</p>
           <h2 className="process-title">从需求确认到成品交付</h2>
@@ -305,16 +182,6 @@ export default function HomePage() {
           </form>
         </div>
       </section>
-
-      <footer id="about">
-        <div className="container footer-grid">
-          <div className="footer-brand"><img src="/assets/brand/marrant-logo.png" alt="Marrant" /><p>专业真皮包厂家，为您的品牌定制。</p><a href="mailto:Melody@marrant.cn">Melody@marrant.cn</a><a href={whatsapp} target="_blank" rel="noreferrer">+86 189 2507 3489</a></div>
-          <div><h3>产品系列</h3><Link href="/zh/products/crazy-horse-leather-travel-tote-bag">疯马皮系列</Link><Link href="/zh/products">旅行托特包</Link><Link href="/zh/products">男士钱包</Link><Link href="/zh/products">真皮背包</Link><Link href="/zh/products">女士真皮包</Link></div>
-          <div><h3>OEM/ODM</h3><a href="#oem">定制服务</a><a href="#oem">合作流程</a><Link href="/zh/about#production">材料选配</Link><Link href="/zh/contact#inquiry">品牌贴牌</Link></div>
-          <div><h3>采购指南</h3><Link href="/zh/blog/how-to-source-crazy-horse-leather-travel-tote-bag">采购指南</Link><Link href="/zh/blog">养护指南</Link><a href="#resources">常见问题</a></div>
-          <div><h3>关于我们</h3><Link href="/zh/about#production">工厂介绍</Link><Link href="/zh/about#quality">选择玛轮特</Link><Link href="/zh/contact">联系我们</Link></div>
-        </div>
-      </footer>
     </main>
   );
 }

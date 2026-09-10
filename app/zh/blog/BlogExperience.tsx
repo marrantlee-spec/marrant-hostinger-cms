@@ -4,17 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import InternalLinkPanel from "../components/InternalLinkPanel";
 import { useState } from "react";
-import {
-  ArrowRight,
-  BookOpenText,
-  CaretDown,
-  Factory,
-  List,
-  Package,
-  PenNib,
-  ShieldCheck,
-  X,
-} from "@phosphor-icons/react";
+import { ArrowRight, BookOpenText, Factory, Package, PenNib, ShieldCheck } from "@phosphor-icons/react";
 import styles from "../../blog/page.module.css";
 
 const articleRoute = "/zh/blog/how-to-source-crazy-horse-leather-travel-tote-bag";
@@ -88,37 +78,10 @@ type Topic = (typeof topics)[number]["id"];
 
 export default function BlogIndexPage() {
   const [activeTopic, setActiveTopic] = useState<Topic>("all");
-  const [menuOpen, setMenuOpen] = useState(false);
   const visibleArticles = activeTopic === "all" ? articles : articles.filter((article) => article.category === activeTopic);
-
-  const closeMenu = () => setMenuOpen(false);
 
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/zh" aria-label="玛轮特皮具首页" onClick={closeMenu}>
-          <Image src="/assets/brand/marrant-logo.png" alt="Marrant" width={170} height={43} priority />
-        </Link>
-        <button
-          className={styles.menuButton}
-          type="button"
-          aria-label={menuOpen ? "关闭导航" : "展开导航"}
-          aria-expanded={menuOpen}
-          aria-controls="journal-navigation"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? <X size={23} /> : <List size={23} />}
-        </button>
-        <nav className={`${styles.navigation} ${menuOpen ? styles.navigationOpen : ""}`} id="journal-navigation" aria-label="主导航">
-          <Link href="/zh/products" onClick={closeMenu}>产品系列 <CaretDown size={12} /></Link>
-          <Link href="/zh/#oem" onClick={closeMenu}>OEM/ODM <CaretDown size={12} /></Link>
-          <Link href="/zh/about#production" onClick={closeMenu}>工厂实力</Link>
-          <Link href="/zh/blog" aria-current="page" onClick={closeMenu}>皮具博客</Link>
-          <Link href="/zh/about" onClick={closeMenu}>关于我们</Link>
-          <Link className={styles.mobileCta} href="/zh/contact" onClick={closeMenu}>获取定制报价</Link>
-        </nav>
-        <Link className={styles.headerCta} href="/zh/contact">获取定制报价</Link>
-      </header>
 
       <section className={styles.masthead} aria-labelledby="journal-title">
         <p className={styles.kicker}>真皮包采购与制造知识</p>

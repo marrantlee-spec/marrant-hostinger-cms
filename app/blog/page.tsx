@@ -4,17 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import InternalLinkPanel from "../components/InternalLinkPanel";
 import { useState } from "react";
-import {
-  ArrowRight,
-  BookOpenText,
-  CaretDown,
-  Factory,
-  List,
-  Package,
-  PenNib,
-  ShieldCheck,
-  X,
-} from "@phosphor-icons/react";
+import { ArrowRight, BookOpenText, Factory, Package, PenNib, ShieldCheck } from "@phosphor-icons/react";
 import styles from "./page.module.css";
 
 const articleRoute = "/blog/how-to-source-crazy-horse-leather-travel-tote-bag";
@@ -88,37 +78,10 @@ type Topic = (typeof topics)[number]["id"];
 
 export default function BlogIndexPage() {
   const [activeTopic, setActiveTopic] = useState<Topic>("all");
-  const [menuOpen, setMenuOpen] = useState(false);
   const visibleArticles = activeTopic === "all" ? articles : articles.filter((article) => article.category === activeTopic);
-
-  const closeMenu = () => setMenuOpen(false);
 
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/" aria-label="Marrant home" onClick={closeMenu}>
-          <Image src="/assets/brand/marrant-logo.png" alt="Marrant" width={170} height={43} priority />
-        </Link>
-        <button
-          className={styles.menuButton}
-          type="button"
-          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-          aria-expanded={menuOpen}
-          aria-controls="journal-navigation"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? <X size={23} /> : <List size={23} />}
-        </button>
-        <nav className={`${styles.navigation} ${menuOpen ? styles.navigationOpen : ""}`} id="journal-navigation" aria-label="Main navigation">
-          <Link href="/products" onClick={closeMenu}>Products <CaretDown size={12} /></Link>
-          <Link href="/#oem" onClick={closeMenu}>OEM/ODM <CaretDown size={12} /></Link>
-          <Link href="/about#production" onClick={closeMenu}>Factory</Link>
-          <Link href="/blog" aria-current="page" onClick={closeMenu}>Journal</Link>
-          <Link href="/about" onClick={closeMenu}>About Us</Link>
-          <Link className={styles.mobileCta} href="/contact" onClick={closeMenu}>Request a Quote</Link>
-        </nav>
-        <Link className={styles.headerCta} href="/contact">Request a Quote</Link>
-      </header>
 
       <section className={styles.masthead} aria-labelledby="journal-title">
         <p className={styles.kicker}>The Leather Trade Journal</p>

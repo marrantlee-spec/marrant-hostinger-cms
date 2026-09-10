@@ -3,18 +3,7 @@
 import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
 import InternalLinkPanel from "../components/InternalLinkPanel";
-import {
-  ArrowRight,
-  ClipboardText,
-  Factory,
-  List,
-  MagnifyingGlass,
-  Package,
-  PencilSimple,
-  Swatches,
-  Tag,
-  X,
-} from "@phosphor-icons/react";
+import { ArrowRight, ClipboardText, Factory, MagnifyingGlass, Package, PencilSimple, Swatches, Tag } from "@phosphor-icons/react";
 import styles from "./page.module.css";
 
 const categories = [
@@ -92,7 +81,6 @@ export default function ProductsPage() {
   const [query, setQuery] = useState("");
   const [interest, setInterest] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   const visibleProducts = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -121,22 +109,6 @@ export default function ProductsPage() {
 
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/" aria-label="Marrant home">
-          <img src="/assets/brand/marrant-logo.png" alt="Marrant" />
-        </Link>
-        <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ""}`} aria-label="Main navigation">
-          <Link href="/products" onClick={() => setMenuOpen(false)}>Products</Link>
-          <Link href="/#oem" onClick={() => setMenuOpen(false)}>OEM/ODM</Link>
-          <Link href="/#factory" onClick={() => setMenuOpen(false)}>Factory</Link>
-          <Link href="/blog" onClick={() => setMenuOpen(false)}>Resources</Link>
-          <Link href="/about" onClick={() => setMenuOpen(false)}>About Us</Link>
-        </nav>
-        <button className={styles.headerCta} type="button" onClick={() => scrollToId("request")}>Request a Quote</button>
-        <button className={styles.menuButton} type="button" onClick={() => setMenuOpen((open) => !open)} aria-label="Toggle navigation" aria-expanded={menuOpen}>
-          {menuOpen ? <X size={23} /> : <List size={25} />}
-        </button>
-      </header>
 
       <section className={styles.hero} aria-labelledby="page-title">
         <div className={styles.heroCopy}>

@@ -4,19 +4,7 @@ import { FormEvent, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import InternalLinkPanel from "../components/InternalLinkPanel";
-import {
-  ArrowRight,
-  ChatCircleDots,
-  CheckCircle,
-  ClipboardText,
-  Factory,
-  List,
-  Package,
-  PencilSimple,
-  ShieldCheck,
-  Swatches,
-  X,
-} from "@phosphor-icons/react";
+import { ArrowRight, ChatCircleDots, CheckCircle, ClipboardText, Package, PencilSimple, ShieldCheck, Swatches } from "@phosphor-icons/react";
 import styles from "../../about/page.module.css";
 
 const expectationCards = [
@@ -43,12 +31,7 @@ const qualityPoints = [
 ];
 
 export default function AboutExperience() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
-  function closeMenu() {
-    setMenuOpen(false);
-  }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -57,23 +40,6 @@ export default function AboutExperience() {
 
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <Link href="/zh" className={styles.brand} aria-label="玛轮特皮具首页">
-          <Image src="/assets/brand/marrant-logo.png" alt="Marrant" width={166} height={40} priority />
-        </Link>
-        <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ""}`} aria-label="主导航">
-          <Link href="/zh/products" onClick={closeMenu}>产品系列</Link>
-          <Link href="/zh/#oem" onClick={closeMenu}>OEM/ODM</Link>
-          <a href="#production" onClick={closeMenu}>工厂实力</a>
-          <Link href="/zh/blog" onClick={closeMenu}>采购指南</Link>
-          <Link className={styles.activeNav} href="/zh/about" onClick={closeMenu}>关于我们</Link>
-          <Link className={styles.mobileQuote} href="/zh/contact#inquiry" onClick={closeMenu}>获取定制报价</Link>
-        </nav>
-        <Link className={styles.headerCta} href="/zh/contact#inquiry">获取定制报价</Link>
-        <button className={styles.menuButton} type="button" onClick={() => setMenuOpen((open) => !open)} aria-label="展开或收起导航" aria-expanded={menuOpen}>
-          {menuOpen ? <X size={22} /> : <List size={24} />}
-        </button>
-      </header>
 
       <section className={styles.hero} aria-labelledby="page-title">
         <div className={styles.heroCopy}>
@@ -186,22 +152,6 @@ export default function AboutExperience() {
           { href: "/zh/contact#inquiry", label: "联系专业团队", description: "获取定制报价，或预约工厂参观。" },
         ]}
       />
-
-      <footer className={styles.footer}>
-        <div className={styles.footerGrid}>
-          <div className={styles.footerBrand}>
-            <Image src="/assets/brand/marrant-logo.png" alt="Marrant" width={148} height={36} />
-            <p>专业真皮包厂家，为您的品牌定制。</p>
-            <a href="mailto:Melody@marrant.cn">Melody@marrant.cn</a>
-            <a href="https://wa.me/8618925073489" target="_blank" rel="noreferrer">+86 189 2507 3489</a>
-          </div>
-          <div><h3>产品系列</h3><Link href="/zh/products/crazy-horse-leather-travel-tote-bag">疯马皮系列</Link><Link href="/zh/products">旅行托特包</Link><Link href="/zh/products">男士钱包</Link><Link href="/zh/products">真皮单肩包</Link></div>
-          <div><h3>OEM/ODM</h3><Link href="/zh/#oem">定制服务</Link><a href="#process">合作流程</a><Link href="/zh/products/crazy-horse-leather-travel-tote-bag#customization">材料选配</Link><Link href="/zh/contact#inquiry">品牌贴牌</Link></div>
-          <div><h3>采购指南</h3><Link href="/zh/blog/how-to-source-crazy-horse-leather-travel-tote-bag">材料选配指南</Link><Link href="/zh/blog">采购博客</Link><Link href="/zh/blog/how-to-source-crazy-horse-leather-travel-tote-bag#comparison">供应商评估要点</Link></div>
-          <div><h3>关于我们</h3><a href="#production">工厂介绍</a><a href="#quality">选择玛轮特</a><Link href="/zh/contact">联系我们</Link></div>
-        </div>
-        <div className={styles.footerBottom}><span>© 2026 玛轮特皮具 版权所有。</span><span>隐私政策 &nbsp;|&nbsp; 使用条款</span></div>
-      </footer>
     </main>
   );
 }

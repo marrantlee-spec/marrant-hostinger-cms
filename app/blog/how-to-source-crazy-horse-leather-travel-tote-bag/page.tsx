@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import InternalLinkPanel from "../../components/InternalLinkPanel";
 import BlogInquiryForm from "./BlogInquiryForm";
-import { ArrowRightIcon, CaretDownIcon, CheckCircleIcon, GlobeIcon, PackageIcon, PencilIcon, ShieldIcon } from "./BlogIcons";
+import { ArrowRightIcon, CheckCircleIcon, GlobeIcon, PackageIcon, PencilIcon, ShieldIcon } from "./BlogIcons";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -41,19 +41,6 @@ const process = [
 export default function CrazyHorseSourcingGuidePage() {
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/" aria-label="Marrant home">
-          <Image src="/assets/brand/marrant-logo.png" alt="Marrant" width={170} height={43} priority />
-        </Link>
-        <nav className={styles.navigation} aria-label="Main navigation">
-          <Link href="/products">Products <CaretDownIcon width={13} height={13} /></Link>
-          <Link href="/#oem">OEM/ODM <CaretDownIcon width={13} height={13} /></Link>
-          <Link href="/about#production">Factory</Link>
-          <Link href="/blog">Resources <CaretDownIcon width={13} height={13} /></Link>
-          <Link href="/about">About Us</Link>
-        </nav>
-        <a className={styles.headerCta} href="#inquiry">Request a Quote</a>
-      </header>
 
       <div className={styles.articleShell}>
         <section className={styles.articleHeading}>
@@ -156,17 +143,6 @@ export default function CrazyHorseSourcingGuidePage() {
           { href: "/contact#inquiry", label: "Start your inquiry", description: "Send your requirements directly to the Marrant team." },
         ]}
       />
-
-      <footer className={styles.footer}>
-        <div className={styles.footerInner}>
-          <div><Image src="/assets/brand/marrant-logo.png" alt="Marrant" width={160} height={40} /><p>Premium leather goods manufacturer for global brands and distributors.</p><a href="mailto:Melody@marrant.cn">Melody@marrant.cn</a></div>
-          <div><strong>Capabilities</strong><a href="#process">OEM/ODM</a><a href="#customization">Product Development</a><a href="#materials-quality">Materials Sourcing</a><a href="#process">Quality Control</a></div>
-          <div><strong>Products</strong><Link href="/products/crazy-horse-leather-travel-tote-bag">Travel Bags</Link><Link href="/products">Tote Bags</Link><Link href="/products">Backpacks</Link><Link href="/products">Briefcases</Link></div>
-          <div><strong>Resources</strong><Link href="/blog">Material Journal</Link><a href="#key-considerations">Sourcing Checklist</a><Link href="/contact#inquiry">Request a Quote</Link></div>
-          <div><strong>Contact</strong><a href="mailto:Melody@marrant.cn">info@marrant.cn</a><a href="https://wa.me/8618925073489" target="_blank" rel="noreferrer">+86 189 2507 3489</a><a className={styles.footerCta} href="#inquiry">Start a Project <ArrowRightIcon width={15} height={15} /></a></div>
-        </div>
-        <div className={styles.footerBottom}><span>© 2026 Marrant Leather Co., Ltd. All rights reserved.</span><span>Privacy Policy　|　Terms of Use</span></div>
-      </footer>
     </main>
   );
 }

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import LanguageSwitcher from "./components/LanguageSwitcher";
+import SiteHeader from "./components/SiteHeader";
+import SiteFooter from "./components/SiteFooter";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +19,12 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const pathname = requestHeaders.get("x-marrant-pathname") ?? "/";
   return (
     <html lang={locale}>
-      <body>{children}<LanguageSwitcher pathname={pathname} /></body>
+      <body>
+        <SiteHeader locale={locale} />
+        {children}
+        <SiteFooter locale={locale} />
+        <LanguageSwitcher pathname={pathname} />
+      </body>
     </html>
   );
 }

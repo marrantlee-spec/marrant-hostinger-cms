@@ -3,25 +3,7 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import InternalLinkPanel from "../../components/InternalLinkPanel";
-import {
-  ArrowRight,
-  CaretDown,
-  ChatCircleDots,
-  CheckCircle,
-  ClipboardText,
-  DownloadSimple,
-  Factory,
-  GlobeHemisphereWest,
-  Lightbulb,
-  List,
-  Package,
-  PencilSimple,
-  ShieldCheck,
-  Swatches,
-  Tag,
-  WhatsappLogo,
-  X,
-} from "@phosphor-icons/react";
+import { ArrowRight, ChatCircleDots, CheckCircle, ClipboardText, DownloadSimple, Factory, GlobeHemisphereWest, Lightbulb, Package, PencilSimple, ShieldCheck, Swatches, Tag, WhatsappLogo } from "@phosphor-icons/react";
 
 const whatsapp = "https://wa.me/8618925073489";
 
@@ -94,12 +76,7 @@ const faqs = [
 export default function TravelToteProductPage() {
   const [activeImage, setActiveImage] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
-  function closeMenu() {
-    setMenuOpen(false);
-  }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -108,23 +85,6 @@ export default function TravelToteProductPage() {
 
   return (
     <main className="product-page" id="top">
-      <header className="product-header">
-        <Link className="product-brand" href="/zh" aria-label="玛轮特皮具首页">
-          <img src="/assets/brand/marrant-logo.png" alt="Marrant" />
-        </Link>
-        <nav className={menuOpen ? "product-nav is-open" : "product-nav"} aria-label="产品页导航">
-          <Link href="/zh" onClick={closeMenu}>首页</Link>
-          <Link href="/zh/products" onClick={closeMenu}>产品系列</Link>
-          <a href="#customization" onClick={closeMenu}>定制选项</a>
-          <Link href="/zh/about#process" onClick={closeMenu}>制造能力</Link>
-          <Link href="/zh/about" onClick={closeMenu}>关于我们</Link>
-          <Link href="/zh/blog" onClick={closeMenu}>采购指南</Link>
-          <Link href="/zh/contact#inquiry" onClick={closeMenu}>联系我们</Link>
-          <a className="product-nav-cta mobile-only-cta" href="#inquiry" onClick={closeMenu}>获取产品规格</a>
-        </nav>
-        <div className="product-header-actions"><span className="language-label">中文 <CaretDown size={12} /></span><a className="product-nav-cta" href="#inquiry">获取产品规格</a></div>
-        <button className="product-menu-button" type="button" aria-label="展开或收起菜单" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={23} /> : <List size={24} />}</button>
-      </header>
 
       <div className="product-shell">
         <div className="breadcrumbs"><Link href="/zh">首页</Link><span>›</span><Link href="/zh/products">真皮包</Link><span>›</span><Link href="/zh/products">真皮旅行包</Link><span>›</span><b>疯马皮真皮旅行托特包</b></div>
@@ -200,8 +160,6 @@ export default function TravelToteProductPage() {
           { href: "/zh/contact#inquiry", label: "获取定制报价", description: "提供预计数量、目标市场与定制要求。" },
         ]}
       />
-
-      <footer className="product-footer"><div className="product-shell footer-detail"><div><img src="/assets/brand/marrant-logo.png" alt="Marrant" /><p>面向品牌与批发商的专业皮具制造伙伴。</p></div><div><strong>产品系列</strong><Link href="/zh/products">全部真皮包</Link><Link href="/zh/products/crazy-horse-leather-travel-tote-bag">真皮旅行包</Link><Link href="/zh/products">真皮商务包</Link><Link href="/zh/products">真皮背包</Link></div><div><strong>定制选项</strong><a href="#customization">OEM / ODM</a><a href="#customization">材料选配</a><a href="#customization">标识与品牌定制</a><a href="#process">包装</a></div><div><strong>公司</strong><Link href="/zh/about">关于我们</Link><Link href="/zh/about#production">工厂介绍</Link><Link href="/zh/about#quality">品质管控</Link></div><div><strong>采购指南</strong><Link href="/zh/blog">采购博客</Link><Link href="/zh/blog/how-to-source-crazy-horse-leather-travel-tote-bag">采购指南</Link><a href="#faq">产品常见问题</a></div><div><strong>联系我们</strong><a href="mailto:Melody@marrant.cn">Melody@marrant.cn</a><a href={whatsapp} target="_blank" rel="noreferrer">+86 189 2507 3489</a><a className="footer-cta" href="#inquiry">获取产品规格</a></div></div><div className="product-shell footer-bottom"><span>© 2026 玛轮特皮具 版权所有。</span><span>隐私政策　|　使用条款</span></div></footer>
     </main>
   );
 }

@@ -3,18 +3,7 @@
 import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
 import InternalLinkPanel from "../components/InternalLinkPanel";
-import {
-  ArrowRight,
-  ClipboardText,
-  Factory,
-  List,
-  MagnifyingGlass,
-  Package,
-  PencilSimple,
-  Swatches,
-  Tag,
-  X,
-} from "@phosphor-icons/react";
+import { ArrowRight, ClipboardText, Factory, MagnifyingGlass, Package, PencilSimple, Swatches, Tag } from "@phosphor-icons/react";
 import styles from "../../products/page.module.css";
 
 const categories = [
@@ -92,7 +81,6 @@ export default function ProductsPage() {
   const [query, setQuery] = useState("");
   const [interest, setInterest] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   const visibleProducts = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -121,22 +109,6 @@ export default function ProductsPage() {
 
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/zh" aria-label="玛轮特皮具首页">
-          <img src="/assets/brand/marrant-logo.png" alt="Marrant" />
-        </Link>
-        <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ""}`} aria-label="主导航">
-          <Link href="/zh/products" onClick={() => setMenuOpen(false)}>产品系列</Link>
-          <Link href="/zh/#oem" onClick={() => setMenuOpen(false)}>OEM/ODM</Link>
-          <Link href="/zh/#factory" onClick={() => setMenuOpen(false)}>工厂实力</Link>
-          <Link href="/zh/blog" onClick={() => setMenuOpen(false)}>采购指南</Link>
-          <Link href="/zh/about" onClick={() => setMenuOpen(false)}>关于我们</Link>
-        </nav>
-        <button className={styles.headerCta} type="button" onClick={() => scrollToId("request")}>获取定制报价</button>
-        <button className={styles.menuButton} type="button" onClick={() => setMenuOpen((open) => !open)} aria-label="展开或收起导航" aria-expanded={menuOpen}>
-          {menuOpen ? <X size={23} /> : <List size={25} />}
-        </button>
-      </header>
 
       <section className={styles.hero} aria-labelledby="page-title">
         <div className={styles.heroCopy}>

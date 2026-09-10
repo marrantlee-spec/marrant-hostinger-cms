@@ -18,20 +18,6 @@ const googleDirections = `https://www.google.com/maps/dir/?api=1&destination=${m
 export default function ContactPage() {
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <Link href="/" className={styles.brand} aria-label="Marrant home">
-          <Image src="/assets/brand/marrant-logo.png" alt="Marrant Genuine Leather Bags" width={170} height={43} priority />
-        </Link>
-        <nav className={styles.nav} aria-label="Main navigation">
-          <Link href="/about">About Us</Link>
-          <Link href="/#oem">OEM/ODM Services</Link>
-          <Link href="/products">Collections</Link>
-          <Link href="/products/crazy-horse-leather-travel-tote-bag#customization">Materials</Link>
-          <Link href="/about#process">Capabilities</Link>
-          <Link className={styles.activeNav} href="/contact">Contact</Link>
-        </nav>
-        <a className={styles.headerCta} href="#inquiry">Request a Quote</a>
-      </header>
 
       <section className={styles.hero}>
         <div className={styles.heroCopy}>
@@ -115,20 +101,6 @@ export default function ContactPage() {
           { href: "/about#visit", label: "Plan a factory visit", description: "Meet the team and review your project in person." },
         ]}
       />
-
-      <footer className={styles.footer}>
-        <div className={styles.footerGrid}>
-          <div className={styles.footerBrand}>
-            <Image src="/assets/brand/marrant-logo.png" alt="Marrant Genuine Leather Bags" width={150} height={38} />
-            <p>OEM/ODM leather bag manufacturer based in Guangzhou, China. Crafted for global brands.</p>
-          </div>
-          <div><h3>Company</h3><Link href="/about">About Us</Link><Link href="/contact">Our Studio</Link><Link href="/about#quality">Why Marrant</Link></div>
-          <div><h3>Services</h3><Link href="/#oem">OEM/ODM Services</Link><Link href="/about#process">Design &amp; Development</Link><Link href="/products/crazy-horse-leather-travel-tote-bag#customization">Materials</Link></div>
-          <div><h3>Collections</h3><Link href="/products">Bags</Link><Link href="/products/crazy-horse-leather-travel-tote-bag">Travel</Link><Link href="/products">Business</Link></div>
-          <div className={styles.footerContact}><h3>Contact</h3><span><MapPinIcon width={15} height={15} />{address}</span><a href="mailto:Melody@marrant.cn"><MailIcon width={15} height={15} />Melody@marrant.cn</a><a href="https://wa.me/8618925073489" target="_blank" rel="noreferrer"><WhatsappIcon width={15} height={15} />+86 189 2507 3489</a></div>
-        </div>
-        <div className={styles.footerBottom}><span>© 2026 MARRANT. All rights reserved.</span><span>Privacy Policy&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Terms of Use</span></div>
-      </footer>
     </main>
   );
 }

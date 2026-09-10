@@ -15,20 +15,6 @@ const googleDirections = `https://www.google.com/maps/dir/?api=1&destination=${m
 export default function ContactPage() {
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <Link href="/zh" className={styles.brand} aria-label="玛轮特皮具首页">
-          <Image src="/assets/brand/marrant-logo.png" alt="玛轮特真皮包" width={170} height={43} priority />
-        </Link>
-        <nav className={styles.nav} aria-label="主导航">
-          <Link href="/zh/about">关于我们</Link>
-          <Link href="/zh/#oem">OEM / ODM 定制服务</Link>
-          <Link href="/zh/products">产品系列</Link>
-          <Link href="/zh/products/crazy-horse-leather-travel-tote-bag#customization">材料选配</Link>
-          <Link href="/zh/about#process">制造能力</Link>
-          <Link className={styles.activeNav} href="/zh/contact">联系我们</Link>
-        </nav>
-        <a className={styles.headerCta} href="#inquiry">获取定制报价</a>
-      </header>
 
       <section className={styles.hero}>
         <div className={styles.heroCopy}>
@@ -112,20 +98,6 @@ export default function ContactPage() {
           { href: "/zh/about#visit", label: "预约工厂参观", description: "面对面沟通，与团队评估项目方案。" },
         ]}
       />
-
-      <footer className={styles.footer}>
-        <div className={styles.footerGrid}>
-          <div className={styles.footerBrand}>
-            <Image src="/assets/brand/marrant-logo.png" alt="玛轮特真皮包" width={150} height={38} />
-            <p>广州真皮包厂家，提供 OEM 皮具定制与 ODM 皮具制造，服务品牌与专业采购商。</p>
-          </div>
-          <div><h3>公司</h3><Link href="/zh/about">关于我们</Link><Link href="/zh/contact">广州展厅</Link><Link href="/zh/about#quality">选择玛轮特</Link></div>
-          <div><h3>定制服务</h3><Link href="/zh/#oem">OEM / ODM 定制服务</Link><Link href="/zh/about#process">设计与开发</Link><Link href="/zh/products/crazy-horse-leather-travel-tote-bag#customization">材料选配</Link></div>
-          <div><h3>产品系列</h3><Link href="/zh/products">真皮包</Link><Link href="/zh/products/crazy-horse-leather-travel-tote-bag">旅行包</Link><Link href="/zh/products">商务包</Link></div>
-          <div className={styles.footerContact}><h3>联系我们</h3><span><MapPinIcon width={15} height={15} />{address}</span><a href="mailto:Melody@marrant.cn"><MailIcon width={15} height={15} />Melody@marrant.cn</a><a href="https://wa.me/8618925073489" target="_blank" rel="noreferrer"><WhatsappIcon width={15} height={15} />+86 189 2507 3489</a></div>
-        </div>
-        <div className={styles.footerBottom}><span>© 2026 玛轮特皮具 版权所有。</span><span>隐私政策&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;使用条款</span></div>
-      </footer>
     </main>
   );
 }
