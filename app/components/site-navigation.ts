@@ -68,6 +68,7 @@ export function navigationFor(locale: SiteLocale) {
  const chinese = locale === 'zh-CN';
  return {
   home: chinese ? '/zh' : '/',
+  homeText: chinese ? '首页' : 'Home',
   products: chinese ? '产品系列' : 'Products',
   factory: chinese ? '工厂实力' : 'Factory',
   blog: chinese ? '博客' : 'Blog',

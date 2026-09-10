@@ -53,6 +53,7 @@ function HeaderNavigation({ locale, pathname }: { locale: SiteLocale; pathname: 
         <img src="/assets/brand/marrant-logo.png" alt="Marrant" />
       </Link>
       <nav id="site-navigation" className={menuOpen ? "main-nav is-open" : "main-nav"} aria-label={content.navigationLabel}>
+        <Link className="nav-home" href={content.home} onClick={close} onMouseEnter={() => setActiveMega(null)} onFocus={() => setActiveMega(null)} aria-current={pathname === content.home ? "page" : undefined}>{content.homeText}</Link>
         {(["products", "services"] as const).map((key) => (
           <div className="nav-menu-item" key={key}>
             <button
