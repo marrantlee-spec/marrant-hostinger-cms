@@ -16,11 +16,13 @@ function HeaderNavigation({ locale, pathname }: { locale: SiteLocale; pathname: 
   const content = navigationFor(locale);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeMega, setActiveMega] = useState<MegaMenuKey | null>(null);
+  const [activeProductGroup, setActiveProductGroup] = useState(0);
   const triggerRefs = useRef<Partial<Record<MegaMenuKey, HTMLButtonElement | null>>>({});
   const menuButton = useRef<HTMLButtonElement>(null);
   const megaLinks = useRef<HTMLDivElement>(null);
   const focusMenu = useRef(false);
   const menu = activeMega ? content.menus[activeMega] : null;
+  const feature = menu?.groups?.[activeProductGroup]?.feature ?? menu?.feature;
   const path = (value: string) => localizedPath(locale, value);
   const close = () => { setMenuOpen(false); setActiveMega(null); };
 
@@ -42,6 +44,14 @@ function HeaderNavigation({ locale, pathname }: { locale: SiteLocale; pathname: 
     document.addEventListener("keydown", onEscape);
     return () => document.removeEventListener("keydown", onEscape);
   }, [activeMega, menuOpen]);
+
+  useEffect(() => {
+    if (activeMega !== "products") return;
+    content.menus.products.groups?.forEach((group) => {
+      const image = new Image();
+      image.src = group.feature.image;
+    });
+  }, [activeMega, content.menus.products.groups]);
 
   return (
     <header
@@ -85,22 +95,48 @@ function HeaderNavigation({ locale, pathname }: { locale: SiteLocale; pathname: 
         {menu && (
           <>
             <button className="mega-page-dim" type="button" tabIndex={-1} aria-label={content.closeLabel} onClick={() => setActiveMega(null)} />
-            <div className="mega-menu-wrap" id="site-mega-menu">
-              <section className="mega-menu" aria-label={menu.eyebrow}>
+            <div className={menu.groups ? "mega-menu-wrap mega-menu-wrap-products" : "mega-menu-wrap"} id="site-mega-menu">
+              <section className={menu.groups ? "mega-menu mega-menu-products" : "mega-menu"} aria-label={menu.eyebrow}>
                 <div className="mega-overview">
                   <p>{menu.eyebrow}</p><h2>{menu.title}</h2><span className="mega-rule" /><small>{menu.copy}</small>
                 </div>
-                <div ref={megaLinks} className="mega-links">
-                  {menu.links.map((item) => (
-                    <Link href={item.href} key={item.label} onClick={close}>
-                      <strong>{item.label}<ArrowRight size={15} /></strong><span>{item.description}</span>
-                    </Link>
-                  ))}
-                </div>
-                <Link className="mega-feature" href={menu.feature.href} onClick={close}>
-                  <img src={menu.feature.image} alt="" /><span className="mega-feature-shade" />
-                  <div><small>{menu.feature.label}</small><strong>{menu.feature.title}<ArrowRight size={17} /></strong></div>
-                </Link>
+                {menu.groups ? (
+                  <div ref={megaLinks} className="mega-category-groups">
+                    {menu.groups.map((group, index) => (
+                      <section
+                        className={activeProductGroup === index ? "mega-category-group is-active" : "mega-category-group"}
+                        key={group.label}
+                        aria-labelledby={`mega-${group.english.replaceAll(" ", "-").toLowerCase()}`}
+                        onMouseEnter={() => setActiveProductGroup(index)}
+                        onFocus={() => setActiveProductGroup(index)}
+                      >
+                        <Link className="mega-category-heading" href={group.href} onClick={close}>
+                          <span><strong id={`mega-${group.english.replaceAll(" ", "-").toLowerCase()}`}>{group.label}</strong><small>{group.english}</small></span>
+                          <ArrowRight size={15} aria-hidden="true" />
+                        </Link>
+                        <ul>
+                          {group.items.map((item) => (
+                            <li key={item.label}><Link href={item.href} onClick={close}>{item.label}</Link></li>
+                          ))}
+                        </ul>
+                      </section>
+                    ))}
+                  </div>
+                ) : (
+                  <div ref={megaLinks} className="mega-links">
+                    {menu.links?.map((item) => (
+                      <Link href={item.href} key={item.label} onClick={close}>
+                        <strong>{item.label}<ArrowRight size={15} /></strong><span>{item.description}</span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+                {feature ? (
+                  <Link className="mega-feature" href={feature.href} onClick={close}>
+                    <img key={feature.image} src={feature.image} alt={feature.alt ?? ""} /><span className="mega-feature-shade" />
+                    <div key={feature.title}><small>{feature.label}</small><strong>{feature.title}<ArrowRight size={17} /></strong></div>
+                  </Link>
+                ) : null}
               </section>
             </div>
           </>
