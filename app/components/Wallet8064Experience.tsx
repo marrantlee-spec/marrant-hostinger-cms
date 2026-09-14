@@ -179,6 +179,159 @@ const content = {
   },
 } as const;
 
+const airTagContent = {
+  en: {
+    home: "Home",
+    products: "Leather Goods",
+    category: "Men's Wallets",
+    name: "Wholesale Genuine Leather AirTag Passport Holder Wallet",
+    kicker: "Wholesale Travel Wallet · Style No. 1400",
+    title: <>Wholesale Leather<br />AirTag Passport Wallet</>,
+    intro: "A genuine leather passport organizer developed for wholesale and private-label orders, combining an AirTag holder, RFID protection, card storage, a zip pocket, passport sleeve and pen loop.",
+    request: "Request Wholesale Quote",
+    chat: "Discuss your order",
+    galleryLabel: "AirTag passport wallet image gallery",
+    showImage: "Show image",
+    factsLabel: "Product information overview",
+    facts: [
+      ["Style No.", "1400"],
+      ["Material", "Genuine leather"],
+      ["Closed Size", "14 × 11 × 1 cm"],
+      ["Weight", "0.08 kg"],
+      ["Colors", "5 SKU colors"],
+      ["Function", "AirTag slot + RFID"],
+      ["MOQ", "To be confirmed"],
+    ],
+    specifications: "Wholesale Product Specifications",
+    specNote: "Dimensions, weight, construction and colors are based on the supplied product information and images. AirTag is not included. MOQ, samples and production timing are confirmed after the final OEM / ODM brief.",
+    specs: [
+      { left: ["Product Category", "Travel wallet / passport holder"], right: ["Style No.", "1400"] },
+      { left: ["Closed Dimensions", "14 × 11 × 1 cm (5.5 × 4.3 × 0.4 in)"], right: ["Weight", "0.08 kg"] },
+      { left: ["Material", "Genuine leather"], right: ["Construction", "Bifold passport wallet"] },
+      { left: ["SKU Colors", "Brown / Dark Green / Navy Blue / Burgundy / Black"], right: ["Tracking", "Dedicated AirTag slot; AirTag not included"] },
+      { left: ["Interior", "3 card slots, passport pocket, zip pocket and pen loop"], right: ["Protection", "RFID-blocking design"] },
+      { left: ["Customization", "Logo, color, layout and packaging"], right: ["MOQ", "To be confirmed"] },
+      { left: ["Sample Lead Time", "To be confirmed"], right: ["Production Lead Time", "To be confirmed"] },
+    ],
+    materialTitle: "Material & Construction",
+    materialName: "Genuine Leather Travel Organizer",
+    materialCopy: "The structured bifold body keeps a passport, cards and small travel essentials together. Leather grade, thickness, finish and lining can be finalized during sampling.",
+    colorsTitle: "SKU Color Options",
+    colorsCopy: "Five colors are shown in the supplied product images. Custom color matching can be evaluated against order quantity and material availability.",
+    customizationTitle: "OEM / ODM Customization",
+    packagingTitle: "Wholesale Packaging",
+    processTitle: "Order Process",
+    factoryKicker: "Visit Marrant",
+    factoryTitle: "Review Your Passport Wallet Project in Guangzhou",
+    factoryCopy: "Importers, distributors and brand teams can review leather, layout, logo applications, stitching and quality checkpoints with our product team.",
+    factoryPoints: ["Review leather and color options", "Confirm AirTag and RFID construction", "Discuss private-label packaging"],
+    factoryCta: "Plan a Factory Visit",
+    faqTitle: "Wholesale FAQs",
+    faqs: [
+      ["Which SKU colors are available?", "The supplied options are brown, dark green, navy blue, burgundy and black. Final color standards are confirmed before sampling."],
+      ["Is an Apple AirTag included?", "No. The wallet includes a dedicated holder designed for an AirTag, but the tracking device is sold separately."],
+      ["What fits inside the wallet?", "The pictured layout includes three card slots, a passport sleeve, a central zip pocket, a pen loop and an AirTag holder."],
+      ["Can we add our logo or change the interior?", "Yes. Logo treatment, leather color, interior layout and packaging can be evaluated for OEM / ODM orders."],
+      ["What is the wholesale MOQ?", "MOQ and lead time are confirmed after the leather, color, logo, packaging and order requirements are finalized."],
+    ],
+    inquiryTitle: "Request a Wholesale Quote",
+    inquiryCopy: "Share your quantity, destination market and customization requirements for style 1400.",
+    form: {
+      name: "Your Name *", company: "Company Name", email: "Email *", phone: "Phone *", country: "Country / Region",
+      product: "Product Interest", quantity: "Estimated Order Quantity", message: "Message *", privacy: "I agree to the Privacy Policy.",
+      submit: "Submit Inquiry", sending: "Sending…",
+      success: "Thank you. Your inquiry has been sent and our team will reply within one business day.",
+      error: "We could not send your inquiry. Please try again or contact us by email.",
+    },
+    partnerTitle: "Why Partner with Marrant?",
+    partnerPoints: ["Leather goods development and manufacturing", "Flexible private-label customization", "Quality control throughout production", "Support from sample to shipment"],
+    contactTitle: "Contact Information",
+    linksTitle: "Continue Planning Your Collection",
+    linksCopy: "Compare products, review our manufacturing process or send your wholesale requirements.",
+    links: [
+      { href: "/products", label: "Browse all collections", description: "Compare wallets, travel bags, backpacks and other leather goods." },
+      { href: "/about#production", label: "See our production", description: "Understand the process and quality checkpoints behind an order." },
+      { href: "/blog", label: "Read sourcing insights", description: "Prepare materials, construction and supplier requirements." },
+      { href: "/contact#inquiry", label: "Start an inquiry", description: "Send your quantity, market and customization needs." },
+    ],
+  },
+  zh: {
+    home: "首页",
+    products: "真皮产品",
+    category: "男士钱包",
+    name: "批发真皮 AirTag 防丢护照夹钱包",
+    kicker: "批发旅行钱包 · 款号 1400",
+    title: <>批发真皮 AirTag<br />防丢护照夹钱包</>,
+    intro: "面向批发、进口商与品牌贴牌项目的真皮护照收纳钱包，集成 AirTag 槽位、RFID 防护、卡位、拉链袋、护照位与笔插。",
+    request: "获取批发报价",
+    chat: "沟通采购需求",
+    galleryLabel: "AirTag 护照钱包产品图片",
+    showImage: "查看图片",
+    factsLabel: "产品信息概览",
+    facts: [
+      ["款号", "1400"],
+      ["材质", "真皮"],
+      ["闭合尺寸", "14 × 11 × 1 cm"],
+      ["重量", "0.08 kg"],
+      ["SKU 颜色", "5 种"],
+      ["功能", "AirTag 槽 + RFID"],
+      ["MOQ", "根据需求确认"],
+    ],
+    specifications: "批发产品规格",
+    specNote: "尺寸、重量、结构与颜色根据已提供的商品资料及图片整理；产品不含 AirTag。MOQ、打样和大货周期需结合最终 OEM / ODM 方案确认。",
+    specs: [
+      { left: ["产品分类", "旅行钱包 / 护照夹"], right: ["款号", "1400"] },
+      { left: ["闭合尺寸", "14 × 11 × 1 cm（5.5 × 4.3 × 0.4 in）"], right: ["重量", "0.08 kg"] },
+      { left: ["材质", "真皮"], right: ["结构", "二折式护照钱包"] },
+      { left: ["SKU 颜色", "棕色 / 深绿色 / 藏青色 / 酒红色 / 黑色"], right: ["防丢设计", "专用 AirTag 槽位；不含 AirTag"] },
+      { left: ["内部结构", "3 个卡位、护照位、拉链袋与笔插"], right: ["安全防护", "RFID 防扫描设计"] },
+      { left: ["定制项目", "标识、颜色、结构与包装"], right: ["MOQ", "根据需求确认"] },
+      { left: ["打样周期", "根据需求确认"], right: ["大货周期", "根据需求确认"] },
+    ],
+    materialTitle: "材料与结构",
+    materialName: "真皮旅行收纳护照夹",
+    materialCopy: "挺括二折结构集中收纳护照、卡片与小件旅行物品。皮料等级、厚度、表面处理及内衬可在打样阶段确认。",
+    colorsTitle: "SKU 颜色选项",
+    colorsCopy: "当前商品图展示 5 种颜色；可结合采购数量与材料供应情况评估定制配色。",
+    customizationTitle: "OEM / ODM 定制",
+    packagingTitle: "批发包装选项",
+    processTitle: "订单流程",
+    factoryKicker: "到访玛轮特",
+    factoryTitle: "在广州确认您的护照钱包项目",
+    factoryCopy: "欢迎进口商、批发商与品牌团队现场确认皮料、结构、标识工艺、车缝和品质检验要求。",
+    factoryPoints: ["确认皮料与颜色", "核对 AirTag 与 RFID 结构", "沟通品牌贴牌包装"],
+    factoryCta: "预约工厂参观",
+    faqTitle: "批发采购常见问题",
+    faqs: [
+      ["有哪些 SKU 颜色？", "现有商品图展示棕色、深绿色、藏青色、酒红色和黑色，最终颜色标准在打样前确认。"],
+      ["产品包含 Apple AirTag 吗？", "不包含。钱包配有用于放置 AirTag 的专用槽位，追踪设备需另行购买。"],
+      ["内部可以收纳什么？", "图片所示结构包括 3 个卡位、护照位、中央拉链袋、笔插和 AirTag 槽位。"],
+      ["可以定制品牌标识和内部结构吗？", "可以。OEM / ODM 订单可评估标识工艺、皮料颜色、内部布局与包装定制。"],
+      ["批发起订量是多少？", "MOQ 与交期需在皮料、颜色、标识、包装和订单要求确认后核算。"],
+    ],
+    inquiryTitle: "获取批发定制报价",
+    inquiryCopy: "请提供款号 1400 的预计数量、销售市场与定制要求。",
+    form: {
+      name: "姓名 *", company: "公司名称", email: "电子邮箱 *", phone: "联系电话 *", country: "国家 / 地区",
+      product: "意向产品", quantity: "预计采购数量", message: "需求说明 *", privacy: "我同意将以上信息用于本次采购咨询。",
+      submit: "提交采购需求", sending: "正在发送…",
+      success: "提交成功，我们将在一个工作日内回复。",
+      error: "暂时无法发送，请稍后重试或直接通过邮箱联系我们。",
+    },
+    partnerTitle: "为什么选择玛轮特？",
+    partnerPoints: ["真皮产品开发与制造", "灵活的品牌贴牌定制", "生产全过程品质管控", "从打样到出货持续跟进"],
+    contactTitle: "联系方式",
+    linksTitle: "继续规划您的产品系列",
+    linksCopy: "对比更多产品、了解生产流程或提交批发采购需求。",
+    links: [
+      { href: "/zh/products", label: "浏览全部产品", description: "对比钱包、旅行包、背包与其他真皮产品。" },
+      { href: "/zh/about#production", label: "了解生产流程", description: "查看订单生产与品质检验环节。" },
+      { href: "/zh/blog", label: "阅读采购内容", description: "明确材料、结构与供应商评估要求。" },
+      { href: "/zh/contact#inquiry", label: "获取定制报价", description: "提供采购数量、目标市场与定制需求。" },
+    ],
+  },
+} as const;
+
 const gallery = {
   en: [
     { src: `${imageBase}/main.jpg`, alt: "SKU 8064 full-grain leather bifold wallet, main view" },
@@ -194,12 +347,35 @@ const gallery = {
   ],
 } as const;
 
+const airTagGallery = {
+  en: [
+    { src: "/assets/products/leather-airtag-passport-wallet/colors.png", alt: "Wholesale genuine leather AirTag passport wallets in five SKU colors" },
+    { src: "/assets/products/leather-airtag-passport-wallet/interior.png", alt: "Brown leather passport wallet interior with AirTag slot, RFID protection, card slots and zip pocket" },
+    { src: "/assets/products/leather-airtag-passport-wallet/tracking.png", alt: "AirTag passport wallet continuous tracking feature illustration" },
+    { src: "/assets/products/leather-airtag-passport-wallet/burgundy-front.png", alt: "Burgundy genuine leather passport holder wallet front view" },
+  ],
+  zh: [
+    { src: "/assets/products/leather-airtag-passport-wallet/colors.png", alt: "批发真皮 AirTag 护照钱包五种 SKU 颜色" },
+    { src: "/assets/products/leather-airtag-passport-wallet/interior.png", alt: "棕色真皮护照钱包内部 AirTag 槽、RFID 防护、卡位与拉链袋" },
+    { src: "/assets/products/leather-airtag-passport-wallet/tracking.png", alt: "AirTag 护照钱包持续追踪功能说明" },
+    { src: "/assets/products/leather-airtag-passport-wallet/burgundy-front.png", alt: "酒红色真皮护照夹钱包正面" },
+  ],
+} as const;
+
 const colors = [
   ["Black / 黑色", "#22201e"],
   ["Brown / 棕色", "#6c3f27"],
   ["Red Brown / 红棕", "#7b3526"],
   ["Coffee / 咖啡", "#49342b"],
   ["Oil Coffee / 油咖啡", "#795238"],
+] as const;
+
+const airTagColors = [
+  ["Brown / 棕色", "#704126"],
+  ["Dark Green / 深绿", "#233e31"],
+  ["Navy Blue / 藏青", "#173b49"],
+  ["Burgundy / 酒红", "#702b32"],
+  ["Black / 黑色", "#1d1d1c"],
 ] as const;
 
 const customization = {
@@ -229,9 +405,14 @@ const process = {
   zh: [[ChatCircleDots, "需求沟通", "提供产品要求"], [ClipboardText, "方案确认", "确认细节、报价与数量"], [PencilSimple, "样品开发", "制作确认样品"], [Factory, "批量生产", "按确认样品量产"], [GlobeHemisphereWest, "包装交付", "检验、包装与发运"]],
 } as const;
 
-export default function Wallet8064Experience({ locale }: { locale: Locale }) {
-  const copy = content[locale];
-  const images = gallery[locale];
+export default function Wallet8064Experience({ locale, product = "8064" }: { locale: Locale; product?: "8064" | "airtag-passport-wallet" }) {
+  const isAirTagWallet = product === "airtag-passport-wallet";
+  const copy = isAirTagWallet ? airTagContent[locale] : content[locale];
+  const images = isAirTagWallet ? airTagGallery[locale] : gallery[locale];
+  const displayedColors = isAirTagWallet ? airTagColors : colors;
+  const materialImage = isAirTagWallet ? airTagGallery[locale][1].src : `${imageBase}/front.jpg`;
+  const catalogueImage = isAirTagWallet ? airTagGallery[locale][3].src : `${imageBase}/scenario.jpg`;
+  const referenceLabel = isAirTagWallet ? (locale === "zh" ? "款号 1400" : "Style No. 1400") : "SKU 8064";
   const [activeImage, setActiveImage] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [status, setStatus] = useState<FormStatus>(null);
@@ -305,8 +486,8 @@ export default function Wallet8064Experience({ locale }: { locale: Locale }) {
         </section>
 
         <section className="detail-section option-grid" id="customization">
-          <article className="material-card"><div className="section-title"><p>{copy.materialTitle}</p></div><Image src={`${imageBase}/front.jpg`} alt={images[1].alt} width={1000} height={1000} /><h2>{copy.materialName}</h2><p>{copy.materialCopy}</p></article>
-          <article className="color-card"><div className="section-title"><p>{copy.colorsTitle}</p></div><div className="color-swatches wallet-color-swatches">{colors.map(([name, color]) => <button type="button" key={name} aria-label={name}><span style={{ backgroundColor: color }} /><small>{name}</small></button>)}</div><p>{copy.colorsCopy}</p></article>
+          <article className="material-card"><div className="section-title"><p>{copy.materialTitle}</p></div><Image src={materialImage} alt={images[1].alt} width={1000} height={1000} /><h2>{copy.materialName}</h2><p>{copy.materialCopy}</p></article>
+          <article className="color-card"><div className="section-title"><p>{copy.colorsTitle}</p></div><div className="color-swatches wallet-color-swatches">{displayedColors.map(([name, color]) => <button type="button" key={name} aria-label={name}><span style={{ backgroundColor: color }} /><small>{name}</small></button>)}</div><p>{copy.colorsCopy}</p></article>
           <article className="custom-card"><div className="section-title"><p>{copy.customizationTitle}</p></div><div className="custom-methods">{customization[locale].map(({ icon: Icon, title, text }) => <div key={title}><Icon size={28} weight="thin" /><strong>{title}</strong><small>{text}</small></div>)}</div></article>
         </section>
 
@@ -322,13 +503,13 @@ export default function Wallet8064Experience({ locale }: { locale: Locale }) {
 
         <section className="detail-section faq-catalogue" id="faq">
           <article className="faq-list"><div className="section-title"><p>{copy.faqTitle}</p></div>{copy.faqs.map(([question, answer], index) => <div className="faq-item" key={question}><button type="button" onClick={() => setOpenFaq(openFaq === index ? null : index)} aria-expanded={openFaq === index}>{question}<span>{openFaq === index ? "−" : "+"}</span></button>{openFaq === index ? <p>{answer}</p> : null}</div>)}</article>
-          <article className="catalogue-card"><div><div className="section-title"><p>SKU 8064</p></div><p>{copy.intro}</p><a className="product-primary-button" href="#inquiry">{copy.request}</a></div><Image src={`${imageBase}/scenario.jpg`} alt={images[3].alt} width={1000} height={1000} /></article>
+          <article className="catalogue-card"><div><div className="section-title"><p>{referenceLabel}</p></div><p>{copy.intro}</p><a className="product-primary-button" href="#inquiry">{copy.request}</a></div><Image src={catalogueImage} alt={images[3].alt} width={1000} height={1000} /></article>
         </section>
 
         <section className="detail-section inquiry-section" id="inquiry">
           <form className="product-inquiry-form" onSubmit={handleSubmit}>
             <div className="section-title"><p>{copy.inquiryTitle}</p></div><p>{copy.inquiryCopy}</p>
-            <div className="product-form-grid"><input required aria-label={copy.form.name} placeholder={copy.form.name} name="name" autoComplete="name" /><input aria-label={copy.form.company} placeholder={copy.form.company} name="company" autoComplete="organization" /><input required type="email" aria-label={copy.form.email} placeholder={copy.form.email} name="email" autoComplete="email" /><input required type="tel" aria-label={copy.form.phone} placeholder={copy.form.phone} name="phone" autoComplete="tel" /><input aria-label={copy.form.country} placeholder={copy.form.country} name="country" autoComplete="country-name" /><input readOnly aria-label={copy.form.product} name="product" value={`SKU 8064 · ${copy.name}`} /><input aria-label={copy.form.quantity} placeholder={copy.form.quantity} name="quantity" /></div>
+            <div className="product-form-grid"><input required aria-label={copy.form.name} placeholder={copy.form.name} name="name" autoComplete="name" /><input aria-label={copy.form.company} placeholder={copy.form.company} name="company" autoComplete="organization" /><input required type="email" aria-label={copy.form.email} placeholder={copy.form.email} name="email" autoComplete="email" /><input required type="tel" aria-label={copy.form.phone} placeholder={copy.form.phone} name="phone" autoComplete="tel" /><input aria-label={copy.form.country} placeholder={copy.form.country} name="country" autoComplete="country-name" /><input readOnly aria-label={copy.form.product} name="product" value={`${referenceLabel} · ${copy.name}`} /><input aria-label={copy.form.quantity} placeholder={copy.form.quantity} name="quantity" /></div>
             <textarea required aria-label={copy.form.message} placeholder={copy.form.message} name="message" rows={5} />
             <div hidden><label>Website<input autoComplete="off" name="website" tabIndex={-1} /></label></div>
             <label className="privacy-check"><input required type="checkbox" /> {copy.form.privacy}</label>

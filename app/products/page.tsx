@@ -40,6 +40,13 @@ const products = [
     href: "/products/mens-full-grain-leather-bifold-wallet-8064",
   },
   {
+    category: "Men's Wallets",
+    title: "Wholesale Leather AirTag Passport Wallet",
+    copy: "RFID passport organizer with an AirTag slot for wholesale and private-label orders.",
+    image: "/assets/products/leather-airtag-passport-wallet/colors.png",
+    href: "/products/wholesale-leather-airtag-passport-holder-wallet",
+  },
+  {
     category: "Shoulder Bags",
     title: "Shoulder Bags",
     copy: "Versatile silhouettes for work and daily use.",

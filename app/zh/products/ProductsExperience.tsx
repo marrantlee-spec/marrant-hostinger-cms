@@ -40,6 +40,13 @@ const products = [
     href: "/zh/products/mens-full-grain-leather-bifold-wallet-8064",
   },
   {
+    category: "男士钱包",
+    title: "批发真皮 AirTag 防丢护照夹钱包",
+    copy: "带 RFID 防护与 AirTag 槽位，适合批发及品牌贴牌定制。",
+    image: "/assets/products/leather-airtag-passport-wallet/colors.png",
+    href: "/zh/products/wholesale-leather-airtag-passport-holder-wallet",
+  },
+  {
     category: "真皮单肩包",
     title: "真皮单肩包",
     copy: "实用版型，适配通勤与日常场景。",

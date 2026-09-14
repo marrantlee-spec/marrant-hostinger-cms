@@ -20,5 +20,11 @@
 .switcher a:focus-visible { outline: 2px solid #efb487; outline-offset: 4px; }
 .switcher span { color: #918578; }
 @media (max-width: 600px) {
-  .switcher { right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); }
+  .switcher {
+    right: 10px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    gap: 6px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
 }
