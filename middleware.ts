@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-export function proxy(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const isProtectedAdmin = pathname.startsWith("/admin/") && pathname !== "/admin/login";
   if (isProtectedAdmin && !request.cookies.has("marrant_admin_session")) {
