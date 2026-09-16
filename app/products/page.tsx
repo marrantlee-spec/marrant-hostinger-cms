@@ -1,68 +1,150 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import InternalLinkPanel from "../components/InternalLinkPanel";
+import { isProductCategoryId, productCategoriesFor, type ProductCategoryId } from "../components/product-taxonomy";
+import { useInquirySubmission } from "../components/useInquirySubmission";
 import { ArrowRight, ClipboardText, Factory, MagnifyingGlass, Package, PencilSimple, Swatches, Tag } from "@phosphor-icons/react";
 import styles from "./page.module.css";
 
-const categories = [
-  "All Collections",
-  "Crazy Horse Leather",
-  "Travel Tote Bags",
-  "Men's Wallets",
-  "Shoulder Bags",
-  "Backpacks",
-  "Women's Bags",
-] as const;
-
-type Category = (typeof categories)[number];
+const categoryGroups = productCategoriesFor("en");
+type Category = "all" | ProductCategoryId;
 
 const products = [
   {
-    category: "Crazy Horse Leather",
+    category: "bags",
     title: "Crazy Horse Leather",
     copy: "Character-rich leather made for lasting collections.",
     image: "/assets/products/crazy-horse-duffle-catalogue-v1.png",
     href: "/products/crazy-horse-leather-travel-tote-bag",
   },
   {
-    category: "Travel Tote Bags",
+    category: "bags",
     title: "Travel Tote Bags",
     copy: "Purposeful carry for modern travel and work.",
     image: "/assets/products/black-travel-tote-catalogue-v1.png",
   },
   {
-    category: "Men's Wallets",
+    category: "small-leather-goods",
     title: "Full-Grain Leather Bifold Wallet · 8064",
     copy: "A compact men's wallet with customizable branding and interior details.",
     image: "/assets/products/mens-bifold-wallet-8064/main.jpg",
     href: "/products/mens-full-grain-leather-bifold-wallet-8064",
   },
   {
-    category: "Men's Wallets",
+    category: "small-leather-goods",
     title: "Wholesale Leather AirTag Passport Wallet",
     copy: "RFID passport organizer with an AirTag slot for wholesale and private-label orders.",
     image: "/assets/products/leather-airtag-passport-wallet/colors.png",
     href: "/products/wholesale-leather-airtag-passport-holder-wallet",
   },
   {
-    category: "Shoulder Bags",
+    category: "small-leather-goods",
+    title: "Wholesale Leather Compass Bifold Wallet · 1040",
+    copy: "Top-grain cowhide wallet with compass embossing, anti-scan lining and nine listed SKU options.",
+    image: "/assets/products/leather-compass-wallet-1040/main.png",
+    href: "/products/wholesale-top-grain-leather-compass-bifold-wallet",
+  },
+  {
+    category: "small-leather-goods",
+    title: "Wholesale Crazy Horse Leather Card Holder · 1343",
+    copy: "Lightweight slim card holder with a vintage crazy-horse finish and six listed colors.",
+    image: "/assets/products/crazy-horse-leather-card-holder-1343/color-overview-logo-removed.png",
+    href: "/products/wholesale-crazy-horse-leather-slim-card-holder",
+  },
+  {
+    category: "small-leather-goods",
+    title: "Wholesale Top-Grain Leather Manicure Scissors Pouch · Q1002",
+    copy: "Embossed cowhide pouch with layered tool pockets, snap closure and a compact portable format.",
+    image: "/assets/products/top-grain-leather-manicure-scissors-pouch-q1002/features-overview.webp",
+    href: "/products/wholesale-top-grain-leather-manicure-scissors-storage-pouch",
+  },
+  {
+    category: "small-leather-goods",
+    title: "Wholesale Crazy Horse Leather Notebook Cover · Q1005",
+    copy: "Compact notebook organizer with a card pocket, pen loop and vintage crazy horse leather finish.",
+    image: "/assets/products/crazy-horse-leather-notebook-cover-q1005/features.webp",
+    href: "/products/wholesale-crazy-horse-leather-notebook-cover",
+  },
+  {
+    category: "small-leather-goods",
+    title: "Wholesale Top-Grain Leather Zip Coin Pocket Wallet · 7042",
+    copy: "Compact cowhide bifold wallet with a rear zipper pocket, snap closure and four listed colors.",
+    image: "/assets/products/top-grain-zip-wallet-7042/coffee-front.webp",
+    href: "/products/wholesale-top-grain-leather-zip-coin-pocket-bifold-wallet",
+  },
+  {
+    category: "bags",
     title: "Shoulder Bags",
     copy: "Versatile silhouettes for work and daily use.",
     image: "/assets/products/leather-messenger-catalogue-v1.png",
   },
   {
-    category: "Backpacks",
+    category: "bags",
     title: "Backpacks",
     copy: "Practical designs built for a life in motion.",
     image: "/assets/products/leather-backpack-catalogue-v1.png",
   },
   {
-    category: "Women's Bags",
+    category: "bags",
     title: "Women's Bags",
     copy: "Polished forms with thoughtful leather details.",
     image: "/assets/products/womens-handbag-catalogue-v1.png",
+  },
+  {
+    category: "desk-lifestyle",
+    title: "Wholesale Crazy Horse Leather Scissors Storage Pouch · Q1003",
+    copy: "Top-grain cowhide pen-style pouch with layered tool pockets, snap closure and a vintage crazy horse finish.",
+    image: "/assets/products/crazy-horse-leather-scissors-pouch-q1003/features-overview.webp",
+    href: "/products/wholesale-crazy-horse-leather-scissors-storage-pouch",
+  },
+  {
+    category: "desk-lifestyle",
+    title: "Wholesale Top-Grain Leather Multipurpose Pen Case · Q1004",
+    copy: "Structured cowhide zipper pen case with five color options for desk, stationery and compact-tool collections.",
+    image: "/assets/products/top-grain-leather-multipurpose-pen-case-q1004/colors.webp",
+    href: "/products/wholesale-top-grain-leather-multipurpose-pen-case",
+  },
+  {
+    category: "desk-lifestyle",
+    title: "Wholesale Top-Grain Leather Pen Holder · Q1006",
+    copy: "Cylindrical open-top cowhide organizer for pens, pencils and compact desktop tools.",
+    image: "/assets/products/top-grain-leather-pen-holder-q1006/features.webp",
+    href: "/products/wholesale-top-grain-leather-pen-holder",
+  },
+  {
+    category: "desk-lifestyle",
+    title: "Wholesale Top-Grain Leather Compass Pencil Case · Q1008",
+    copy: "Zip-around cowhide pencil case with polyester lining, elastic pen loops and a mesh pocket.",
+    image: "/assets/products/top-grain-leather-compass-pencil-case-q1008/features.webp",
+    href: "/products/wholesale-top-grain-leather-compass-pencil-case",
+  },
+  {
+    category: "desk-lifestyle",
+    title: "Wholesale Top-Grain Leather Folding Catchall Tray · Q1009",
+    copy: "Fold-flat cowhide valet tray with four corner snaps for keys, cables and small everyday items.",
+    image: "/assets/products/top-grain-leather-catchall-tray-q1009/features.webp",
+    href: "/products/wholesale-top-grain-leather-catchall-tray",
+  },
+  {
+    category: "desk-lifestyle",
+    title: "Wholesale Embossed Top-Grain Leather Pen Sleeve · Q1010",
+    copy: "Slim floral-embossed cowhide pen sleeve with two listed sizes and a tuck-through flap closure.",
+    image: "/assets/products/embossed-top-grain-leather-pen-sleeve-q1010/features.webp",
+    href: "/products/wholesale-embossed-top-grain-leather-pen-sleeve",
+  },
+  {
+    category: "desk-lifestyle",
+    title: "Desk & Lifestyle",
+    copy: "Mouse pads, coasters, pen cases and keychains for branded collections.",
+    image: "/assets/navigation/crazy-horse-desk-v1.webp",
+  },
+  {
+    category: "cases-gifts",
+    title: "Cases & Gifts",
+    copy: "Watch boxes, cigar cases and gift sets made for private-label programs.",
+    image: "/assets/navigation/crazy-horse-gifts-v1.webp",
   },
 ] as const;
 
@@ -85,34 +167,36 @@ function scrollToId(id: string) {
 }
 
 export default function ProductsPage() {
-  const [activeCategory, setActiveCategory] = useState<Category>("All Collections");
+  const [activeCategory, setActiveCategory] = useState<Category>("all");
   const [query, setQuery] = useState("");
   const [interest, setInterest] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const { handleSubmit, isSubmitting, resetStatus, status } = useInquirySubmission("en");
+
+  useEffect(() => {
+    const category = new URLSearchParams(window.location.search).get("category");
+    if (isProductCategoryId(category)) setActiveCategory(category);
+  }, []);
 
   const visibleProducts = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     return products.filter((product) => {
-      const isInCategory = activeCategory === "All Collections" || product.category === activeCategory;
-      const matchesSearch = !normalized || `${product.title} ${product.copy} ${product.category}`.toLowerCase().includes(normalized);
+      const category = categoryGroups.find((group) => group.id === product.category);
+      const searchTerms = category ? `${category.label} ${category.items.map((item) => item.label).join(" ")}` : "";
+      const isInCategory = activeCategory === "all" || product.category === activeCategory;
+      const matchesSearch = !normalized || `${product.title} ${product.copy} ${searchTerms}`.toLowerCase().includes(normalized);
       return isInCategory && matchesSearch;
     });
   }, [activeCategory, query]);
 
   const chooseCategory = (category: Category) => {
     setActiveCategory(category);
-    setSubmitted(false);
+    resetStatus();
   };
 
   const requestProduct = (product: (typeof products)[number]) => {
-    setInterest(product.title);
-    setSubmitted(false);
+    setInterest(product.category);
+    resetStatus();
     scrollToId("request");
-  };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSubmitted(true);
   };
 
   return (
@@ -145,9 +229,10 @@ export default function ProductsPage() {
         </div>
         <div className={styles.catalogueLayout}>
           <aside className={styles.categoryRail} aria-label="Filter collections">
-            {categories.map((category) => (
-              <button key={category} type="button" className={activeCategory === category ? styles.categoryActive : ""} onClick={() => chooseCategory(category)}>
-                {category}
+            <button type="button" className={activeCategory === "all" ? styles.categoryActive : ""} onClick={() => chooseCategory("all")}>All Products</button>
+            {categoryGroups.map((category) => (
+              <button key={category.id} type="button" className={activeCategory === category.id ? styles.categoryActive : ""} onClick={() => chooseCategory(category.id)}>
+                {category.label}
               </button>
             ))}
           </aside>
@@ -172,7 +257,7 @@ export default function ProductsPage() {
             {visibleProducts.length === 0 && (
               <div className={styles.emptyState}>
                 <p>No collection matches that search.</p>
-                <button type="button" onClick={() => { setQuery(""); chooseCategory("All Collections"); }}>Show all collections</button>
+                <button type="button" onClick={() => { setQuery(""); chooseCategory("all"); }}>Show all products</button>
               </div>
             )}
           </div>
@@ -205,12 +290,12 @@ export default function ProductsPage() {
             <label><span>Country / Region</span><input name="region" placeholder="Your country or region" /></label>
           </div>
           <div className={styles.formTwoColumns}>
-            <label><span>Product Category</span><select name="product" value={interest} onChange={(event) => setInterest(event.target.value)}><option value="">Select a category</option>{products.map((product) => <option key={product.title} value={product.title}>{product.title}</option>)}</select></label>
+            <label><span>Product Category</span><select name="product" value={interest} onChange={(event) => setInterest(event.target.value)}><option value="">Select a category</option>{categoryGroups.map((category) => <option key={category.id} value={category.id}>{category.label}</option>)}</select></label>
             <label><span>Order Timeline</span><select name="timeline" defaultValue=""><option value="" disabled>Select timeline</option><option>To be discussed</option><option>Sample first</option><option>Production ready</option></select></label>
           </div>
           <label className={styles.messageField}><span>Tell us about your project</span><textarea required name="message" rows={4} placeholder="Materials, design, target market, quantities, or anything else we should know..." /></label>
-          <button className={styles.primaryButton} type="submit">Submit Inquiry</button>
-          {submitted && <p className={styles.success} role="status">Thank you. Our team will review your request and get back to you with the next step.</p>}
+          <button className={styles.primaryButton} type="submit" disabled={isSubmitting}>{isSubmitting ? "Sending..." : "Submit Inquiry"}</button>
+          {status ? <p className={styles.success} role="status" data-tone={status.tone}>{status.message}</p> : null}
         </form>
       </section>
 

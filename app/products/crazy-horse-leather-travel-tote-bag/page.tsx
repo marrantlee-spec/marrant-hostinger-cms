@@ -1,7 +1,9 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import { contactEmail, contactEmailHref } from "../../components/contact-details";
+import { useInquirySubmission } from "../../components/useInquirySubmission";
 import InternalLinkPanel from "../../components/InternalLinkPanel";
 import { ArrowRight, ChatCircleDots, CheckCircle, ClipboardText, DownloadSimple, Factory, GlobeHemisphereWest, Lightbulb, Package, PencilSimple, ShieldCheck, Swatches, Tag, WhatsappLogo } from "@phosphor-icons/react";
 
@@ -76,13 +78,7 @@ const faqs = [
 export default function TravelToteProductPage() {
   const [activeImage, setActiveImage] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [submitted, setSubmitted] = useState(false);
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitted(true);
-    event.currentTarget.reset();
-  }
+  const { handleSubmit, isSubmitting, status } = useInquirySubmission("en");
 
   return (
     <main className="product-page" id="top">
@@ -144,10 +140,10 @@ export default function TravelToteProductPage() {
             <div className="product-form-grid"><input required aria-label="Your name" placeholder="Your Name *" name="name" /><input aria-label="Company name" placeholder="Company Name" name="company" /><input required type="email" aria-label="Email" placeholder="Email *" name="email" /><input aria-label="Country or region" placeholder="Country / Region" name="country" /><input aria-label="Product interest" placeholder="Product Interest" name="interest" /><input aria-label="Estimated order quantity" placeholder="Estimated Order Quantity" name="quantity" /></div>
             <textarea required aria-label="Message" placeholder="Message *" name="message" rows={5} />
             <label className="privacy-check"><input required type="checkbox" /> I agree to the Privacy Policy.</label>
-            <button className="product-primary-button product-submit" type="submit">Submit Inquiry <ArrowRight size={17} /></button>
-            {submitted && <p className="product-success" role="status">Thank you. Our sales team will contact you soon.</p>}
+            <button className="product-primary-button product-submit" type="submit" disabled={isSubmitting}>{isSubmitting ? "Sending..." : "Submit Inquiry"} <ArrowRight size={17} /></button>
+            {status ? <p className="product-success" role="status" data-tone={status.tone}>{status.message}</p> : null}
           </form>
-          <aside className="partner-card" id="about-marrant"><div><div className="section-title"><p>Why Partner with Marrant?</p></div><ul><li><ShieldCheck size={18} /> Specialized in leather bag manufacturing</li><li><Swatches size={18} /> Flexible customization for global markets</li><li><CheckCircle size={18} /> Reliable quality control and delivery</li><li><ChatCircleDots size={18} /> Dedicated support from inquiry to after-sales</li></ul></div><div className="partner-contact"><strong>Contact Information</strong><a href="mailto:Melody@marrant.cn">Melody@marrant.cn</a><a href={whatsapp} target="_blank" rel="noreferrer">+86 189 2507 3489</a><span>Guangzhou, China</span></div></aside>
+          <aside className="partner-card" id="about-marrant"><div><div className="section-title"><p>Why Partner with Marrant?</p></div><ul><li><ShieldCheck size={18} /> Specialized in leather bag manufacturing</li><li><Swatches size={18} /> Flexible customization for global markets</li><li><CheckCircle size={18} /> Reliable quality control and delivery</li><li><ChatCircleDots size={18} /> Dedicated support from inquiry to after-sales</li></ul></div><div className="partner-contact"><strong>Contact Information</strong><a href={contactEmailHref}>{contactEmail}</a><a href={whatsapp} target="_blank" rel="noreferrer">+86 189 2507 3489</a><span>Guangzhou, China</span></div></aside>
         </section>
       </div>
 

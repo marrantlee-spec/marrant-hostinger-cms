@@ -1,11 +1,14 @@
 "use client";
 
-import { FormEvent, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import InternalLinkPanel from "../components/InternalLinkPanel";
+import { productCategoriesFor } from "../../components/product-taxonomy";
+import { useInquirySubmission } from "../../components/useInquirySubmission";
 import { ArrowRight, ChatCircleDots, CheckCircle, ClipboardText, Package, PencilSimple, ShieldCheck, Swatches } from "@phosphor-icons/react";
 import styles from "../../about/page.module.css";
+
+const productCategories = productCategoriesFor("zh-CN");
 
 const expectationCards = [
   { icon: PencilSimple, title: "产品开发", copy: "从设计图到实物样品，协助您的产品方案落地。" },
@@ -31,12 +34,7 @@ const qualityPoints = [
 ];
 
 export default function AboutExperience() {
-  const [submitted, setSubmitted] = useState(false);
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitted(true);
-  }
+  const { handleSubmit, isSubmitting, status } = useInquirySubmission("zh-CN");
 
   return (
     <main className={styles.page}>
@@ -128,11 +126,11 @@ export default function AboutExperience() {
           <label><span>电子邮箱 <b>*</b></span><input required type="email" name="email" autoComplete="email" placeholder="you@email.com" /></label>
           <label><span>公司</span><input name="company" autoComplete="organization" placeholder="请填写公司名称" /></label>
           <label><span>国家 / 地区</span><input name="region" autoComplete="country-name" placeholder="请填写国家或地区" /></label>
-          <label><span>产品品类</span><select name="product" defaultValue=""><option value="" disabled>请选择产品品类</option><option>真皮托特包</option><option>真皮旅行包</option><option>真皮背包</option><option>OEM 皮具定制项目</option></select></label>
+          <label><span>产品品类</span><select name="product" defaultValue=""><option value="" disabled>请选择产品品类</option>{productCategories.map((category) => <option key={category.id} value={category.id}>{category.label}</option>)}<option value="custom-oem">OEM 皮具定制项目</option></select></label>
           <label><span>意向参观日期</span><input type="date" name="visitDate" /></label>
           <label className={styles.message}><span>需求说明</span><textarea name="message" rows={3} placeholder="请说明希望了解的产品、工艺或合作事项。" /></label>
-          <button type="submit">提交参观需求 <ArrowRight size={17} /></button>
-          {submitted && <p className={styles.success} role="status">此处信息尚未发送，请<Link href="/zh/contact#inquiry" style={{ textDecoration: "underline" }}>前往联系表单</Link>提交参观需求。</p>}
+          <button type="submit" disabled={isSubmitting}>{isSubmitting ? "发送中……" : "提交参观需求"} <ArrowRight size={17} /></button>
+          {status ? <p className={styles.success} role="status" data-tone={status.tone}>{status.message}</p> : null}
         </form>
         <div className={styles.quoteCard}>
           <p className={styles.kicker}>开始定制合作</p>

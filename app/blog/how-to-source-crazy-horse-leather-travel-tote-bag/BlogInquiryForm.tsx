@@ -1,18 +1,12 @@
 "use client";
 
-import { FormEvent, useState } from "react";
 import { ArrowRightIcon, WhatsappIcon } from "./BlogIcons";
+import { useInquirySubmission } from "../../components/useInquirySubmission";
 
 const whatsapp = "https://wa.me/8618925073489";
 
 export default function BlogInquiryForm() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setIsSubmitted(true);
-    event.currentTarget.reset();
-  }
+  const { handleSubmit, isSubmitting, status } = useInquirySubmission("en");
 
   return (
     <form className="blog-inquiry-form" onSubmit={handleSubmit}>
@@ -50,10 +44,10 @@ export default function BlogInquiryForm() {
         <textarea required name="message" rows={5} placeholder="Tell us about your project, product requirements, special requests, etc." />
       </label>
 
-      <button type="submit" className="blog-submit-button">
-        Request a Quote <ArrowRightIcon width={17} height={17} />
+      <button type="submit" className="blog-submit-button" disabled={isSubmitting}>
+        {isSubmitting ? "Sending..." : "Request a Quote"} <ArrowRightIcon width={17} height={17} />
       </button>
-      {isSubmitted && <p className="blog-form-success" role="status">Thank you. Our team will contact you soon.</p>}
+      {status ? <p className="blog-form-success" role="status" data-tone={status.tone}>{status.message}</p> : null}
 
       <div className="blog-form-contact">
         <span>Or contact us on WhatsApp</span>

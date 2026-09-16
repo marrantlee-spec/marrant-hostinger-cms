@@ -1,3 +1,125 @@
+# Design QA — Marrant 工厂实力中文版 · 方案 2
+
+## Comparison target and evidence
+
+- **Source visual truth path:** `D:\GPT\Marrant独立站9.7\design-reference\factory-page-version-2.png`，971 × 1619 px；按比例归一化到原定 1440 × 2400 构图进行比较。
+- **Implementation:** `http://localhost:3000/zh/factory`。
+- **Implementation browser evidence:** Codex 内置浏览器在 1440 × 1000 CSS 视口完成桌面捕获，页面高度 2957 px，device scale factor 1；浏览器提供了内联画面但未提供文件系统截图路径。
+- **Mobile browser evidence:** 同一内置浏览器通过 390 × 844 iframe 独立视口渲染并捕获中文版手机首屏，确认真实触发 700 px 以下响应式样式。
+- **Side-by-side comparison input:** 选定方案与 1440 px 中文实现已在同一个浏览器对照画面中并排检查；重点比较首屏、信任条、工坊拼图、流程、品质、客户、商标与询盘区的顺序和视觉节奏。
+- **State:** 中文公开工厂实力页默认状态；询盘表单使用合成测试数据提交并显示成功状态；语言切换与导航链接已检查。
+
+## Findings
+
+- 无可执行的 P0、P1 或 P2 问题。
+- [P3] 中文移动端主标题因语义完整性自然换为三行，英文版为两行；字号、对比度与首屏按钮仍保持清晰，不影响所选视觉方向。
+- [P3] 中文标题使用系统宋体回退组合，避免 Playfair Display 对汉字的不可控替代；不同 Windows/macOS 设备会有轻微字面差异，但整体编辑感与层级保持一致。
+
+## Required fidelity surfaces
+
+| Surface | Result | Evidence and assessment |
+|---|---|---|
+| Fonts and typography | Pass | 中文大标题使用宋体回退体系，正文使用微软雅黑/苹方/思源黑体回退；桌面和 390 px 首屏的字重、行距、换行与层级均清晰。 |
+| Spacing and layout rhythm | Pass | 完整保留方案 2 的深色纪实首屏、四项信任条、非对称工坊拼图、五步流程、深色品质区、客户证据、商标条与参观/询盘收口；1440 px 无横向溢出。 |
+| Colors and visual tokens | Pass | 暖白纸张、深咖、焦糖棕、米色细线与品牌红完全沿用英文实现和选定视觉。 |
+| Image quality and asset fidelity | Pass | 继续使用真实 Marrant 标志、车间、产品、客户与团队图片；中文替代文本已补齐，没有占位图或代码绘制的伪素材。 |
+| Copy and content | Pass | 文案按中文外贸采购语境重写，完整覆盖开发、材料、过程质检、交付、参观和询盘；没有新增未经证实的产能、人数、面积、MOQ、交期或客户品牌。 |
+
+## Comparison history
+
+1. 中文首版沿用英文结构，完成桌面同屏对照后未发现版式漂移。
+2. 补充中文专用宋体展示层级、中文图片替代文本，以及 `/factory` 与 `/zh/factory` 的双向语言切换。
+3. 通过 390 × 844 独立 iframe 视口验证真实移动断点；标题、按钮与折叠菜单入口均完整可见。
+4. **浏览器标注修正：** 1780 × 986 视口下，参观区内容误用整页宽度计算双侧内边距，导致半宽图片区的中英文标题被严重挤压。现改为栏内固定最大宽度 490 px 并水平居中；修正后中英文标题均为正常两行横排，高度 93.6 px，页面无横向溢出，控制台无警告。
+
+## Interaction, responsive, and accessibility checks
+
+- 中文主导航和页脚“工厂实力/工厂介绍”均指向 `/zh/factory`，语言切换正确返回 `/factory`。
+- 两个首屏 CTA 分别指向中文询盘区与参观区；工厂参观按钮进入 `/zh/contact#inquiry`。
+- 中文询盘表单可填写、提交、清空，并显示中文成功提示。
+- 根文档语言为 `zh-CN`；标题结构、表单标签、必填字段和中文图片替代文本齐全。
+- 1440 px 页面无横向溢出；390 × 844 手机视图成功触发移动导航和单列首屏。
+- 运行时控制台无 error 或 warning。
+
+## Implementation checklist
+
+- [x] 新增 `/zh/factory` 中文路由与中文 SEO metadata。
+- [x] 全页面文案、按钮、表单选项、成功状态与图片替代文本完成本地化。
+- [x] 中文导航、页脚和语言切换接入新路由。
+- [x] 1440 px 桌面、390 × 844 手机与询盘成功状态完成浏览器检查。
+- [x] TypeScript、生产构建与 diff whitespace 检查通过。
+
+## Follow-up polish
+
+- 如后续确定品牌指定中文字体，可将系统宋体回退替换为正式 Web Font，以获得跨平台完全一致的字形。
+
+**final result: passed**
+
+---
+
+# Design QA — Marrant Factory Strength Page · Selected Direction 2
+
+## Comparison target and evidence
+
+- **Source visual truth path:** `D:\GPT\Marrant独立站9.7\design-reference\factory-page-version-2.png`.
+- **Source dimensions:** 971 × 1619 px. The generated source is a 0.674× density representation of the requested 1440 × 2400 composition; it was normalized by proportional scaling for layout comparison.
+- **Implementation:** `http://localhost:3000/factory`.
+- **Implementation browser evidence:** Codex in-app browser capture at a 1440 × 1000 CSS viewport, device scale factor 1, with a 2958 px document height. The browser provider exposed the capture inline but did not expose a filesystem screenshot path.
+- **Mobile evidence:** Codex in-app browser captures at 390 × 844 CSS px, device scale factor 1, for the hero, open navigation, form, success state, and footer.
+- **Side-by-side comparison input:** the source image and live 1440 px implementation were opened together on a temporary local comparison board in the same in-app browser capture. The source was shown at 971 × 1619 px; the live page was rendered at 1440 CSS px and normalized to 0.55 scale.
+- **State:** public English factory page, default desktop state; mobile navigation open; factory inquiry filled with synthetic QA data and submitted to its local success state.
+
+## Findings
+
+- No actionable P0, P1, or P2 issues remain.
+- [P3] The implementation is taller than the compact 1440 × 2400 concept proportion. This is intentional: the live form, real navigation, readable body copy, and supplied photography retain usable sizing rather than reproducing the concept's very small display text.
+- [P3] The workshop collage substitutes supplied Marrant photography for the concept's generated hand-cutting and leather-roll crops. The layout roles and warm documentary art direction are preserved while keeping the page grounded in real brand assets.
+- [P3] The live header retains Home, Blog, and Contact Us from the existing site information architecture. Its surface, spacing, color, and CTA treatment were changed to the selected light-header direction.
+
+## Required fidelity surfaces
+
+| Surface | Result | Evidence and assessment |
+|---|---|---|
+| Fonts and typography | Pass | Playfair Display carries the editorial display hierarchy and Manrope carries compact procurement copy. Headline scale, serif/sans contrast, line height, and readable form labels were checked at desktop and mobile. |
+| Spacing and layout rhythm | Pass | The page preserves the selected order and alternating rhythm: light header, dark documentary hero, four-part trust strip, asymmetric workshop collage, five-step process, dark quality band, partner evidence, trademark strip, visit/form conversion block, and dark footer. No horizontal overflow at 1440 or 390 px. |
+| Colors and visual tokens | Pass | Warm paper, espresso, cognac, muted brass, fine beige rules, and Marrant red match the selected direction and the existing brand system. Text and controls remain legible in all inspected states. |
+| Image quality and asset fidelity | Pass | The exact Marrant logo, supplied real customer photographs, and existing high-resolution workshop, leather, and product imagery are used. Images use deliberate crops and responsive `next/image`; no placeholders, CSS drawings, handcrafted SVGs, or fabricated client logos appear. |
+| Copy and content | Pass | Copy is written for international importers, distributors, e-commerce brands, and wholesale buyers. It avoids invented production capacity, employee count, factory size, MOQ, lead time, certifications, client brands, or audit claims. UK and US Class 18 trademark language matches the supplied certificates. |
+
+## Comparison history
+
+1. **Initial desktop capture:** the factory route rendered correctly, but the global floating navigation treatment drifted from the selected simple light header and the form heading inherited white text on a light surface. The full-page browser compositor also repeated tiles even though DOM checks confirmed exactly one `#process`, one `#visit`, and one `#factory-inquiry`.
+2. **Fixes:** added a factory-specific simple header treatment, corrected the form heading color, compacted desktop section proportions, and switched visual review to normal viewport and focused section captures so compositor stitching artifacts were not treated as product defects.
+3. **Initial mobile capture:** the factory header's desktop transparency overrode the mobile menu background, producing weak contrast.
+4. **Fix:** added a factory-specific ivory mobile navigation surface, dark menu text, dividers, shadow, and a high-contrast quote CTA. Post-fix capture showed a readable open menu with no horizontal overflow.
+5. **Framework/performance pass:** replaced the hero's preload behavior with `loading="eager"` and `fetchPriority="high"`, and declared the existing smooth-scroll behavior on the root element per Next.js 16 guidance.
+6. **Browser annotation fix:** at 1780 × 986, the visit copy inherited viewport-based side padding inside a half-width grid column, collapsing both English and Chinese headings. Replaced it with a centered 490 px column-relative content width. Post-fix focused captures show both headings in the intended two-line horizontal layout with no overflow or console warnings.
+
+## Interaction, responsive, and accessibility checks
+
+- Desktop primary and secondary hero anchors reach the inquiry and visit sections.
+- The inquiry accepts synthetic test values, clears after submission, and displays its local success message.
+- Mobile navigation opens and closes, route links remain usable, and the page has zero horizontal overflow at 390 px.
+- Semantic headings, form labels, required fields, image alternative text, keyboard-visible focus states, and a polite status message are present.
+- Focused region captures covered the desktop hero, workshop collage, process, quality band, partnership evidence, visit/form block, submitted form state, mobile hero, open mobile menu, mobile form, and footer. These focused views were required because the in-app browser's full-page compositor introduced non-DOM tile repetition.
+
+## Implementation checklist
+
+- [x] Selected direction resolved to the second displayed ideation image.
+- [x] Responsive `/factory` route implemented with supplied brand photography.
+- [x] Shared English navigation and footer link to the new factory route.
+- [x] Core anchors, mobile menu, and local inquiry success state tested.
+- [x] TypeScript check and production build passed.
+- [x] P0/P1/P2 visual findings fixed and rechecked.
+
+## Follow-up polish
+
+- A future photography pass could add a real close-up cutting shot to match the selected collage more literally without relying on generated imagery.
+
+**final result: passed**
+
+---
+
 # Design QA — Marrant Product Catalogue Template 2
 
 ## Comparison target and evidence

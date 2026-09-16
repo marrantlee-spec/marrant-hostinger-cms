@@ -1,68 +1,150 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import InternalLinkPanel from "../components/InternalLinkPanel";
+import { isProductCategoryId, productCategoriesFor, type ProductCategoryId } from "../../components/product-taxonomy";
+import { useInquirySubmission } from "../../components/useInquirySubmission";
 import { ArrowRight, ClipboardText, Factory, MagnifyingGlass, Package, PencilSimple, Swatches, Tag } from "@phosphor-icons/react";
 import styles from "../../products/page.module.css";
 
-const categories = [
-  "全部系列",
-  "疯马皮系列",
-  "旅行托特包",
-  "男士钱包",
-  "真皮单肩包",
-  "真皮背包",
-  "女士真皮包",
-] as const;
-
-type Category = (typeof categories)[number];
+const categoryGroups = productCategoriesFor("zh-CN");
+type Category = "all" | ProductCategoryId;
 
 const products = [
   {
-    category: "疯马皮系列",
+    category: "bags",
     title: "疯马皮系列",
     copy: "复古皮质与耐用工艺，打造具有辨识度的产品。",
     image: "/assets/products/crazy-horse-duffle-catalogue-v1.png",
     href: "/zh/products/crazy-horse-leather-travel-tote-bag",
   },
   {
-    category: "旅行托特包",
+    category: "bags",
     title: "旅行托特包",
     copy: "兼顾商务通勤与旅行收纳需求。",
     image: "/assets/products/black-travel-tote-catalogue-v1.png",
   },
   {
-    category: "男士钱包",
+    category: "small-leather-goods",
     title: "8064 头层牛皮二折钱包",
     copy: "紧凑二折结构，支持品牌标识与内部细节定制。",
     image: "/assets/products/mens-bifold-wallet-8064/main.jpg",
     href: "/zh/products/mens-full-grain-leather-bifold-wallet-8064",
   },
   {
-    category: "男士钱包",
+    category: "small-leather-goods",
     title: "批发真皮 AirTag 防丢护照夹钱包",
     copy: "带 RFID 防护与 AirTag 槽位，适合批发及品牌贴牌定制。",
     image: "/assets/products/leather-airtag-passport-wallet/colors.png",
     href: "/zh/products/wholesale-leather-airtag-passport-holder-wallet",
   },
   {
-    category: "真皮单肩包",
+    category: "small-leather-goods",
+    title: "批发头层牛皮罗盘压花二折钱包 · 1040",
+    copy: "罗盘压花、防磁防盗刷里布与 9 种现有 SKU 选项，支持品牌贴牌定制。",
+    image: "/assets/products/leather-compass-wallet-1040/main.png",
+    href: "/zh/products/wholesale-top-grain-leather-compass-bifold-wallet",
+  },
+  {
+    category: "small-leather-goods",
+    title: "批发疯马皮轻薄卡包 · 1343",
+    copy: "轻薄扁平卡位结构、复古疯马皮质感与 6 种链接所列颜色。",
+    image: "/assets/products/crazy-horse-leather-card-holder-1343/color-overview-logo-removed.png",
+    href: "/zh/products/wholesale-crazy-horse-leather-slim-card-holder",
+  },
+  {
+    category: "small-leather-goods",
+    title: "批发头层牛皮压花美甲剪收纳袋 · Q1002",
+    copy: "分层工具收纳、按扣闭合与便携小巧版型，适合批发及品牌贴牌项目。",
+    image: "/assets/products/top-grain-leather-manicure-scissors-pouch-q1002/features-overview.webp",
+    href: "/zh/products/wholesale-top-grain-leather-manicure-scissors-storage-pouch",
+  },
+  {
+    category: "small-leather-goods",
+    title: "批发疯马皮笔记本保护套 · Q1005",
+    copy: "紧凑笔记本收纳结构，配卡片口袋、笔插与复古疯马皮表面。",
+    image: "/assets/products/crazy-horse-leather-notebook-cover-q1005/features.webp",
+    href: "/zh/products/wholesale-crazy-horse-leather-notebook-cover",
+  },
+  {
+    category: "small-leather-goods",
+    title: "批发头层牛皮拉链零钱袋短款钱包 · 7042",
+    copy: "背面拉链零钱袋、搭扣闭合与 4 种现有颜色，适合批发及品牌贴牌项目。",
+    image: "/assets/products/top-grain-zip-wallet-7042/coffee-front.webp",
+    href: "/zh/products/wholesale-top-grain-leather-zip-coin-pocket-bifold-wallet",
+  },
+  {
+    category: "bags",
     title: "真皮单肩包",
     copy: "实用版型，适配通勤与日常场景。",
     image: "/assets/products/leather-messenger-catalogue-v1.png",
   },
   {
-    category: "真皮背包",
+    category: "bags",
     title: "真皮背包",
     copy: "兼顾背负体验、容量与日常耐用性。",
     image: "/assets/products/leather-backpack-catalogue-v1.png",
   },
   {
-    category: "女士真皮包",
+    category: "bags",
     title: "女士真皮包",
     copy: "细腻皮质与精致细节，丰富品牌女包系列。",
     image: "/assets/products/womens-handbag-catalogue-v1.png",
+  },
+  {
+    category: "desk-lifestyle",
+    title: "批发头层牛皮疯马皮剪刀收纳袋 · Q1003",
+    copy: "笔袋式便携造型，配分层工具口袋、按扣闭合与复古疯马皮表面，适合批发及贴牌项目。",
+    image: "/assets/products/crazy-horse-leather-scissors-pouch-q1003/features-overview.webp",
+    href: "/zh/products/wholesale-crazy-horse-leather-scissors-storage-pouch",
+  },
+  {
+    category: "desk-lifestyle",
+    title: "批发头层牛皮多功能笔袋 · Q1004",
+    copy: "立体牛皮拉链笔袋，提供 5 种颜色选项，适合桌面、文具与小型工具收纳系列。",
+    image: "/assets/products/top-grain-leather-multipurpose-pen-case-q1004/colors.webp",
+    href: "/zh/products/wholesale-top-grain-leather-multipurpose-pen-case",
+  },
+  {
+    category: "desk-lifestyle",
+    title: "批发头层牛皮圆筒笔筒 · Q1006",
+    copy: "开放式圆筒牛皮笔筒，可用于钢笔、铅笔与小型桌面工具收纳。",
+    image: "/assets/products/top-grain-leather-pen-holder-q1006/features.webp",
+    href: "/zh/products/wholesale-top-grain-leather-pen-holder",
+  },
+  {
+    category: "desk-lifestyle",
+    title: "批发头层牛皮罗盘拉链笔袋 · Q1008",
+    copy: "环绕拉链牛皮笔袋，搭配涤纶里布、弹力笔插与网袋，便于分类收纳文具。",
+    image: "/assets/products/top-grain-leather-compass-pencil-case-q1008/features.webp",
+    href: "/zh/products/wholesale-top-grain-leather-compass-pencil-case",
+  },
+  {
+    category: "desk-lifestyle",
+    title: "批发头层牛皮折叠收纳托盘 · Q1009",
+    copy: "四角按扣组合的可平铺真皮收纳盘，适合钥匙、线材与日常小物整理。",
+    image: "/assets/products/top-grain-leather-catchall-tray-q1009/features.webp",
+    href: "/zh/products/wholesale-top-grain-leather-catchall-tray",
+  },
+  {
+    category: "desk-lifestyle",
+    title: "批发压花头层牛皮笔套 · Q1010",
+    copy: "轻薄花卉压花牛皮笔套，提供两种所列尺寸并采用插入式翻盖闭合。",
+    image: "/assets/products/embossed-top-grain-leather-pen-sleeve-q1010/features.webp",
+    href: "/zh/products/wholesale-embossed-top-grain-leather-pen-sleeve",
+  },
+  {
+    category: "desk-lifestyle",
+    title: "桌面与生活用品",
+    copy: "涵盖鼠标垫、杯垫、笔袋与钥匙扣，适合品牌系列开发。",
+    image: "/assets/navigation/crazy-horse-desk-v1.webp",
+  },
+  {
+    category: "cases-gifts",
+    title: "收纳与礼品",
+    copy: "涵盖手表盒、雪茄盒与礼品套装，支持品牌贴牌定制。",
+    image: "/assets/navigation/crazy-horse-gifts-v1.webp",
   },
 ] as const;
 
@@ -85,34 +167,36 @@ function scrollToId(id: string) {
 }
 
 export default function ProductsPage() {
-  const [activeCategory, setActiveCategory] = useState<Category>("全部系列");
+  const [activeCategory, setActiveCategory] = useState<Category>("all");
   const [query, setQuery] = useState("");
   const [interest, setInterest] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const { handleSubmit, isSubmitting, resetStatus, status } = useInquirySubmission("zh-CN");
+
+  useEffect(() => {
+    const category = new URLSearchParams(window.location.search).get("category");
+    if (isProductCategoryId(category)) setActiveCategory(category);
+  }, []);
 
   const visibleProducts = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     return products.filter((product) => {
-      const isInCategory = activeCategory === "全部系列" || product.category === activeCategory;
-      const matchesSearch = !normalized || `${product.title} ${product.copy} ${product.category}`.toLowerCase().includes(normalized);
+      const category = categoryGroups.find((group) => group.id === product.category);
+      const searchTerms = category ? `${category.label} ${category.items.map((item) => item.label).join(" ")}` : "";
+      const isInCategory = activeCategory === "all" || product.category === activeCategory;
+      const matchesSearch = !normalized || `${product.title} ${product.copy} ${searchTerms}`.toLowerCase().includes(normalized);
       return isInCategory && matchesSearch;
     });
   }, [activeCategory, query]);
 
   const chooseCategory = (category: Category) => {
     setActiveCategory(category);
-    setSubmitted(false);
+    resetStatus();
   };
 
   const requestProduct = (product: (typeof products)[number]) => {
-    setInterest(product.title);
-    setSubmitted(false);
+    setInterest(product.category);
+    resetStatus();
     scrollToId("request");
-  };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSubmitted(true);
   };
 
   return (
@@ -145,9 +229,10 @@ export default function ProductsPage() {
         </div>
         <div className={styles.catalogueLayout}>
           <aside className={styles.categoryRail} aria-label="按产品品类筛选">
-            {categories.map((category) => (
-              <button key={category} type="button" className={activeCategory === category ? styles.categoryActive : ""} onClick={() => chooseCategory(category)}>
-                {category}
+            <button type="button" className={activeCategory === "all" ? styles.categoryActive : ""} onClick={() => chooseCategory("all")}>全部产品</button>
+            {categoryGroups.map((category) => (
+              <button key={category.id} type="button" className={activeCategory === category.id ? styles.categoryActive : ""} onClick={() => chooseCategory(category.id)}>
+                {category.label}
               </button>
             ))}
           </aside>
@@ -172,7 +257,7 @@ export default function ProductsPage() {
             {visibleProducts.length === 0 && (
               <div className={styles.emptyState}>
                 <p>暂无符合当前条件的产品系列。</p>
-                <button type="button" onClick={() => { setQuery(""); chooseCategory("全部系列"); }}>显示全部系列</button>
+                <button type="button" onClick={() => { setQuery(""); chooseCategory("all"); }}>显示全部产品</button>
               </div>
             )}
           </div>
@@ -205,12 +290,12 @@ export default function ProductsPage() {
             <label><span>国家 / 地区</span><input name="region" placeholder="请填写国家或地区" /></label>
           </div>
           <div className={styles.formTwoColumns}>
-            <label><span>产品品类</span><select name="product" value={interest} onChange={(event) => setInterest(event.target.value)}><option value="">请选择产品品类</option>{products.map((product) => <option key={product.title} value={product.title}>{product.title}</option>)}</select></label>
+            <label><span>产品品类</span><select name="product" value={interest} onChange={(event) => setInterest(event.target.value)}><option value="">请选择产品品类</option>{categoryGroups.map((category) => <option key={category.id} value={category.id}>{category.label}</option>)}</select></label>
             <label><span>订单阶段</span><select name="timeline" defaultValue=""><option value="" disabled>请选择订单阶段</option><option>待沟通确认</option><option>先安排打样</option><option>准备批量生产</option></select></label>
           </div>
           <label className={styles.messageField}><span>说明您的项目需求</span><textarea required name="message" rows={4} placeholder="请说明材料、设计、目标市场、预计数量与交期要求……" /></label>
-          <button className={styles.primaryButton} type="submit">提交采购需求</button>
-          {submitted && <p className={styles.success} role="status">此处信息尚未发送，请<Link href="/zh/contact#inquiry" style={{ textDecoration: "underline" }}>前往联系表单</Link>提交采购需求。</p>}
+          <button className={styles.primaryButton} type="submit" disabled={isSubmitting}>{isSubmitting ? "发送中……" : "提交采购需求"}</button>
+          {status ? <p className={styles.success} role="status" data-tone={status.tone}>{status.message}</p> : null}
         </form>
       </section>
 

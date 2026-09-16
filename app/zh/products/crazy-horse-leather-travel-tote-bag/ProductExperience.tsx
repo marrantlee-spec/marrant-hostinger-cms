@@ -1,7 +1,9 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import { contactEmail, contactEmailHref } from "../../../components/contact-details";
+import { useInquirySubmission } from "../../../components/useInquirySubmission";
 import InternalLinkPanel from "../../components/InternalLinkPanel";
 import { ArrowRight, ChatCircleDots, CheckCircle, ClipboardText, DownloadSimple, Factory, GlobeHemisphereWest, Lightbulb, Package, PencilSimple, ShieldCheck, Swatches, Tag, WhatsappLogo } from "@phosphor-icons/react";
 
@@ -76,18 +78,13 @@ const faqs = [
 export default function TravelToteProductPage() {
   const [activeImage, setActiveImage] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [submitted, setSubmitted] = useState(false);
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitted(true);
-  }
+  const { handleSubmit, isSubmitting, status } = useInquirySubmission("zh-CN");
 
   return (
     <main className="product-page" id="top">
 
       <div className="product-shell">
-        <div className="breadcrumbs"><Link href="/zh">首页</Link><span>›</span><Link href="/zh/products">真皮包</Link><span>›</span><Link href="/zh/products">真皮旅行包</Link><span>›</span><b>疯马皮真皮旅行托特包</b></div>
+        <div className="breadcrumbs"><Link href="/zh">首页</Link><span>›</span><Link href="/zh/products">包袋</Link><span>›</span><Link href="/zh/products">旅行包</Link><span>›</span><b>疯马皮真皮旅行托特包</b></div>
 
         <section className="product-hero-detail">
           <aside className="gallery-thumbnails" aria-label="产品图片展示">
@@ -143,10 +140,10 @@ export default function TravelToteProductPage() {
             <div className="product-form-grid"><input required aria-label="请填写姓名" placeholder="姓名 *" name="name" /><input aria-label="公司名称" placeholder="公司名称" name="company" /><input required type="email" aria-label="电子邮箱" placeholder="电子邮箱 *" name="email" /><input aria-label="国家或地区" placeholder="国家 / 地区" name="country" /><input aria-label="意向产品" placeholder="意向产品" name="interest" /><input aria-label="预计采购数量" placeholder="预计采购数量" name="quantity" /></div>
             <textarea required aria-label="需求说明" placeholder="需求说明 *" name="message" rows={5} />
             <label className="privacy-check"><input required type="checkbox" /> 我同意将以上信息用于本次采购咨询。</label>
-            <button className="product-primary-button product-submit" type="submit">提交采购需求 <ArrowRight size={17} /></button>
-            {submitted && <p className="product-success" role="status">此处信息尚未发送，请<Link href="/zh/contact#inquiry" style={{ textDecoration: "underline" }}>前往联系表单</Link>提交产品需求。</p>}
+            <button className="product-primary-button product-submit" type="submit" disabled={isSubmitting}>{isSubmitting ? "发送中……" : "提交采购需求"} <ArrowRight size={17} /></button>
+            {status ? <p className="product-success" role="status" data-tone={status.tone}>{status.message}</p> : null}
           </form>
-          <aside className="partner-card" id="about-marrant"><div><div className="section-title"><p>为什么选择玛轮特？</p></div><ul><li><ShieldCheck size={18} /> 专注真皮包开发与制造</li><li><Swatches size={18} /> 为不同市场提供灵活定制</li><li><CheckCircle size={18} /> 重视品质管控与订单交付</li><li><ChatCircleDots size={18} /> 从需求沟通到售后持续跟进</li></ul></div><div className="partner-contact"><strong>联系方式</strong><a href="mailto:Melody@marrant.cn">Melody@marrant.cn</a><a href={whatsapp} target="_blank" rel="noreferrer">+86 189 2507 3489</a><span>中国 · 广州</span></div></aside>
+          <aside className="partner-card" id="about-marrant"><div><div className="section-title"><p>为什么选择玛轮特？</p></div><ul><li><ShieldCheck size={18} /> 专注真皮包开发与制造</li><li><Swatches size={18} /> 为不同市场提供灵活定制</li><li><CheckCircle size={18} /> 重视品质管控与订单交付</li><li><ChatCircleDots size={18} /> 从需求沟通到售后持续跟进</li></ul></div><div className="partner-contact"><strong>联系方式</strong><a href={contactEmailHref}>{contactEmail}</a><a href={whatsapp} target="_blank" rel="noreferrer">+86 189 2507 3489</a><span>中国 · 广州</span></div></aside>
         </section>
       </div>
 

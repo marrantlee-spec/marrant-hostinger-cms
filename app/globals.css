@@ -10,6 +10,12 @@ button { cursor:pointer; }
 .container { width:min(1200px,calc(100% - 80px)); margin:0 auto; }
 .site-header { height:78px; background:linear-gradient(90deg,#040404 0%,#0b0a09 48%,#050505 100%); color:#fff; display:grid; grid-template-columns:minmax(180px,1fr) auto minmax(180px,1fr); align-items:center; gap:26px; padding:0 max(40px,calc((100vw - 1280px)/2)); position:sticky; top:0; z-index:20; border-bottom:1px solid rgba(223,194,166,.15); isolation:isolate; }
 .site-header::after { content:""; position:absolute; inset:auto 0 0; height:1px; background:linear-gradient(90deg,transparent,rgba(224,170,119,.45),transparent); opacity:.72; }
+.site-header--factory { position:relative; color:#271e18; background:#fbf8f3; border-bottom-color:#dcd1c6; }
+.site-header--factory::after { background:#dcd1c6; opacity:1; }
+.site-header--factory .main-nav { gap:18px; padding:0; border:0; border-radius:0; background:transparent; box-shadow:none; backdrop-filter:none; -webkit-backdrop-filter:none; }
+.site-header--factory .main-nav>a,.site-header--factory .nav-trigger { color:#30251f; }
+.site-header--factory .main-nav>a:hover,.site-header--factory .nav-trigger:hover,.site-header--factory .main-nav>a[aria-current="page"] { color:#9e4f22; }
+.site-header--factory .menu-button { color:#30251f; }
 .brand { display:flex; align-items:center; height:100%; }
 .brand img { width:170px; height:43px; object-fit:contain; object-position:left center; }
 .main-nav { display:flex; align-items:center; justify-content:center; gap:9px; min-height:46px; padding:4px 10px; border:1px solid rgba(232,216,198,.16); border-radius:999px; background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.025)); box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 12px 30px rgba(0,0,0,.22); backdrop-filter:blur(14px) saturate(125%); -webkit-backdrop-filter:blur(14px) saturate(125%); font-size:12px; }
@@ -113,7 +119,7 @@ h2 { font-size:43px; line-height:1.1; }
 .products { background:#11100f; color:#fff; padding:63px 0 70px; }
 .section-heading { display:flex; align-items:end; justify-content:space-between; margin-bottom:24px; }
 .section-heading h2 { margin-top:4px; }
-.product-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:17px; }
+.product-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:17px; }
 .product-card { background:#1d1a18; border:1px solid #725b4b; overflow:hidden; transition:transform .2s ease,border-color .2s ease; }
 .product-card:hover { transform:translateY(-4px); border-color:#c17841; }
 .product-card img { display:block; width:100%; height:195px; object-fit:cover; }
@@ -188,6 +194,10 @@ footer>div>div>a:hover,.footer-brand a:hover { color:#d38a51; }
   .brand img { width:145px; }
   .main-nav { display:none; position:absolute; left:0; top:68px; width:100%; min-height:0; padding:19px 20px; border:0; border-top:1px solid #27221d; border-radius:0; background:#090909; box-shadow:none; backdrop-filter:none; -webkit-backdrop-filter:none; flex-direction:column; align-items:flex-start; gap:17px; }
   .main-nav.is-open { display:flex; }
+  .site-header--factory .main-nav { color:#30251f; border-top-color:#dcd1c6; background:#fbf8f3; box-shadow:0 18px 35px rgba(45,31,22,.16); backdrop-filter:none; -webkit-backdrop-filter:none; }
+  .site-header--factory .main-nav>a,.site-header--factory .nav-trigger { color:#30251f; }
+  .site-header--factory .main-nav>a:not(.mobile-quote) { width:100%; min-height:34px; border-bottom:1px solid #e4dbd2; }
+  .site-header--factory .mobile-quote { color:#fff !important; }
   .nav-menu-item { height:auto; width:100%; }
   .nav-trigger { width:100%; min-height:0; padding:0; justify-content:space-between; font-size:12px; }
   .nav-trigger::after { display:none; }
@@ -311,6 +321,7 @@ footer>div>div>a:hover,.footer-brand a:hover { color:#d38a51; }
 .color-swatches.wallet-color-swatches { grid-template-columns:repeat(5,1fr); }
 .color-swatches button { border:0; padding:0; background:transparent; text-align:left; }
 .color-swatches button span { display:block; height:142px; border:1px solid rgba(0,0,0,.07); }
+.color-swatches button span.wallet-pattern-preview { background-position:center; background-repeat:no-repeat; background-size:cover; }
 .color-swatches button small { display:block; color:#5d554d; font-size:8px; text-align:center; line-height:1.3; margin:7px 1px 8px; }
 .custom-methods { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
 .custom-methods>div { min-height:111px; padding:16px 13px; background:#f5f1eb; text-align:center; display:flex; flex-direction:column; align-items:center; }

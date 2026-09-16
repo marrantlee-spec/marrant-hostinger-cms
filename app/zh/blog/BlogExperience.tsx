@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import InternalLinkPanel from "../components/InternalLinkPanel";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { ArrowRight, BookOpenText, Factory, Package, PenNib, ShieldCheck } from "@phosphor-icons/react";
 import styles from "../../blog/page.module.css";
 
@@ -23,6 +23,7 @@ const articles = [
     label: "采购指南",
     title: "全粒面皮与疯马皮：如何为品牌选择合适的皮料？",
     description: "从性能、成本与使用变化出发，了解皮料选择对产品定位的影响。",
+    publishedAt: "2026-08-26",
     date: "2026年8月26日",
     duration: "阅读约6分钟",
     image: "/assets/products/leather-backpack.png",
@@ -32,6 +33,7 @@ const articles = [
     label: "产品开发",
     title: "真皮包品牌定制：标识工艺与细节选配指南",
     description: "了解压印、凹印、五金与内衬定制，建立产品的品牌辨识度。",
+    publishedAt: "2026-08-18",
     date: "2026年8月18日",
     duration: "阅读约5分钟",
     image: "/assets/product-detail/crazy-horse-leather-detail.png",
@@ -41,6 +43,7 @@ const articles = [
     label: "工厂观察",
     title: "走进皮具车间：从源头落实品质管理",
     description: "了解生产团队、检查节点与工艺要求，观察品质如何贯穿制造过程。",
+    publishedAt: "2026-08-11",
     date: "2026年8月11日",
     duration: "阅读约4分钟",
     image: "/assets/product-detail/leather-production-workshop-v1.png",
@@ -50,6 +53,7 @@ const articles = [
     label: "材料选配",
     title: "真皮包五金选配：拉链、扣具与耐用性",
     description: "关注承受频繁使用的五金部件，从选材与结构减少使用风险。",
+    publishedAt: "2026-08-04",
     date: "2026年8月4日",
     duration: "阅读约5分钟",
     image: "/assets/products/mens-genuine-leather-wallet-v1.png",
@@ -59,6 +63,7 @@ const articles = [
     label: "产品开发",
     title: "真皮包结构与制作工艺解析",
     description: "从提手加固到内衬结构，了解影响日常皮具耐用性的工艺细节。",
+    publishedAt: "2026-07-28",
     date: "2026年7月28日",
     duration: "阅读约6分钟",
     image: "/assets/products/leather-messenger.png",
@@ -68,6 +73,7 @@ const articles = [
     label: "采购指南",
     title: "真皮包采购：起订量、打样与交期如何确认？",
     description: "明确样品确认、采购数量与生产节点，减少订单计划中的不确定性。",
+    publishedAt: "2026-07-21",
     date: "2026年7月21日",
     duration: "阅读约5分钟",
     image: "/assets/products/crazy-horse-duffle.png",
@@ -76,9 +82,21 @@ const articles = [
 
 type Topic = (typeof topics)[number]["id"];
 
-export default function BlogIndexPage() {
-  const [activeTopic, setActiveTopic] = useState<Topic>("all");
-  const visibleArticles = activeTopic === "all" ? articles : articles.filter((article) => article.category === activeTopic);
+export default function BlogIndexPage({ page = "1", topic = "all" }: { page?: string; topic?: string }) {
+  const router = useRouter();
+  const activeTopic = topics.some((item) => item.id === topic) ? topic as Topic : "all";
+  const filteredArticles = [...articles].filter((article) => activeTopic === "all" || article.category === activeTopic).sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+  const pageSize = 9;
+  const totalPages = Math.max(1, Math.ceil(filteredArticles.length / pageSize));
+  const requestedPage = /^\d+$/.test(page) && Number.isSafeInteger(Number(page)) ? Number(page) : 1;
+  const currentPage = Math.min(totalPages, Math.max(1, requestedPage));
+  const visibleArticles = filteredArticles.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  const pageHref = (nextPage: number, nextTopic = activeTopic) => {
+    const query = new URLSearchParams();
+    if (nextTopic !== "all") query.set("topic", nextTopic);
+    if (nextPage > 1) query.set("page", String(nextPage));
+    return "/zh/blog" + (query.size ? "?" + query.toString() : "") + "#articles";
+  };
 
   return (
     <main className={styles.page}>
@@ -109,7 +127,7 @@ export default function BlogIndexPage() {
             className={activeTopic === id ? styles.topicActive : undefined}
             type="button"
             key={id}
-            onClick={() => setActiveTopic(id)}
+            onClick={() => router.push(pageHref(1, id))}
             aria-pressed={activeTopic === id}
           >
             <Icon size={26} weight="light" />
@@ -118,13 +136,13 @@ export default function BlogIndexPage() {
         ))}
       </section>
 
-      <section className={styles.articleSection} aria-label="皮具采购文章">
+      <section id="articles" className={styles.articleSection} aria-label="皮具采购文章">
         <div className={styles.sectionHeading}>
           <div>
             <p className={styles.kicker}>最新采购知识</p>
             <h2>{activeTopic === "all" ? "来自皮具生产现场" : topics.find((topic) => topic.id === activeTopic)?.label}</h2>
           </div>
-          <button className={styles.resetButton} type="button" onClick={() => setActiveTopic("all")} disabled={activeTopic === "all"}>
+          <button className={styles.resetButton} type="button" onClick={() => router.push(pageHref(1, "all"))} disabled={activeTopic === "all" && currentPage === 1}>
             查看全部文章 <ArrowRight size={17} weight="light" />
           </button>
         </div>
@@ -140,13 +158,19 @@ export default function BlogIndexPage() {
                 <h3><Link href={articleRoute}>{article.title}</Link></h3>
                 <p>{article.description}</p>
                 <div className={styles.cardFooter}>
-                  <span>{article.date} <b>·</b> {article.duration}</span>
+                  <span><time dateTime={article.publishedAt}>{article.date}</time> <b>·</b> {article.duration}</span>
                   <Link href={articleRoute} aria-label={`Read ${article.title}`}><ArrowRight size={18} weight="light" /></Link>
                 </div>
               </div>
             </article>
           ))}
         </div>
+        <nav className={styles.pagination} aria-label="文章分页">
+          {currentPage > 1 ? <Link href={pageHref(currentPage - 1)} rel="prev">上一页</Link> : <span aria-disabled="true">上一页</span>}
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map((number) => <Link key={number} href={pageHref(number)} aria-label={"第" + number + "页"} aria-current={number === currentPage ? "page" : undefined}>{number}</Link>)}
+          {currentPage < totalPages ? <Link href={pageHref(currentPage + 1)} rel="next">下一页</Link> : <span aria-disabled="true">下一页</span>}
+        </nav>
+        <p className={styles.pageSummary} aria-live="polite">第 {currentPage} / {totalPages} 页，共 {filteredArticles.length} 篇文章</p>
       </section>
 
       <InternalLinkPanel

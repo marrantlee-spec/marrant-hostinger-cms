@@ -1,6 +1,7 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
+import { submitInquiry } from "../../components/submitInquiry";
 import styles from "../../contact/ContactInquiryForm.module.css";
 import { ArrowRightIcon } from "../../contact/ContactIcons";
 
@@ -95,14 +96,10 @@ export default function ContactInquiryForm() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/inquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...values,
-          website: String(new FormData(form).get("website") ?? ""),
-          startedAt: formStartedAt.current,
-        }),
+      const response = await submitInquiry({
+        ...values,
+        website: String(new FormData(form).get("website") ?? ""),
+        startedAt: formStartedAt.current,
       });
       const result = (await response.json().catch(() => null)) as { message?: string; errors?: FormErrors } | null;
 

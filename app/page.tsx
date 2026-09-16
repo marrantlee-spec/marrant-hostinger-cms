@@ -1,20 +1,19 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import InternalLinkPanel from "./components/InternalLinkPanel";
+import { productCategoriesFor } from "./components/product-taxonomy";
+import { useInquirySubmission } from "./components/useInquirySubmission";
 import { ArrowRight, CheckCircle, ClipboardText, Factory, GlobeHemisphereWest, Handshake, Lightbulb, MagnifyingGlass, Package, PencilSimple, ShieldCheck, Swatches, Tag, WhatsappLogo } from "@phosphor-icons/react";
 
 const whatsapp = "https://wa.me/8618925073489";
 
-const productCards = [
-  { title: "Crazy Horse Leather", image: "/assets/products/crazy-horse-duffle-scene-v1.png", href: "/products/crazy-horse-leather-travel-tote-bag" },
-  { title: "Travel Tote Bags", image: "/assets/products/black-travel-tote-scene-v1.png", href: "/products" },
-  { title: "Men's Wallets", image: "/assets/products/mens-bifold-wallet-8064/scenario.jpg", href: "/products/mens-full-grain-leather-bifold-wallet-8064" },
-  { title: "Shoulder Bags", image: "/assets/products/mens-shoulder-bag-scene-v2.png", href: "/products" },
-  { title: "Backpacks", image: "/assets/products/leather-backpack-centered-scene-v2.png", href: "/products" },
-  { title: "Women's Bags", image: "/assets/products/womens-coffee-handbag-red-patent-wallet-scene-v2.png", href: "/products" }
-];
+const productCards = productCategoriesFor("en").map((category) => ({
+  title: category.label,
+  image: category.feature.image,
+  href: category.href,
+}));
 
 const services = [
   { icon: PencilSimple, title: "Product Development", text: "From sketches to samples, we shape your ideas." },
@@ -41,13 +40,7 @@ const faqs = [
 
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [submitted, setSubmitted] = useState(false);
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitted(true);
-    event.currentTarget.reset();
-  }
+  const { handleSubmit, isSubmitting, status } = useInquirySubmission("en");
 
   return (
     <main>
@@ -178,8 +171,8 @@ export default function HomePage() {
             <div className="form-row"><input required aria-label="Name" name="name" placeholder="Name*" /><input required aria-label="Email" type="email" name="email" placeholder="Email*" /></div>
             <div className="form-row"><input aria-label="Country or region" name="country" placeholder="Country / Region" /><input aria-label="Product requirement" name="product" placeholder="Product Requirement*" /></div>
             <textarea required aria-label="Message" name="message" placeholder="Message*" rows={4} />
-            <button className="button button-caramel submit-button" type="submit">Request a Quote</button>
-            {submitted && <p className="form-success" role="status">Thank you. Our sales team will contact you soon.</p>}
+            <button className="button button-caramel submit-button" type="submit" disabled={isSubmitting}>{isSubmitting ? "Sending..." : "Request a Quote"}</button>
+            {status ? <p className="form-success" role="status" data-tone={status.tone}>{status.message}</p> : null}
           </form>
         </div>
       </section>

@@ -1,18 +1,12 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import Link from "next/link";
 import { ArrowRightIcon, WhatsappIcon } from "../../../blog/how-to-source-crazy-horse-leather-travel-tote-bag/BlogIcons";
+import { useInquirySubmission } from "../../../components/useInquirySubmission";
 
 const whatsapp = "https://wa.me/8618925073489";
 
 export default function BlogInquiryForm() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setIsSubmitted(true);
-  }
+  const { handleSubmit, isSubmitting, status } = useInquirySubmission("zh-CN");
 
   return (
     <form className="blog-inquiry-form" onSubmit={handleSubmit}>
@@ -51,10 +45,10 @@ export default function BlogInquiryForm() {
         <textarea required name="message" rows={5} placeholder="请说明项目、产品规格及其他定制要求。" />
       </label>
 
-      <button type="submit" className="blog-submit-button">
-        获取定制报价 <ArrowRightIcon width={17} height={17} />
+      <button type="submit" className="blog-submit-button" disabled={isSubmitting}>
+        {isSubmitting ? "发送中……" : "获取定制报价"} <ArrowRightIcon width={17} height={17} />
       </button>
-      {isSubmitted && <p className="blog-form-success" role="status">此处信息尚未发送，请<Link href="/zh/contact#inquiry" style={{ textDecoration: "underline" }}>前往联系表单</Link>提交需求。</p>}
+      {status ? <p className="blog-form-success" role="status" data-tone={status.tone}>{status.message}</p> : null}
 
       <div className="blog-form-contact">
         <span>或通过 WhatsApp 联系我们</span>

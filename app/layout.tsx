@@ -23,13 +23,14 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const requestHeaders = await headers();
   const locale = requestHeaders.get("x-marrant-locale") === "zh-CN" ? "zh-CN" : "en";
   const pathname = requestHeaders.get("x-marrant-pathname") ?? "/";
+  const isAdmin = pathname === "/admin" || pathname.startsWith("/admin/");
   return (
-    <html lang={locale}>
+    <html lang={locale} data-scroll-behavior="smooth">
       <body>
-        <SiteHeader locale={locale} />
+        {isAdmin ? null : <SiteHeader locale={locale} />}
         {children}
-        <SiteFooter locale={locale} />
-        <LanguageSwitcher pathname={pathname} />
+        {isAdmin ? null : <SiteFooter locale={locale} />}
+        {isAdmin ? null : <LanguageSwitcher pathname={pathname} />}
       </body>
     </html>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import InternalLinkPanel from "../components/InternalLinkPanel";
+import { contactEmail, contactEmailHref } from "../components/contact-details";
 import ContactInquiryForm from "./ContactInquiryForm";
 import { ArrowUpRightIcon, FactoryIcon, MailIcon, MapPinIcon, WhatsappIcon } from "./ContactIcons";
 import styles from "./page.module.css";
@@ -26,9 +27,9 @@ export default function ContactPage() {
           <h1>Visit Our<br />Guangzhou Studio</h1>
           <p className={styles.lead}>We welcome international buyers and brand partners to visit our studio in Guangzhou. Meet our team, explore materials, and start your next collection with confidence.</p>
           <div className={styles.contactMethods}>
-            <a href="mailto:Melody@marrant.cn">
+            <a href={contactEmailHref}>
               <span><MailIcon width={24} height={24} /></span>
-              <p><small>Email us</small>Melody@marrant.cn</p>
+              <p><small>Email us</small>{contactEmail}</p>
             </a>
             <a href="https://wa.me/8618925073489" target="_blank" rel="noreferrer">
               <span><WhatsappIcon width={24} height={24} /></span>
@@ -87,7 +88,7 @@ export default function ContactPage() {
 
       <aside className={styles.assurance}>
         <div><FactoryIcon width={39} height={39} /><p><strong>Manufactured with Care. Trusted by Brands Worldwide.</strong><span>Quality materials, responsible production, and clear communication from concept to delivery.</span></p></div>
-        <a href="mailto:Melody@marrant.cn"><MailIcon width={22} height={22} /> Melody@marrant.cn</a>
+        <a href={contactEmailHref}><MailIcon width={22} height={22} /> {contactEmail}</a>
         <a href="https://wa.me/8618925073489" target="_blank" rel="noreferrer"><WhatsappIcon width={22} height={22} /> +86 189 2507 3489</a>
       </aside>
 

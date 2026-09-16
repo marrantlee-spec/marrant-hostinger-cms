@@ -307,3 +307,10 @@
   .topicNav button:nth-child(2) { border-right: 0; border-bottom: 1px solid var(--line); }
   .topicNav button:last-child { border-bottom: 0; }
 }
+
+.pagination { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:38px; }
+.pagination a,.pagination span { min-width:42px; min-height:42px; padding:10px 14px; display:flex; align-items:center; justify-content:center; border:1px solid #d8cbbd; color:#71472c; font-size:13px; background:#fbf8f3; }
+.pagination a:hover,.pagination a[aria-current="page"] { color:#fff; background:#97532d; border-color:#97532d; }
+.pagination a:focus-visible { outline:2px solid #97532d; outline-offset:3px; }
+.pagination span { color:#a49b91; background:transparent; }
+.pageSummary { text-align:center; font-size:12px; color:#776b5f; margin:14px 0 0; }

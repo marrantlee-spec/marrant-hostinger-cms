@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { prisma } from "../../../lib/prisma";
+import { inquiryRecipientEmail } from "./recipient";
 
 export const runtime = "nodejs";
 
@@ -43,8 +45,7 @@ function validate(payload: InquiryPayload): FieldErrors {
   if (!payload.name) errors.name = "Please enter your name.";
   if (!payload.email) errors.email = "Please enter your email address.";
   else if (!emailPattern.test(payload.email)) errors.email = "Enter a valid email address.";
-  if (!payload.phone) errors.phone = "Please enter a phone number.";
-  else {
+  if (payload.phone) {
     const digitCount = payload.phone.replace(/\D/g, "").length;
     if (!phoneCharactersPattern.test(payload.phone) || digitCount < 7 || digitCount > 15) {
       errors.phone = "Enter a valid international phone number.";
@@ -56,10 +57,6 @@ function validate(payload: InquiryPayload): FieldErrors {
   }
 
   return errors;
-}
-
-function escapeHtml(value: string) {
-  return value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character] ?? character);
 }
 
 function getClientIp(request: Request) {
@@ -84,19 +81,6 @@ function isRateLimited(ip: string) {
   return current.count > maxRequestsPerWindow;
 }
 
-function buildEmailHtml(payload: InquiryPayload) {
-  const rows = [
-    ["Name", payload.name],
-    ["Work email", payload.email],
-    ["Phone", payload.phone],
-    ["Country / Region", payload.country || "Not provided"],
-    ["Product requirement", payload.product || "Not provided"],
-    ["Message", payload.message || "Not provided"],
-  ];
-
-  return `<div style="font-family:Arial,sans-serif;color:#201b17"><h2 style="margin:0 0 20px">New Marrant website inquiry</h2><table style="width:100%;border-collapse:collapse">${rows.map(([label, value]) => `<tr><th style="padding:10px 12px;text-align:left;border:1px solid #ded6ca;background:#f5f1eb;vertical-align:top">${label}</th><td style="padding:10px 12px;border:1px solid #ded6ca;white-space:pre-wrap">${escapeHtml(value)}</td></tr>`).join("")}</table></div>`;
-}
-
 export async function POST(request: Request) {
   const rawBody = await request.json().catch(() => null);
   const payload = getPayload(rawBody);
@@ -116,33 +100,56 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Too many inquiries were sent from this connection. Please try again in a few minutes." }, { status: 429, headers: { "Retry-After": String(rateLimitWindowMs / 1000) } });
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.RESEND_FROM_EMAIL;
-  const recipient = process.env.INQUIRY_RECIPIENT_EMAIL ?? "Melody@marrant.cn";
+  await prisma.inquiry.create({
+    data: {
+      name: payload.name,
+      email: payload.email,
+      phone: payload.phone,
+      country: payload.country,
+      product: payload.product,
+      message: payload.message,
+    },
+  }).catch((error: unknown) => {
+    console.error("Inquiry database write failed", error);
+    return null;
+  });
 
-  if (!apiKey || !from) {
-    console.error("Inquiry email is not configured. Set RESEND_API_KEY and RESEND_FROM_EMAIL.");
-    return NextResponse.json({ message: "The inquiry service is temporarily unavailable. Please contact us by email." }, { status: 503 });
-  }
-
-  const response = await fetch("https://api.resend.com/emails", {
+  const recipient = inquiryRecipientEmail;
+  const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(recipient)}`, {
     method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Origin: "https://www.marrantbag.com",
+      Referer: "https://www.marrantbag.com/contact",
+    },
     body: JSON.stringify({
-      from,
-      to: [recipient],
-      reply_to: payload.email,
-      subject: `New website inquiry from ${payload.name.replace(/[\r\n]/g, " ")}`,
-      html: buildEmailHtml(payload),
+      name: payload.name,
+      email: payload.email,
+      phone: payload.phone || "Not provided",
+      country: payload.country || "Not provided",
+      product: payload.product || "Not provided",
+      message: payload.message || "Not provided",
+      _replyto: payload.email,
+      _subject: `New Marrant website inquiry from ${payload.name.replace(/[\r\n]/g, " ")}`,
+      _template: "table",
+      _captcha: "false",
+      _url: "https://www.marrantbag.com/contact",
     }),
   }).catch((error: unknown) => {
-    console.error("Inquiry email request failed.", error);
+    console.error("FormSubmit request failed.", error);
     return null;
   });
 
   if (!response?.ok) {
-    console.error("Inquiry email delivery failed.", response?.status);
+    console.error("FormSubmit delivery failed.", response?.status, await response?.text().catch(() => ""));
     return NextResponse.json({ message: "We could not send your inquiry. Please try again or contact us by email." }, { status: 502 });
+  }
+
+  const result = await response.json().catch(() => null) as { success?: boolean | string; message?: string } | null;
+  if (!result || result.success === false || result.success === "false") {
+    console.error("FormSubmit did not accept the inquiry.", result?.message ?? "Unknown response");
+    return NextResponse.json({ message: "The inquiry email service is awaiting activation. Please contact us by email for now." }, { status: 503 });
   }
 
   return NextResponse.json({ message: "Thank you. Your inquiry has been sent and our team will reply within one business day." });

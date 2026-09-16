@@ -2,6 +2,7 @@ import { chineseMetadata } from "../metadata";
 import Image from "next/image";
 import Link from "next/link";
 import InternalLinkPanel from "../components/InternalLinkPanel";
+import { contactEmail, contactEmailHref } from "../../components/contact-details";
 import ContactInquiryForm from "./ContactInquiryForm";
 import { ArrowUpRightIcon, FactoryIcon, MailIcon, MapPinIcon, WhatsappIcon } from "../../contact/ContactIcons";
 import styles from "../../contact/page.module.css";
@@ -23,9 +24,9 @@ export default function ContactPage() {
           <h1>欢迎到访<br />广州玛轮特皮具</h1>
           <p className={styles.lead}>欢迎采购商与品牌伙伴到访广州玛轮特皮具，与团队面对面沟通，查看皮料、五金与产品样品，探讨真皮包供应及 OEM / ODM 定制方案。</p>
           <div className={styles.contactMethods}>
-            <a href="mailto:Melody@marrant.cn">
+            <a href={contactEmailHref}>
               <span><MailIcon width={24} height={24} /></span>
-              <p><small>电子邮件</small>Melody@marrant.cn</p>
+              <p><small>电子邮件</small>{contactEmail}</p>
             </a>
             <a href="https://wa.me/8618925073489" target="_blank" rel="noreferrer">
               <span><WhatsappIcon width={24} height={24} /></span>
@@ -84,7 +85,7 @@ export default function ContactPage() {
 
       <aside className={styles.assurance}>
         <div><FactoryIcon width={39} height={39} /><p><strong>用心制造，为品牌提供专业真皮包供应支持。</strong><span>从需求到交付，重视材料品质、生产责任与清晰沟通。</span></p></div>
-        <a href="mailto:Melody@marrant.cn"><MailIcon width={22} height={22} /> Melody@marrant.cn</a>
+        <a href={contactEmailHref}><MailIcon width={22} height={22} /> {contactEmail}</a>
         <a href="https://wa.me/8618925073489" target="_blank" rel="noreferrer"><WhatsappIcon width={22} height={22} /> +86 189 2507 3489</a>
       </aside>
 

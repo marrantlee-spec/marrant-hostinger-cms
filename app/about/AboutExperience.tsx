@@ -1,11 +1,14 @@
 "use client";
 
-import { FormEvent, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import InternalLinkPanel from "../components/InternalLinkPanel";
+import { productCategoriesFor } from "../components/product-taxonomy";
+import { useInquirySubmission } from "../components/useInquirySubmission";
 import { ArrowRight, ChatCircleDots, CheckCircle, ClipboardText, Factory, Package, PencilSimple, ShieldCheck, Swatches } from "@phosphor-icons/react";
 import styles from "./page.module.css";
+
+const productCategories = productCategoriesFor("en");
 
 const expectationCards = [
   { icon: PencilSimple, title: "Product development", copy: "From sketches to samples, we shape your ideas." },
@@ -31,13 +34,7 @@ const qualityPoints = [
 ];
 
 export default function AboutExperience() {
-  const [submitted, setSubmitted] = useState(false);
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitted(true);
-    event.currentTarget.reset();
-  }
+  const { handleSubmit, isSubmitting, status } = useInquirySubmission("en");
 
   return (
     <main className={styles.page}>
@@ -129,11 +126,11 @@ export default function AboutExperience() {
           <label><span>Email <b>*</b></span><input required type="email" name="email" autoComplete="email" placeholder="you@email.com" /></label>
           <label><span>Company</span><input name="company" autoComplete="organization" placeholder="Your company" /></label>
           <label><span>Country / Region</span><input name="region" autoComplete="country-name" placeholder="Your country or region" /></label>
-          <label><span>Product Category</span><select name="product" defaultValue=""><option value="" disabled>Select a category</option><option>Leather Tote Bags</option><option>Leather Travel Bags</option><option>Leather Backpacks</option><option>Custom / OEM Project</option></select></label>
+          <label><span>Product Category</span><select name="product" defaultValue=""><option value="" disabled>Select a category</option>{productCategories.map((category) => <option key={category.id} value={category.id}>{category.label}</option>)}<option value="custom-oem">Custom / OEM Project</option></select></label>
           <label><span>Preferred Visit Date</span><input type="date" name="visitDate" /></label>
           <label className={styles.message}><span>Message</span><textarea name="message" rows={3} placeholder="Tell us what you would like to discuss during your visit." /></label>
-          <button type="submit">Submit Visit Request <ArrowRight size={17} /></button>
-          {submitted && <p className={styles.success} role="status">Thank you. Our team will contact you shortly to arrange your visit.</p>}
+          <button type="submit" disabled={isSubmitting}>{isSubmitting ? "Sending..." : "Submit Visit Request"} <ArrowRight size={17} /></button>
+          {status ? <p className={styles.success} role="status" data-tone={status.tone}>{status.message}</p> : null}
         </form>
         <div className={styles.quoteCard}>
           <p className={styles.kicker}>Start a project</p>

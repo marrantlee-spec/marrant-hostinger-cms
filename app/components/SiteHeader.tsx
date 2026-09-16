@@ -55,7 +55,7 @@ function HeaderNavigation({ locale, pathname }: { locale: SiteLocale; pathname: 
 
   return (
     <header
-      className="site-header"
+      className={pathname === "/factory" || pathname === "/zh/factory" ? "site-header site-header--factory" : "site-header"}
       onMouseLeave={() => setActiveMega(null)}
       onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) close(); }}
     >
@@ -84,7 +84,7 @@ function HeaderNavigation({ locale, pathname }: { locale: SiteLocale; pathname: 
           </div>
         ))}
         {[
-          { href: `${content.home}#factory`, label: content.factory },
+          { href: path("/factory"), label: content.factory },
           { href: path("/blog"), label: content.blog },
           { href: path("/about"), label: content.about },
           { href: path("/contact"), label: content.contact },

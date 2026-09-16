@@ -1,20 +1,19 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import InternalLinkPanel from "./components/InternalLinkPanel";
+import { productCategoriesFor } from "../components/product-taxonomy";
+import { useInquirySubmission } from "../components/useInquirySubmission";
 import { ArrowRight, CheckCircle, ClipboardText, Factory, GlobeHemisphereWest, Handshake, Lightbulb, MagnifyingGlass, Package, PencilSimple, ShieldCheck, Swatches, Tag, WhatsappLogo } from "@phosphor-icons/react";
 
 const whatsapp = "https://wa.me/8618925073489";
 
-const productCards = [
-  { title: "疯马皮系列", image: "/assets/products/crazy-horse-duffle-scene-v1.png", href: "/zh/products/crazy-horse-leather-travel-tote-bag" },
-  { title: "旅行托特包", image: "/assets/products/black-travel-tote-scene-v1.png", href: "/zh/products" },
-  { title: "男士钱包", image: "/assets/products/mens-bifold-wallet-8064/scenario.jpg", href: "/zh/products/mens-full-grain-leather-bifold-wallet-8064" },
-  { title: "真皮单肩包", image: "/assets/products/mens-shoulder-bag-scene-v2.png", href: "/zh/products" },
-  { title: "真皮背包", image: "/assets/products/leather-backpack-centered-scene-v2.png", href: "/zh/products" },
-  { title: "女士真皮包", image: "/assets/products/womens-coffee-handbag-red-patent-wallet-scene-v2.png", href: "/zh/products" }
-];
+const productCards = productCategoriesFor("zh-CN").map((category) => ({
+  title: category.label,
+  image: category.feature.image,
+  href: category.href,
+}));
 
 const services = [
   { icon: PencilSimple, title: "产品开发", text: "从设计图到实物样品，协助您的产品方案落地。" },
@@ -41,12 +40,7 @@ const faqs = [
 
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [submitted, setSubmitted] = useState(false);
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitted(true);
-  }
+  const { handleSubmit, isSubmitting, status } = useInquirySubmission("zh-CN");
 
   return (
     <main>
@@ -177,8 +171,8 @@ export default function HomePage() {
             <div className="form-row"><input required aria-label="姓名" name="name" placeholder="姓名*" /><input required aria-label="电子邮箱" type="email" name="email" placeholder="电子邮箱*" /></div>
             <div className="form-row"><input aria-label="国家或地区" name="country" placeholder="国家 / 地区" /><input aria-label="产品需求" name="product" placeholder="产品需求*" /></div>
             <textarea required aria-label="需求说明" name="message" placeholder="需求说明*" rows={4} />
-            <button className="button button-caramel submit-button" type="submit">获取定制报价</button>
-            {submitted && <p className="form-success" role="status">此处信息尚未发送，请<Link href="/zh/contact#inquiry" style={{ textDecoration: "underline" }}>前往联系表单</Link>提交需求，或直接联系销售团队。</p>}
+            <button className="button button-caramel submit-button" type="submit" disabled={isSubmitting}>{isSubmitting ? "发送中……" : "获取定制报价"}</button>
+            {status ? <p className="form-success" role="status" data-tone={status.tone}>{status.message}</p> : null}
           </form>
         </div>
       </section>

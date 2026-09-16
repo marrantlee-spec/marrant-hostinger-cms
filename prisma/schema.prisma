@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum CategoryType {
+  PRODUCT
+  BLOG
+}
+
+enum InquiryStatus {
+  NEW
+  IN_PROGRESS
+  CLOSED
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Category {
+  id        String       @id @default(cuid())
+  name      String
+  slug      String
+  type      CategoryType
+  products  Product[]
+  posts     Blog[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@unique([slug, type])
+  @@index([type, name])
+}
+
+model Product {
+  id               String        @id @default(cuid())
+  name             String
+  slug             String        @unique
+  categoryId       String
+  category         Category      @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  shortDescription String        @default("") @db.VarChar(500)
+  description      String        @default("") @db.Text
+  mainImage        String        @default("")
+  gallery          Json          @default("[]")
+  specifications   Json          @default("{}")
+  seoTitle         String        @default("") @db.VarChar(70)
+  seoDescription   String        @default("") @db.VarChar(180)
+  status           ContentStatus @default(DRAFT)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@index([status, updatedAt])
+  @@index([categoryId])
+}
+
+model Blog {
+  id             String        @id @default(cuid())
+  title          String
+  slug           String        @unique
+  categoryId     String
+  category       Category      @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  coverImage     String        @default("")
+  excerpt        String        @default("") @db.VarChar(500)
+  content        Json          @default("{}")
+  author         String        @default("Marrant Team")
+  seoTitle       String        @default("") @db.VarChar(70)
+  seoDescription String        @default("") @db.VarChar(180)
+  status         ContentStatus @default(DRAFT)
+  publishedAt    DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([status, publishedAt])
+  @@index([categoryId])
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  url       String   @unique
+  pathname  String   @unique
+  filename  String
+  mimeType  String
+  size      Int
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model Inquiry {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  phone     String        @default("")
+  country   String        @default("")
+  company   String        @default("")
+  product   String        @default("")
+  message   String        @db.Text
+  status    InquiryStatus @default(NEW)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([status, createdAt])
+}
